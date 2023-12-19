@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const port = 3001;
 const { PythonShell } =  require("python-shell");
-
+// m,asdngmlngm,dsng,sai sharan
 app.use(cors());
 app.use(express.json());
 let dbConnection;
