@@ -8,8 +8,9 @@ import face_recognition
 userImage1 = input()
 userImage2 = input() # print(userImage1)
 # print(userImage1)
-def data(image):
-    # print(image)
+def data(image): 
+    # print(image)   
+    # print(image)   
     binary_data = base64.b64decode(image)
     image = Image.open(io.BytesIO(binary_data))
     if not os.path.exists('backend'):
