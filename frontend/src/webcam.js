@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import Webcam from 'react-webcam';
+import { useNavigate } from 'react-router-dom';
 
-function ShowImage({ webRef,aadharnumber }) {
+function ShowImage({ webRef,aadharnumber,history}) {
   const [imageInBase64, setImageInBase64] = useState("");
   const [faceMatched, setFaceMatched] = useState("wait");
   const [showWebcam, setShowWebcam] = useState(true);
@@ -62,23 +63,19 @@ function ShowImage({ webRef,aadharnumber }) {
         </>
       )}
       <br />
-      {faceMatched === "True" ? (
-        <a href="/otp">
-          <button>GET OTP</button>
-        </a>
-      ) : (
+      {faceMatched === "True" ? (<button onClick={() => history('/otp')}>GET OTP</button> ): (
         <p>Invalid</p>
       )}
     </div>
   );
 }
 
-function App(aadhar) {
+function App({aadhar}) {
   const webRef = useRef(null);
-
+  const history = useNavigate();
   return (
     <div className="App">
-      <ShowImage webRef={webRef} aadharnumber={aadhar} />
+      <ShowImage webRef={webRef} aadharnumber={aadhar} history={history} />
     </div>
   );
 }

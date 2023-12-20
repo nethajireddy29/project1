@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+//import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 const Otp = () => {
+  //const navigate = useNavigate();
   //const [phoneNumber, setPhoneNumber] = useState('+919346512861');
   const message = Math.floor(Math.random() * 900000).toString();
+  console.log(message)
 //   const [message, setMessage] = useState(otp);
 
   const [path, setPath] = useState("/otp");
@@ -12,11 +15,11 @@ const Otp = () => {
     try {
       // Replace with your Twilio Account SID, Auth Token, and Twilio phone number
       const accountSid = 'AC1bccfed0756711b04099070150496740';
-      const authToken = '4461dccf78d8782d8653135ed7d15547';
+      const authToken = '1a81cd4481eb179f989ff94fb9992399';
 
       const response = await axios.post(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
         {
-          To:'+918008312133',
+          To:'+916302618501',
           From:'+15674557713',
           Body: message,
         },

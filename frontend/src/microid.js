@@ -1,26 +1,42 @@
-import React, { useState } from 'react';
-function Microid(){
-    const message = Math.floor(Math.random() * 9000).toString();
-    const micrometerid=`0426ELUZ${message}`
-const sendDataToServer = async () => {
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useHistory from react-router-dom
+
+function Microid() {
+  const history = useNavigate(); // Get the history object
+
+  const message = Math.floor(Math.random() * 9000).toString();
+  const micrometerid = `0426ELUZ${message}`;
+
+  const sendDataToServer = async () => {
+    console.log(micrometerid)
     try {
       // ... (your existing code for sending data to the server)
-      const response = await fetch('http://localhost:3001/api', {
+      const response = await fetch('http://localhost:3001/api1', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ "imagedata": imageInBase64,"aadharnumber":aadharnumber }),
+        body: JSON.stringify({ "id": micrometerid }),
       });
+
+      const responseData = await response.text(); // Await the response text
+      console.log('Server response:', responseData);
+
+      // Redirect to "/login" after successful data submission
+      history('/login');
     } catch (error) {
-      console.error('Error sending data to server:', error);
+      console.error('Error sending data to the server:', error);
       // Handle errors, e.g., show an error message to the user
     }
   };
-return(
+
+  return (
     <div>
-        <div>registration succesfull</div>
-        <p>{micrometerid}</p>
-        <a href="/login"> <button onclick={sendDataToServer}> confirm</button> </a>
+      <div>Registration successful</div>
+      <p>{micrometerid}</p>
+      <button onClick={sendDataToServer}>Confirm</button>
     </div>
-)}
+  );
+}
+
+export default Microid;

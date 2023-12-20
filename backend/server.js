@@ -47,11 +47,11 @@ app.post("/api", (req, res) => {
       // res.send([originalData,temp]);
       try {
       compare(originalData,temp)
+      console.log("compared")
     }catch (err) {
     console.log(err);
   }
-    });
-  
+    });  
     async function compare(originalData,temp){
 
     let pyshell = await new PythonShell("face.py", { mode: "text" });
@@ -78,3 +78,89 @@ app.post("/api", (req, res) => {
     });
 }
 });
+
+async function insertData(id) {
+  let client; // Declare the 'client' variable outside the try block
+
+  try {
+    // MongoDB connection string with password and database details
+    const password = encodeURIComponent('NaNi....');
+    const uri=`mongodb+srv://naniReddy:${password}@cluster0.xflfwqd.mongodb.net/?retryWrites=true&w=majority`
+
+    // Create a MongoDB client
+    client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    // Connect to the MongoDB server
+    await client.connect();
+    console.log('Connected to the database');
+
+    // Specify the database and collection
+    const database = client.db('micrometerid'); // Replace with your actual database name
+    const collection = database.collection('consumers'); // Replace with your actual collection name
+
+    // Insert data, including the base64-encoded image, into the collection
+    const result = await collection.insertOne({
+      microid:id
+    });
+    console.log(`Inserted document with ID: ${result.insertedId}`);
+  } catch (error) {
+    console.error('Error inserting data:', error);
+  } finally {
+    if (client) {
+      await client.close();
+      console.log('Connection closed');
+    }
+  }
+}
+async function compareid(id) {
+  let client; // Declare the 'client' variable outside the try block
+
+  try {
+    // MongoDB connection string with password and database details
+    const password = encodeURIComponent('NaNi....');
+    const uri=`mongodb+srv://naniReddy:${password}@cluster0.xflfwqd.mongodb.net/?retryWrites=true&w=majority`
+
+    // Create a MongoDB client
+    client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    console.log('Connected to the database');
+
+    // Specify the database and collection
+    const database = client.db('micrometerid'); // Replace with your actual database name
+    const collection = database.collection('consumers'); // Replace with your actual collection name
+
+    // Insert data, including the base64-encoded image, into the collection
+    const result = await collection.findOne({
+      microid:id
+    });
+    console.log(`found document with ID: ${result.microid}`);
+    if(id==result.microid){
+      res.send("True")
+    }
+    else{
+      res.send("False")
+    }
+    // Connect to the MongoDB server
+  } catch (error) {
+    console.error('Error inserting data:', error);
+  } finally {
+    if (client) {
+      await client.close();
+      console.log('Connection closed');
+    }
+  }
+}
+
+
+// Run the function to insert data
+app.post("/api1", (req, res) => {
+  let temp = req.body.id;
+  console.log(temp)
+  insertData(temp);
+  res.json(temp)
+})
+app.post("/api2", (req, res) => {
+  let temp = req.body.id;
+  console.log(temp)
+  compareid(temp)
+})
