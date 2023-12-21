@@ -29,7 +29,8 @@ function Login(){
           console.log('Server response:',responseData,inputValue);
         
           if(responseData==="True"){
-            history('/login');
+            
+            history('/home');
           }
           // Redirect to "/login" after successful data submission
           else{

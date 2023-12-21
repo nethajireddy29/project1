@@ -63,7 +63,7 @@ function ShowImage({ webRef,aadharnumber,history}) {
         </>
       )}
       <br />
-      {faceMatched === "True" ? (<button onClick={() => history('/otp')}>GET OTP</button> ): (
+      {faceMatched === "True" ? (<button onClick={() => history('/registration/otp')}>GET OTP</button> ): (
         <p>Invalid</p>
       )}
     </div>

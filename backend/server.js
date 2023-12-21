@@ -85,8 +85,7 @@ async function insertData(id) {
   try {
     // MongoDB connection string with password and database details
     const password = encodeURIComponent('NaNi....');
-    const uri=`mongodb+srv://naniReddy:${password}@cluster0.xflfwqd.mongodb.net/?retryWrites=true&w=majority`
-
+    const uri=`mongodb+srv://naniReddy:${password}@cluster0.xflfwqd.mongodb.net/?retryWrites=true&w=majority`4
     // Create a MongoDB client
     client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -135,10 +134,10 @@ async function compareid(id) {
     });
     console.log(`found document with ID: ${result.microid}`);
     if(id==result.microid){
-      res.send("True")
+      return "True"
     }
     else{
-      res.send("False")
+      return "False"
     }
     // Connect to the MongoDB server
   } catch (error) {
@@ -150,17 +149,15 @@ async function compareid(id) {
     }
   }
 }
-
-
-// Run the function to insert data
 app.post("/api1", (req, res) => {
   let temp = req.body.id;
   console.log(temp)
   insertData(temp);
   res.json(temp)
 })
-app.post("/api2", (req, res) => {
+app.post("/api2", async (req, res) => {
   let temp = req.body.id;
   console.log(temp)
-  compareid(temp)
+
+  res.send(await compareid(temp))
 })
