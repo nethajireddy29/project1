@@ -26,7 +26,7 @@ export default function Plans(){
     const [color, setColor] = useState("#DDF2FD");
     return(
         <>
-        <Navbar/>
+        <Navbar/>Git push origin -f origin main
         <div style={{backgroundColor:"#9BBEC8", height:"100%", padding:"3%", paddingTop:"0.9%"}}>
             <div style={{padding:10}}>
             <form className="d-flex">
