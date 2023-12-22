@@ -2,11 +2,10 @@ import React, {useState,useEffect}from 'react'
 
 export default function AddConsumer(props) {
   const [temp, setTemp] = useState('');
-  
 
   async function callContract(){
-    // let data = await props.contract.addProducer("sai",1);
-    let data=await props.contract.createMicroGrid("sai");
+    // let data = await props.contract.addConsumer("sai",1,23);
+    let data = await props.contract.showMicroGridId();
     console.log(data);
   }
 

@@ -9,6 +9,7 @@ import { ethers } from "ethers";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import {connectToMetaMask} from "./hooks/metaMaskService.js"
+import AddBattery from "./components/AddBattery.js";
 
 export default function App() {
   const [temp, setTemp] = useState("");
@@ -21,7 +22,7 @@ export default function App() {
         console.log(sendDataContract, getDataContract);
 
         // Set temp state with received data
-        setTemp(getDataContract); // Replace with the data you want to display
+        setTemp(sendDataContract); // Replace with the data you want to display
       } catch (error) {
         // Handle errors
         console.error("Error:", error);
@@ -38,6 +39,8 @@ export default function App() {
     { path: "/sucess", element: <Microid /> },
     { path: "/login", element: <Login /> },
     { path: "/addConsumer", element: <AddConsumer  contract = {temp}/> },
+    { path: "/addBattery", element: <AddBattery  contract = {temp}/> },
+
   ]);
   return (
     <div>
