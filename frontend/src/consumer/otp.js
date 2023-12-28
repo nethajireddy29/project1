@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 //import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-const Otp = () => {
+const ConsumerOtp = () => {
   //const navigate = useNavigate();
   //const [phoneNumber, setPhoneNumber] = useState('+919346512861');
   const message = Math.floor(Math.random() * 900000).toString();
@@ -40,7 +40,7 @@ const Otp = () => {
     let inputValue = document.getElementById("otpNumber").value;
     if (message === inputValue){
         console.log("Yes, It's correct");
-        setPath("/registration/success");
+        setPath("/consumer/microid");
 
     }
     else{
@@ -78,4 +78,4 @@ const Otp = () => {
   );
 };
 
-export default Otp;
+export default ConsumerOtp;

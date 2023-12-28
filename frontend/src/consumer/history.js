@@ -1,10 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import Navbar from "./navbar.js";
+import ConsumerNavbar from "./navbar.js";
 // import { Link } from "react";
 
-export default function History(){
+export default function ConsumerHistory(){
     let buyButton = {
         backgroundColor:"#A6A6A6",
         fontSize: "15px",
@@ -27,7 +27,7 @@ export default function History(){
     }
     return(
         <>
-        <Navbar/>
+        <ConsumerNavbar/>
         <div style={{backgroundColor:"#9BBEC8", height:"100%", padding:"3%", paddingTop:"0.9%"}}>
             <div style={{padding:10}}>
             <form class="d-flex">

@@ -1,13 +1,15 @@
 import React,{useState,useEffect} from "react";
-import { Authentication, Login } from "./authentication.js";
-import Credits from "./registration.js";
-import Otp from "./otp.js";
-import Microid from "./microid.js";
+import { ConsumerAuthentication, ConsumerLogin } from "./consumer/authentication.js";
+import ConsumerFaceAuthentication from "./consumer/registration.js";
+import ConsumerOtp from "./consumer/otp.js";
+import ConsumerMicroid from "./consumer/microid.js";
 import AddConsumer from "./components/AddConsumer.js";
-import { ethers } from "ethers";
+import ConsumerHome from './consumer/home.js'
+import ConsumerPlans from './consumer/plans.js'
+import ConsumerHistory from './consumer/history.js'
+//import { ethers } from "ethers";
 // import contractABI from "./blockChain/Microgrid.json";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import {connectToMetaMask} from "./hooks/metaMaskService.js"
 import AddBattery from "./components/AddBattery.js";
 
@@ -33,13 +35,16 @@ export default function App() {
   }, []);
 
   const myrouter = createBrowserRouter([
-    { path: "/", element: <Authentication /> },
-    { path: "/registration", element: <Credits /> },
-    { path: "/otp", element: <Otp /> },
-    { path: "/sucess", element: <Microid /> },
-    { path: "/login", element: <Login /> },
-    { path: "/addConsumer", element: <AddConsumer  contract = {temp}/> },
-    { path: "/addBattery", element: <AddBattery  contract = {temp}/> },
+    { path: "/",                      element: < ConsumerAuthentication /> },
+    { path: "/consumer/registration", element: < ConsumerFaceAuthentication /> },
+    { path: "/consumer/otp",          element: < ConsumerOtp /> },
+    { path: "/consumer/microid",      element: < ConsumerMicroid/>},
+    { path: "/consumer/login",        element: < ConsumerLogin /> },
+    { path: "/consumer/home",         element: < ConsumerHome/>},
+    { path: "/consumer/plans",        element: < ConsumerPlans/>},
+    { path: "/consumer/history",               element: < ConsumerHistory/>},
+    { path: "/addConsumer",           element: < AddConsumer  contract = {temp}/> },
+    { path: "/addBattery",            element: < AddBattery   contract = {temp}/> },
 
   ]);
   return (

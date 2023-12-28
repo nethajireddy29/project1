@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "./navbar.js";
+import ConsumerNavbar from "./navbar.js";
 
-export default function Plans(){
+export default function ConsumerPlans(){
     let buyButton = {
         backgroundColor:"#A6A6A6",
         fontSize: "15px",
@@ -26,7 +26,7 @@ export default function Plans(){
     const [color, setColor] = useState("#DDF2FD");
     return(
         <>
-        <Navbar/>Git push origin -f origin main
+        <ConsumerNavbar/>Git push origin -f origin main
         <div style={{backgroundColor:"#9BBEC8", height:"100%", padding:"3%", paddingTop:"0.9%"}}>
             <div style={{padding:10}}>
             <form className="d-flex">

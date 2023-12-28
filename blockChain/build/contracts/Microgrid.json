@@ -30341,12 +30341,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x11DFF3cfbBDA6C0F5C6B38b4E577E406eA9A58BE",
-      "transactionHash": "0xfb1fe8ef72beba9dcb8e6ba53001f6ca863dc7decc182abbbf98444972184fe5"
+      "address": "0x9CEB541f76dB68FC9e3437B4bd76bD39ACC0E9b9",
+      "transactionHash": "0x8a4dca03052f7e2749bbab6ca31d54f78411a23d3ba5852483bc75b8be26b38a"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2023-12-22T10:09:59.027Z",
+  "updatedAt": "2023-12-27T05:49:28.516Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

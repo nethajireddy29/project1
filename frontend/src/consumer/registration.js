@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import App from "./webcam.js"
-function Credits() {
+import Compare from "./webcam.js"
+function FaceAuthentication() {
   const [aadharNumber, setAadharNumber] = useState('');
-
   const handleSubmit = (event) => {
     event.preventDefault();
     // Add your logic for handling the submitted Aadhar Number here
@@ -21,11 +20,11 @@ function Credits() {
           Aadhar Number
           <input type="text" value={aadharNumber} onChange={handleInputChange} />
         </label>
-        <App aadhar={aadharNumber}/>
+        <Compare aadhar={aadharNumber}/>
         <button className="button" type="submit">ENTER</button>
       </form>
     </div>
   );
 }
 
-export default Credits;
+export default FaceAuthentication;

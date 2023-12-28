@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-function Authentication(){
+function ConsumerAuthentication(){
     return(
         <div>
-            <a href="/registration"> <button> REGISTRATION</button> </a>
-            <a href="/login"> <button > LOGIN </button> </a>
+            <a href="consumer/registration"> <button> REGISTRATION</button> </a>
+            <a href="consumer/login"> <button > LOGIN </button> </a>
         </div>
     )
 }
-function Login(){
+function ConsumerLogin(){
     const history = useNavigate();
     const [text, setText] = useState("");
     console.log("hi")
@@ -30,11 +30,11 @@ function Login(){
         
           if(responseData==="True"){
             
-            history('/home');
+            history('/consumer/home');
           }
           // Redirect to "/login" after successful data submission
           else{
-            history("/login");
+            history("/consumer/login");
             setText("INVALID")
         setTimeout(()=>{
             setText("");
@@ -55,4 +55,4 @@ function Login(){
     )
 }
 
-export {Authentication,Login}
+export {ConsumerAuthentication,ConsumerLogin}

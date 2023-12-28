@@ -16,7 +16,7 @@ function ShowImage({ webRef,aadharnumber,history}) {
   const sendDataToServer = async () => {
     try {
       // ... (your existing code for sending data to the server)
-      const response = await fetch('http://localhost:3001/api', {
+      const response = await fetch('http://localhost:3001/api/aadharDatabase', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,14 +63,14 @@ function ShowImage({ webRef,aadharnumber,history}) {
         </>
       )}
       <br />
-      {faceMatched === "True" ? (<button onClick={() => history('/registration/otp')}>GET OTP</button> ): (
+      {faceMatched === "True" ? (<button onClick={() => history('/consumer/otp')}>GET OTP</button> ): (
         <p>Invalid</p>
       )}
     </div>
   );
 }
 
-function App({aadhar}) {
+function Compare({aadhar}) {
   const webRef = useRef(null);
   const history = useNavigate();
   return (
@@ -81,4 +81,4 @@ function App({aadhar}) {
 }
 
 
-export default App;
+export default Compare;
