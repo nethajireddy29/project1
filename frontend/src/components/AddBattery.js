@@ -3,7 +3,10 @@ import React, {useState,useEffect}from 'react'
 export default function AddBattery(props) {
   const [temp, setTemp] = useState('');
   
+  async function callContractToMicro(){
+      let data = await props.contract.createMicroGrid("1");
 
+  }
   async function callContract(){
     let uniqueID = document.getElementById("uniqueID").value
     let minCapacity = document.getElementById("minCapacity").value
@@ -12,7 +15,7 @@ export default function AddBattery(props) {
     let maxEfficiency = document.getElementById("maxEfficiency").value
     let initSoc = document.getElementById("initSoc").value
     let data = await props.contract.addBattery(uniqueID,minCapacity,maxCapacity,maxCharge,maxEfficiency,initSoc);
-    console.log(data);
+    // console.log(data);
   }
 
   return (
@@ -32,6 +35,7 @@ export default function AddBattery(props) {
         <input type="text"  id="initSoc"/><br/>
 
         <button onClick={callContract}>AddBattery</button>
+        <button onClick={callContractToMicro}>add microgrid</button>
         
 
       </header>

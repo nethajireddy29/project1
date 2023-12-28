@@ -7,11 +7,13 @@ import AddConsumer from "./components/AddConsumer.js";
 import ConsumerHome from './consumer/home.js'
 import ConsumerPlans from './consumer/plans.js'
 import ConsumerHistory from './consumer/history.js'
+import Payable from './components/Payment.js'
 //import { ethers } from "ethers";
 // import contractABI from "./blockChain/Microgrid.json";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {connectToMetaMask} from "./hooks/metaMaskService.js"
 import AddBattery from "./components/AddBattery.js";
+import AddProducer from "./components/AddProducer.js"
 
 export default function App() {
   const [temp, setTemp] = useState("");
@@ -42,9 +44,11 @@ export default function App() {
     { path: "/consumer/login",        element: < ConsumerLogin /> },
     { path: "/consumer/home",         element: < ConsumerHome/>},
     { path: "/consumer/plans",        element: < ConsumerPlans/>},
-    { path: "/consumer/history",               element: < ConsumerHistory/>},
+    { path: "/consumer/history",      element: < ConsumerHistory/>},
     { path: "/addConsumer",           element: < AddConsumer  contract = {temp}/> },
+    { path: "/addProducer",           element: < AddProducer  contract = {temp}/> },
     { path: "/addBattery",            element: < AddBattery   contract = {temp}/> },
+    { path: "/payable",               element: < Payable   contract = {temp}/> },
 
   ]);
   return (

@@ -237,4 +237,19 @@ function showMicroGridId() public view returns(uint){
     return microGridId ;
 }
 
+
+   receive() external payable { }
+    fallback() external payable { }
+    function getBalance() public view returns (uint) {
+    return address(this).balance;
+}
+    // function sendViaTransfor(address payable  _to , uint amount) public  payable {
+    //     _to.transfer(amount);
+
+    // }
+    function sendViaSend(address payable _to) public payable {
+        bool sent = _to.send(msg.value);
+        require(sent, "Failed to send Ether");
+}
+   
 }
