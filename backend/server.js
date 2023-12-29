@@ -3,10 +3,12 @@ const { MongoClient } = require("mongodb");
 const cors = require("cors");
 const app = express();
 const port = 3001;
+const jwt = require("jsonwebtoken")
 const { PythonShell } =  require("python-shell");
 app.use(cors());
 app.use(express.json());
 let dbConnection;
+let jwtSecret = "you are i am"
 
 const connectToDb = (cb) => {
   const password = encodeURIComponent("Dhoni@2005");
@@ -191,9 +193,14 @@ app.post("/api1", (req, res) => {
 app.post("/api2", async (req, res) => {
   let temp = req.body.id;
   console.log(temp)
-  //const authToken = jwt.sign(temp, jwtSecret);
-  //return res.json({ success: true, authToken: authToken });
-  res.send(await compareid(temp))
+  userOrNot = await compareid(temp)
+  if(userOrNot){
+  const authToken = jwt.sign(temp, jwtSecret);
+  return res.json({ success: true, authToken: authToken });
+
+  }else{
+    res.json({success:false})
+  }
 })
 app.post("/api3", (req, res) => {
   let name = req.body.name;
@@ -239,7 +246,7 @@ async function findid(id) {
   } finally {
     if (client) {
       await client.close();
-      console.log('Connection closed');
+      console.log('+Connection closed');
     }
   }
 }
