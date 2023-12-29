@@ -102,6 +102,41 @@ async function compareid(id) {
     }
   }
 }
+
+async function insertConsumerTransactions(name,microid,units){
+  let client; // Declare the 'client' variable outside the try block
+
+  try {
+    // MongoDB connection string with password and database details
+    const password = encodeURIComponent('NaNi....');
+    const uri=`mongodb+srv://naniReddy:${password}@cluster0.xflfwqd.mongodb.net/?retryWrites=true&w=majority`
+    
+    // Create a MongoDB client
+    client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    console.log('Connected to the database');
+    
+    // Specify the database and collection
+    const database = client.db('credentials'); // Replace with your actual database name
+    const collection = database.collection('transactionBills'); // Replace with your actual collection name
+    
+    // Insert data, including the base64-encoded image, into the collection
+    const result = await collection.insertOne({
+      "name":name,
+      "microid":microid,
+      "units":units
+    });
+    console.log(`found document with ID: ${result._id}`);
+    alert("PURCHASE SUCCESSFULL")
+  } catch (error) {
+    console.error('Error inserting data:', error);
+  } finally {
+    if (client) {
+      await client.close();
+      console.log('Connection closed');
+    }
+  }
+}
 app.post("/api/aadharDatabase", (req, res) => {
   let temp = req.body.imagedata;
   let num=req.body.aadharnumber
@@ -157,4 +192,12 @@ app.post("/api2", async (req, res) => {
   console.log(temp)
 
   res.send(await compareid(temp))
+})
+app.post("/api3", (req, res) => {
+  let name = req.body.name;
+  let microid = req.body.microid
+  let units = req.body.units
+  insertConsumerTransactions(name,microid,units)
+  res.send("added to database suceessfully");
+
 })

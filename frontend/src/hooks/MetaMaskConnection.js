@@ -1,14 +1,14 @@
 import { ethers } from 'ethers';
 import contractABI from '../blockChain/Microgrid.json';
 
-export async function connectToMetaMask() {
+export default  async function ConnectToMetaMask() {
   try {
     const { ethereum } = window;
     console.log("Requesting account...");
     if (window.ethereum) {
       const accounts = await ethereum.request({ method: "eth_requestAccounts" });
       console.log(accounts);
-      const contractAddress = "0xB5f0896ED8ab9f5fD1A8b1d593a233859B198A2F";
+      const contractAddress = "0x4dA1b1286dA2DeA8c410B5d46014B91a8600e94E";
       const ganacheProvider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:7545");
       console.log(ethereum.selectedAddress);
       const wallet = new ethers.Wallet(ethereum.selectedAddress, ganacheProvider);

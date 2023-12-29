@@ -69,7 +69,7 @@ export default function ConsumerHistory(){
                 <p><a href="/delete" style={link}>Delete </a> | <a href="/share" style={link}> Share </a>  |  <a href="/more" style={link}>See More Like This</a> </p>
             </div>
             </div>
-        </div>
+            </div>
         </>
-    )
+    );
 }

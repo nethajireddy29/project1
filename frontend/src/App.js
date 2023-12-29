@@ -3,25 +3,25 @@ import { ConsumerAuthentication, ConsumerLogin } from "./consumer/authentication
 import ConsumerFaceAuthentication from "./consumer/registration.js";
 import ConsumerOtp from "./consumer/otp.js";
 import ConsumerMicroid from "./consumer/microid.js";
-import AddConsumer from "./components/AddConsumer.js";
 import ConsumerHome from './consumer/home.js'
 import ConsumerPlans from './consumer/plans.js'
 import ConsumerHistory from './consumer/history.js'
-import Payable from './components/Payment.js'
+import Form from './consumer/form.js';
+//import Payable from './components/Payment.js'
+import AddConsumer from "./components/AddConsumer.js";
 //import { ethers } from "ethers";
 // import contractABI from "./blockChain/Microgrid.json";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import {connectToMetaMask} from "./hooks/metaMaskService.js"
-import AddBattery from "./components/AddBattery.js";
-import AddProducer from "./components/AddProducer.js"
+import ConnectToMetaMask from "./hooks/MetaMaskConnection.js"
+//import AddBattery from "./components/AddBattery.js";
+//import AddProducer from "./components/AddProducer.js"
 
 export default function App() {
-  const [temp, setTemp] = useState("");
-
+  const [tem, setTemp] = useState("");
   useEffect(() => {
     async function fetchData() {
       try {
-        const { sendDataContract, getDataContract } = await connectToMetaMask();
+        const { sendDataContract, getDataContract } = await ConnectToMetaMask();
         // Use sendDataContract and getDataContract here or set them to state variables
         console.log(sendDataContract, getDataContract);
 
@@ -32,7 +32,6 @@ export default function App() {
         console.error("Error:", error);
       }
     }
-
     fetchData();
   }, []);
 
@@ -41,14 +40,15 @@ export default function App() {
     { path: "/consumer/registration", element: < ConsumerFaceAuthentication /> },
     { path: "/consumer/otp",          element: < ConsumerOtp /> },
     { path: "/consumer/microid",      element: < ConsumerMicroid/>},
+    { path: "/consumer/form",         element: < Form connect = {tem}/>},
     { path: "/consumer/login",        element: < ConsumerLogin /> },
     { path: "/consumer/home",         element: < ConsumerHome/>},
-    { path: "/consumer/plans",        element: < ConsumerPlans/>},
+    { path: "/consumer/plans",        element: < ConsumerPlans connect = {tem}/>},
     { path: "/consumer/history",      element: < ConsumerHistory/>},
-    { path: "/addConsumer",           element: < AddConsumer  contract = {temp}/> },
-    { path: "/addProducer",           element: < AddProducer  contract = {temp}/> },
-    { path: "/addBattery",            element: < AddBattery   contract = {temp}/> },
-    { path: "/payable",               element: < Payable   contract = {temp}/> },
+    { path: "/addConsumer",           element: < AddConsumer  connect = {tem}/> },
+    //{ path: "/addProducer",           element: < AddProducer  contract = {temp}/> },
+    // { path: "/addBattery",            element: < AddBattery   contract = {temp}/> },
+    //{ path: "/payable",               element: < Payable   contract = {temp}/> },
 
   ]);
   return (

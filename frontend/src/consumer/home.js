@@ -8,6 +8,7 @@ export default function ConsumerHome(){
         <ConsumerNavbar/>
         <div style={{backgroundColor:"#9BBEC8", height:"100vh"}}>
             <p>HOME</p>
+            <a  href="/consumer/form"> <button>form</button> </a>
         </div>
         </>
     )

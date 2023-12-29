@@ -2,21 +2,22 @@
 pragma solidity ^0.8.0;
 
 contract Microgrid {
-    uint16 public perUnit = 20;
+    uint16 public perUnit = 4;
     uint public microGridId = 0;
 
     struct Prosumer {
         string name;
-        uint wallet;
+        uint wallet1;
         uint energyBalance;
         bool isProducer;
     }
 
     struct Consumer{
         string name;
-        uint wallet;
+        string micrometerid;
         uint energyBalance;
-        bool isProducer;
+        uint wallet;
+
     }
 
     struct Producer{
@@ -145,27 +146,29 @@ contract Microgrid {
         address_Producer[msg.sender] = producer;
     }
 
-    function addProsumer(string memory name, uint wallet, uint energyBalance) public {
+    function addProsumer(string memory name, uint wallet1, uint energyBalance) public {
         require (address_Producer[msg.sender].isProducer == true, "Only Producers can access this feature.");
-        Prosumer memory prosumer = Prosumer(name, wallet, energyBalance, false);
+        Prosumer memory prosumer = Prosumer(name, wallet1, energyBalance, false);
         address_Prosumer[msg.sender] = prosumer;
     }
 
-    function addConsumer(string memory name, uint wallet, uint energyBalance) public {
-        Consumer memory consumer = Consumer(name, wallet, energyBalance, false);
+    uint wallet=msg.sender.balance;
+    function addConsumer(string memory name,string memory micrometerid, uint energyBalance) public {
+        Consumer memory consumer = Consumer(name,micrometerid, energyBalance,wallet);
         address_Consumer[msg.sender] = consumer;
     }
 
     // Function to purchase energy  consumer -> prosumer
-    function purchaseEnergy(uint transferAmount) public {
-        require(address_Consumer[msg.sender].wallet >= transferAmount, "Insufficient balance");
+    function purchaseEnergy(uint transferUnits) public {
+
+        require(wallet >= transferUnits*perUnit, "Insufficient balance");
 
         Consumer storage details = address_Consumer[msg.sender];
-        details.wallet -= transferAmount;
-        details.energyBalance += transferAmount / perUnit;
+        wallet -= transferUnits*perUnit;
+        details.energyBalance += transferUnits;
 
         // Emit an event to record the energy transfer
-        emit EnergyTransferred(msg.sender, address(this), transferAmount);
+        emit EnergyTransferred(msg.sender, address(this), transferUnits*perUnit);
     }
 
     // Function to sell excess energy,  prosumer -> consumer
@@ -173,7 +176,7 @@ contract Microgrid {
         require(address_Prosumer[msg.sender].energyBalance >= transferAmount, "Insufficient energy balance");
         Prosumer storage prosumer = address_Prosumer[msg.sender];
         prosumer.energyBalance -= transferAmount;
-        prosumer.wallet += transferAmount * perUnit;
+        prosumer.wallet1 += transferAmount * perUnit;
 
         // Emit an event to record the energy sale
         emit EnergyTransferred(msg.sender, address(this), transferAmount * perUnit);
@@ -238,18 +241,5 @@ function showMicroGridId() public view returns(uint){
 }
 
 
-   receive() external payable { }
-    fallback() external payable { }
-    function getBalance() public view returns (uint) {
-    return address(this).balance;
-}
-    // function sendViaTransfor(address payable  _to , uint amount) public  payable {
-    //     _to.transfer(amount);
 
-    // }
-    function sendViaSend(address payable _to) public payable {
-        bool sent = _to.send(msg.value);
-        require(sent, "Failed to send Ether");
-}
-   
 }

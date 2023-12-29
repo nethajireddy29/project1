@@ -5,8 +5,9 @@ export default function AddConsumer(props) {
   
 
   async function callContract(){
-    // let data = await props.contract.addProducer("sai",1);
-    let data=await props.contract.createMicroGrid("sai");
+    console.log(props.contract)
+    let data = await props.contract.addProducer("sai",1);
+    let data2=await props.contract.createMicroGrid("sai");
     console.log(data);
   }
 
@@ -18,7 +19,7 @@ export default function AddConsumer(props) {
         <input type="text"  id="producer-password"/>
         <label htmlFor="">Password</label>
         {/* <p>{temp}</p> */}
-        <button onClick={callContract}></button>
+        <button onClick={callContract}>button</button>
         
 
       </header>
