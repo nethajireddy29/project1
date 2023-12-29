@@ -4,33 +4,35 @@ const cors = require("cors");
 const app = express();
 const port = 3001;
 const { PythonShell } =  require("python-shell");
+const simulation = require("./routes/simulation");
 app.use(cors());
 app.use(express.json());
+
 let dbConnection;
 
-const connectToDb = (cb) => {
-  const password = encodeURIComponent("Dhoni@2005");
-  MongoClient.connect(`mongodb+srv://duginisaisharan:${password}@cluster0.h4tlhz1.mongodb.net/credentials`
-  )
-    .then((client) => {
-      dbConnection = client.db();
-      return cb();
-    })
-    .catch((err) => {
-      console.log(err);
-      return cb(err);
-    });
-};
+// const connectToDb = (cb) => {
+//   const password = encodeURIComponent("Dhoni@2005");
+//   MongoClient.connect(`mongodb+srv://duginisaisharan:${password}@cluster0.h4tlhz1.mongodb.net/credentials`
+//   )
+//     .then((client) => {
+//       dbConnection = client.db();
+//       return cb();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       return cb(err);
+//     });
+// };
 
-const getDb = () => dbConnection;
+// const getDb = () => dbConnection;
 
-connectToDb((err) => {
-  if (!err) {
+// connectToDb((err) => {
+//   if (!err) {
     app.listen(port, () => {
       console.log(`App listening on port ${port}`);
     });
-}
-});
+// }
+// });
 async function insertData(id) {
   let client; // Declare the 'client' variable outside the try block
   
@@ -158,3 +160,5 @@ app.post("/api2", async (req, res) => {
 
   res.send(await compareid(temp))
 })
+
+app.use("/simulation",simulation)
