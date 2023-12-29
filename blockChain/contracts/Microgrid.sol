@@ -152,19 +152,18 @@ contract Microgrid {
         address_Prosumer[msg.sender] = prosumer;
     }
 
-    uint wallet=msg.sender.balance;
     function addConsumer(string memory name,string memory micrometerid, uint energyBalance) public {
+        uint wallet=msg.sender.balance/1 ether;
         Consumer memory consumer = Consumer(name,micrometerid, energyBalance,wallet);
         address_Consumer[msg.sender] = consumer;
     }
 
     // Function to purchase energy  consumer -> prosumer
     function purchaseEnergy(uint transferUnits) public {
-
-        require(wallet >= transferUnits*perUnit, "Insufficient balance");
+        require(address_Consumer[msg.sender].wallet >= transferUnits*perUnit, "Insufficient balance");
 
         Consumer storage details = address_Consumer[msg.sender];
-        wallet -= transferUnits*perUnit;
+        address_Consumer[msg.sender].wallet -= transferUnits*perUnit;
         details.energyBalance += transferUnits;
 
         // Emit an event to record the energy transfer

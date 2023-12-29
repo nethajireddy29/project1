@@ -24,7 +24,7 @@ export default function ConsumerPlans(props){
         setColor("#B6D8EB");
     }
     const [color, setColor] = useState("#DDF2FD");
-    async function sendDataToServer(name,microid,units){
+    async function sendDataToServer(name,microid,units,amount){
         try {
           // ... (your existing code for sending data to the server)
           const response = await fetch('http://localhost:3001/api3', {
@@ -32,7 +32,7 @@ export default function ConsumerPlans(props){
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({"name":name,"microid":microid,"units":units}),
+            body: JSON.stringify({"name":name,"microid":microid,"units":units,"amount":amount}),
           });
         const responseData = await response.text(); // Await the response text
         console.log('Server response:', responseData);
@@ -45,10 +45,11 @@ export default function ConsumerPlans(props){
     async function purchaseEnergy(value){
         console.log(props)
         const ans= await props.connect.purchaseEnergy(value);
-        const view=await props.connect.address_Consumer("0xF1F03a707cbCE1fcD1F9A957171FD292c89ae6B8")
+        const view=await props.connect.address_Consumer("0x5C3fDad34c3b9E23C5D3217491FAEaB10e747260")
         console.log(ans)
         console.log(view[2].toNumber())
-        sendDataToServer(view[0],view[1],view[2].toNumber());
+        console.log(view[3].toNumber())
+        sendDataToServer(view[0],view[1],view[2].toNumber(),view[3].toNumber());
         }
     return(
         <>
@@ -67,7 +68,7 @@ export default function ConsumerPlans(props){
             <div style={{backgroundColor:"#DDF2FD",height:"20vh", width:"20vw", margin:"3%", marginRight:0}}>
                 <img src="" alt=""/>
                 <h1>100</h1>
-                <button style={buyButton} onClick={()=>{purchaseEnergy(103)}}> Buy Now <FontAwesomeIcon icon={faCartShopping}  style={favIcon} /></button>
+                <button style={buyButton} onClick={()=>{purchaseEnergy(12)}}> Buy Now <FontAwesomeIcon icon={faCartShopping}  style={favIcon} /></button>
             </div>
             <div style={{backgroundColor:"#DDF2FD",height:"20vh", width:"20vw", margin:"3%", marginRight:0}}>
                 <img src="" alt=""/>

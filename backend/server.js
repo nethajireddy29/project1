@@ -103,7 +103,7 @@ async function compareid(id) {
   }
 }
 
-async function insertConsumerTransactions(name,microid,units){
+async function insertConsumerTransactions(name,microid,units,amount){
   let client; // Declare the 'client' variable outside the try block
 
   try {
@@ -124,7 +124,8 @@ async function insertConsumerTransactions(name,microid,units){
     const result = await collection.insertOne({
       "name":name,
       "microid":microid,
-      "units":units
+      "units":units,
+      "amount":amount
     });
     console.log(`found document with ID: ${result._id}`);
     alert("PURCHASE SUCCESSFULL")
@@ -190,14 +191,58 @@ app.post("/api1", (req, res) => {
 app.post("/api2", async (req, res) => {
   let temp = req.body.id;
   console.log(temp)
-
+  //const authToken = jwt.sign(temp, jwtSecret);
+  //return res.json({ success: true, authToken: authToken });
   res.send(await compareid(temp))
 })
 app.post("/api3", (req, res) => {
   let name = req.body.name;
   let microid = req.body.microid
   let units = req.body.units
-  insertConsumerTransactions(name,microid,units)
+  let amount = req.body.amount
+  insertConsumerTransactions(name,microid,units,amount)
   res.send("added to database suceessfully");
 
 })
+app.post("/api4", async (req, res) => {
+  let temp = req.body.id;
+  //const authToken = jwt.sign(temp, jwtSecret);
+  //return res.json({ success: true, authToken: authToken });
+  res.send(await findid(temp))
+})
+async function findid(id) {
+  let client; // Declare the 'client' variable outside the try block
+
+  try {
+    // MongoDB connection string with password and database details
+    const password = encodeURIComponent('NaNi....');
+    const uri=`mongodb+srv://naniReddy:${password}@cluster0.xflfwqd.mongodb.net/?retryWrites=true&w=majority`
+    
+    // Create a MongoDB client
+    client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    console.log('Connected to the database');
+    
+    // Specify the database and collection
+    const database = client.db('credentials'); // Replace with your actual database name
+    const collection = database.collection('transactionBills'); // Replace with your actual collection name
+    
+    // Insert data, including the base64-encoded image, into the collection
+    const result = await collection.find({
+      microid:id
+    });
+    console.log(`found document with ID: ${result}`);
+    return result;
+    // Connect to the MongoDB server
+  } catch (error) {
+    console.error('Error inserting data:', error);
+  } finally {
+    if (client) {
+      await client.close();
+      console.log('Connection closed');
+    }
+  }
+}
+
+
+
