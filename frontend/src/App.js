@@ -36,6 +36,7 @@ export default function App() {
     fetchData();
   }, []);
 
+
   const myrouter = createBrowserRouter([
     { path: "/",                      element: < ConsumerAuthentication /> },
     { path: "/consumer/registration", element: < ConsumerFaceAuthentication /> },
