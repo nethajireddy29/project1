@@ -181,7 +181,7 @@ function ConsumerLogin(){
             body: JSON.stringify({ "id": inputValue }),
           });
     
-          const responseData = await response.text(); // Await the response text
+          const responseData = await response.json(); // Await the response text
           console.log('Server response:',responseData,inputValue);
         
           if(responseData.success===true){

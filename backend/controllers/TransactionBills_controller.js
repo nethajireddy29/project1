@@ -3,7 +3,7 @@ const TransactionBills = require("../models/transactionBillsSchema");
 
 const addTrasaction = async (req, res) => {
   try {
-    const Transaction = new TransactionBills.insertOne(req.body);
+    const Transaction = new TransactionBills.create(req.body);
     await Transaction.save();
     res.send();
   } catch (error) {
@@ -13,7 +13,7 @@ const addTrasaction = async (req, res) => {
 };
 const getTrasaction = async (req, res) => {
   try {
-    const Transaction = new TransactionBills.findOne(req.body);
+    const Transaction = await TransactionBills.findOne(req.body);
     res.send(Transaction);
   } catch (error) {
     console.log(error);
@@ -23,7 +23,7 @@ const getTrasaction = async (req, res) => {
 
 const getAllTrasaction = async (req, res) => {
   try {
-    const Transaction = new TransactionBills.find();
+    const Transaction = await TransactionBills.find();
     res.json(Transaction);
   } catch (error) {
     console.log(error);
@@ -33,7 +33,7 @@ const getAllTrasaction = async (req, res) => {
 
 const removeTransaction = async (req, res) => {
   try { 
-    const Transaction = new TransactionBills.deleteOne(req.body);
+    const Transaction = await TransactionBills.deleteOne(req.body);
     res.json({success:true});
   } catch (error) {
     console.log(error);
@@ -43,7 +43,7 @@ const removeTransaction = async (req, res) => {
 
 const removeAllTransaction = async (req, res) => {
     try {
-      const cart = new TransactionBills.delete(req.body);
+      const cart = await TransactionBills.delete(req.body);
       res.json({success:true});
 
     } catch (error) {

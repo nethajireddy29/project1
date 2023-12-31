@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 const Consumer = require("../models/consumerSchema");
-
+const jwt = require("jsonwebtoken");
+const jwtSecret = "i am the devil"
 const addConsumer = async (req, res) => {
   try {
-    const consumer = new Consumer.insertOne(req.body);
+    const consumer = new Consumer.create(req.body);
     res.json({ success: true });
   } catch (error) {
     console.log(error);
@@ -13,7 +14,7 @@ const addConsumer = async (req, res) => {
 
 const getConsumer = async (req, res) => {
   try {
-    const consumer = new Consumer.findOne(req.body);
+    const consumer =  Consumer.findOne(req.body);
     res.json(consumer);
   } catch (error) {
     console.log(error);
@@ -23,7 +24,7 @@ const getConsumer = async (req, res) => {
 
 const getAllConsumer = async (req, res) => {
   try {
-    const consumer = new Consumer.find(req.body);
+    const consumer =  Consumer.find(req.body);
 
     res.json(consumer);
   } catch (error) {
@@ -34,7 +35,7 @@ const getAllConsumer = async (req, res) => {
 
 const removeMultipleConsumer = async (req, res) => {
   try {
-    const consumer = new Consumer.delete(req.body);
+    const consumer =  Consumer.delete(req.body);
     res.json({ success: true });
   } catch (error) {
     console.log(error);
@@ -44,7 +45,7 @@ const removeMultipleConsumer = async (req, res) => {
 
 const removeConsumer = async (req, res) => {
   try {
-    const consumer = new Consumer.deleteOne(req.body);
+    const consumer =  Consumer.deleteOne(req.body);
     res.json({ success: true });
   } catch (error) {
     console.log(error);
@@ -53,9 +54,10 @@ const removeConsumer = async (req, res) => {
 };
 const loginConsumer = async (req, res) => {
   try {
-    const consumer = new Consumer.find(req.body);
+ 
+    const consumer =  await Consumer.findOne(req.body);
     if (consumer) {
-      const authToken = jwt.sign(temp, jwtSecret);
+      const authToken = jwt.sign(req.body.id, jwtSecret);
       return res.json({ success: true, consumerAuthToken: authToken });
     } else {
       res.json({ success: false });
