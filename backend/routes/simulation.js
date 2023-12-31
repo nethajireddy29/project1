@@ -10,9 +10,20 @@ Data = {0:{
       max_Charge: 100,
       charge_per_unit: 10,
     },
+    "1": {
+      charge: 100,
+      efficiency: 0.7,
+      max_Charge: 100,
+      charge_per_unit: 10,
+    },
   },
   green_energy: {
-    0: {
+    "0": {
+      charge_produced: 100,
+      charge_per_unit: 10,
+      max_Charge: 1000,
+    },
+    "1": {
       charge_produced: 100,
       charge_per_unit: 10,
       max_Charge: 1000,
@@ -24,9 +35,14 @@ Data = {0:{
       max_export: 1000,
       max_import: 500,
     },
+    "1": {
+      charge:700,
+      max_export: 900,
+      max_import: 500,
+    },
   },
   load: {
-    0: { energyRequired:0},
+    "0": { energyRequired:0},
   }},
 };
 

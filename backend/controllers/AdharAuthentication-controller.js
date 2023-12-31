@@ -4,7 +4,7 @@ const { PythonShell } =  require("python-shell");
 
 const addFace = async (req, res) => {
   try {
-    const cart = new AdharAuthentic.insert(req.body);
+    const cart = new AdharAuthentic.create(req.body);
     await cart.save();
     res.send();
   } catch (error) {
