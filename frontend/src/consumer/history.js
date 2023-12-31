@@ -8,7 +8,7 @@ export default function ConsumerHistory(){
     async function send(id){
         try {
           // ... (your existing code for sending data to the server)
-          const response = await fetch('http://localhost:3001/api4', {
+          const response = await fetch('http://localhost:3001/api/getTransaction', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

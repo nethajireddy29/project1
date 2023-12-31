@@ -11,7 +11,7 @@ function Microid() {
     console.log(micrometerid)
     try {
       // ... (your existing code for sending data to the server)
-      const response = await fetch('http://localhost:3001/api1', {
+      const response = await fetch('http://localhost:3001/api/createConsumer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
