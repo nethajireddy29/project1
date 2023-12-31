@@ -9,6 +9,7 @@ import ConsumerHistory from './consumer/history.js'
 import Form from './consumer/form.js';
 //import Payable from './components/Payment.js'
 import AddConsumer from "./components/AddConsumer.js";
+import AddLoad from "./components/AddLoad.js";
 //import { ethers } from "ethers";
 // import contractABI from "./blockChain/Microgrid.json";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -46,9 +47,7 @@ export default function App() {
     { path: "/consumer/plans",        element: < ConsumerPlans connect = {tem}/>},
     { path: "/consumer/history",      element: < ConsumerHistory/>},
     { path: "/addConsumer",           element: < AddConsumer  connect = {tem}/> },
-    //{ path: "/addProducer",           element: < AddProducer  contract = {temp}/> },
-    // { path: "/addBattery",            element: < AddBattery   contract = {temp}/> },
-    //{ path: "/payable",               element: < Payable   contract = {temp}/> },
+    { path: "/addLoad",               element: < AddLoad  contract = {tem}/> },
 
   ]);
   return (

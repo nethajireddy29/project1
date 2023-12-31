@@ -27,14 +27,14 @@ export default function ConsumerPlans(props){
     async function sendDataToServer(name,microid,units,amount){
         try {
           // ... (your existing code for sending data to the server)
-          const response = await fetch('http://localhost:3001/api3', {
+          const response = await fetch('http://localhost:3001/api/createTransactionBills', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({"name":name,"microid":microid,"units":units,"amount":amount}),
           });
-        const responseData = await response.text(); // Await the response text
+        const responseData = await response.json(); // Await the response text
         console.log('Server response:', responseData);
         } catch (error) {
           console.error('Error sending data to the server:', error);

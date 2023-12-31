@@ -173,7 +173,7 @@ function ConsumerLogin(){
         console.log(typeof(inputValue))
         try {
           // ... (your existing code for sending data to the server)
-          const response = await fetch('http://localhost:3001/api2', {
+          const response = await fetch('http://localhost:3001/api/loginConsumer', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -184,9 +184,11 @@ function ConsumerLogin(){
           const responseData = await response.text(); // Await the response text
           console.log('Server response:',responseData,inputValue);
         
-          if(responseData==="True"){
+          if(responseData.success===true){
             console.log("done");
+            localStorage.setItem("consumerAuthToken", responseData.consumerAuthToken);
             history('/consumer/home');
+
           }
           // Redirect to "/login" after successful data submission
           else{
