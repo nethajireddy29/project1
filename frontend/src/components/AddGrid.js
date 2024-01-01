@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import connectToMetaMask from "../hooks/MetaMaskConnection";
+// import AddLoad from "./components/AddLoad";
 
-function AddBattery() {
+function AddGrid() {
   const [tem, setTem] = useState("");
 
   async function connect() {
@@ -9,18 +10,14 @@ function AddBattery() {
     setTem(sendDataContract);
   }
 
-  async function addBattery() {
+  async function addGrid() {
     let uniqueID = document.getElementById("uniqueID").value;
-    let minCapacity = document.getElementById("minCapacity").value;
-    let maxCapacity = document.getElementById("maxCapacity").value;
     let charge = document.getElementById("charge").value;
-    let maxEfficiency = document.getElementById("maxEfficiency").value;
-    let initSoc = document.getElementById("initSoc").value;
-    // Implement your logic for adding battery
-    // console.log(typeof(uniqueID))
-    const data = tem.addBattery(Number(uniqueID),Number(minCapacity),Number(maxCapacity),Number(charge),Number(maxEfficiency),Number(initSoc)) 
+    let maxImport = document.getElementById("maxImport").value;
+    let maxExport = document.getElementById("maxExport").value;
+    const data = tem.addPowerGrid(Number(uniqueID),Number(charge),Number(maxImport),Number(maxExport))
   }
-  
+
   let style = {
     backgroundColor: "#DAFFFB",
     color: "black",
@@ -56,28 +53,25 @@ function AddBattery() {
     margin: "10px", // Added margin for better spacing
   };
 
+
   return (
     <>
       <div className="welcomeContainer shadow" style={style}>
-        <h1>Add Battery</h1>
+        <h1>Add Grid</h1>
         <br />
         <input type="text" id="uniqueID" placeholder="uniqueID" style={inputbox} />
         <br />
-        <input type="text" id="minCapacity" placeholder="minCapacity" style={inputbox} />
-        <br />
-        <input type="text" id="maxCapacity" placeholder="maxCapacity" style={inputbox} />
-        <br />
         <input type="text" id="charge" placeholder="charge" style={inputbox} />
         <br />
-        <input type="text" id="maxEfficiency" placeholder="maxEfficiency" style={inputbox} />
+        <input type="text" id="maxImport" placeholder="maxImport" style={inputbox} />
         <br />
-        <input type="text" id="initSoc" placeholder="initSoc" style={inputbox} />
+        <input type="text" id="maxExport" placeholder="maxExport" style={inputbox} />
         <br />
-        <button className="btn" style={myButton} onClick={addBattery}>
-          Add Battery
+        <button className="btn" style={myButton} onClick={addGrid}>
+          Add load
         </button>
         <button className="btn" style={myButton} onClick={connect}>
-          Connect MetaMask
+          connect MetaMask
         </button>
       </div>
       {/* Uncomment and implement the producer component */}
@@ -87,4 +81,4 @@ function AddBattery() {
   );
 }
 
-export default AddBattery;
+export default AddGrid; // Export the correct component

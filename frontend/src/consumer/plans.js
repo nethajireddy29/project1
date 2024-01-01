@@ -45,8 +45,8 @@ export default function ConsumerPlans(props){
     async function purchaseEnergy(value){
         console.log(props)
         const ans= await props.connect.purchaseEnergy(value);
-        const view=await props.connect.address_Consumer("0x5C3fDad34c3b9E23C5D3217491FAEaB10e747260")
-        console.log(ans)
+        const view=await props.connect.address_Consumer("0x5c4813250dd228f7b94DFaeB315aEA66C66bBEA4")
+        console.log("microid",1)
         console.log(view[2].toNumber())
         console.log(view[3].toNumber())
         sendDataToServer(view[0],view[1],view[2].toNumber(),view[3].toNumber());

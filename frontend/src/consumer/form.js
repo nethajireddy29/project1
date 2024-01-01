@@ -9,7 +9,9 @@ function Form(props) {
 
   
     const k= await props.connect.addConsumer(cName,cMMID,0)
-    //console.log(k);
+    const data= await props.connect.address_Consumer("0x5c4813250dd228f7b94DFaeB315aEA66C66bBEA4")
+
+    console.log(data);
     alert("SUCCESSFULLY ADDED");
   }
   let style = {
