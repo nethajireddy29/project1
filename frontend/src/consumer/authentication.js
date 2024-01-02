@@ -173,7 +173,7 @@ function ConsumerLogin(){
         console.log(typeof(inputValue))
         try {
           // ... (your existing code for sending data to the server)
-          const response = await fetch('http://localhost:3001/api/loginConsumer', {
+          const response = await fetch('/api/loginConsumer', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

@@ -1,96 +1,54 @@
-import React from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import IsAuthenticated from "../hooks/IsAuthenticated";
+import { useNavigate } from "react-router-dom";
+function BasicExample(props) {
+  const navigate  = useNavigate()
+  const isAuthenticated = IsAuthenticated(); // Call the function to get the authentication status
 
-function ProducerNavbar() {
+  const LogOut = () => {
+    localStorage.removeItem('producerAuthToken');
+    navigate("/ProducerLogin");
+  };
   return (
-    <div>
-      <div>
-        <div className="header" style={{ backgroundColor: "#164863" }}>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-              <a className="navbar-brand" href="/">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMB8cCp__yOIsNq2QWPruTIU6aagud-FNcCA&usqp=CAU"
-                  alt="Icon"
-                  style={img}
-                />
-              </a>
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link"
-                      aria-current="page"
-                      to="/consumer/home"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/consumer/plans">
-                      Buy Plans
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/consumer/history">
-                      Transaction History
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/consumer/help">
-                      Help
-                    </Link>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <a
-                      className="nav-link dropdown-toggle"
-                      href="/"
-                      id="navbarDropdownMenuLink"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Dropdown link
-                    </a>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="navbarDropdownMenuLink"
-                    >
-                      <li>
-                        <a className="dropdown-item" href="/">
-                          Personal Details
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="/">
-                          Another action
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="/">
-                          Log Out
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </div>
-    </div>
+    
+    <Navbar expand="lg" className="bg-body-tertiary">
+      <Container>
+        <Navbar.Brand href="/ProducerHome">Home</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="">Home</Nav.Link>
+            <Nav.Link href="#link">Link</Nav.Link>
+            <NavDropdown title="Microgrid" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/addMicrogrid">
+                AddMicrogrid
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/addBattery">
+                Add Battery
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/addGreenEnergy">
+                Add GreenEnergy
+              </NavDropdown.Item>
+              {/* <NavDropdown.Divider /> */}
+              <NavDropdown.Item href="/addLoad">Add Load</NavDropdown.Item>
+              <NavDropdown.Item href="/addGrid">Add Grid</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Nav.Link onClick={props.fetchData}>connect</Nav.Link>
+          {IsAuthenticated ? (
+            <Nav.Link onClick={LogOut}>Log out</Nav.Link>
+          ) : (
+            <Nav.Link >Log in</Nav.Link>
+          )}
+          {/* <Nav.Link o>Login</Nav.Link> */}
+          {/* <Nav.Link>Link</Nav.Link> */}
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default ProducerNavbar;
+export default BasicExample;
