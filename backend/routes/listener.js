@@ -14,7 +14,7 @@ const listner = (Data, contractAddress) => {
     contractAddress,
     contractABI.abi,
     provider
-  );
+  );console.log("listner Started")
     
   try{contract
     .on("microGridAdded", (uniqueId) => {
@@ -32,14 +32,14 @@ const listner = (Data, contractAddress) => {
         batteryId,
         minCapacity,
         maxCapacity,
-        maxCharge,
+        Charge,
         maxEfficiency,
         initSoc
       ) => {
 
         Data[Number(uniqueId)]["battery"][Number(batteryId)] = {
-          charge: Number(maxCapacity),
-          maxCharge: Number(maxCharge),
+          charge: Number(Charge),
+          maxCharge: Number(maxCapacity),
           efficiency: Number(maxEfficiency),
           charge_per_unit: 10,
         };
@@ -53,20 +53,20 @@ const listner = (Data, contractAddress) => {
     })
     .on(
       "addGreenEnergyData",
-      (microGridId, greenEnergyId, energyProduction) => {
+      (microGridId, greenEnergyId,charge, energyProduction) => {
         Data[Number(microGridId)]["green_energy"][Number(greenEnergyId)] = {
-          charge_produced: Number(energyProduction),
+          charge: Number(charge),
           charge_per_unit: 10,
           max_Charge:Number(energyProduction)
 
         };
       }
     )
-    .on("addGridData", (microGridId, gridId, maxImport, maxExport) => {
+    .on("addGridData", (microGridId, gridId,charge, maxImport, maxExport) => {
       Data[Number(microGridId)]["grid"][Number(gridId)] = {
         maxImport: Number(maxImport),
         maxExport: Number(maxExport),
-        charge:Number(maxExport)
+        charge:Number(charge)
       };
       
     });

@@ -8,7 +8,7 @@ export default  async function ConnectToMetaMask() {
     if (window.ethereum) {
       const accounts = await ethereum.request({ method: "eth_requestAccounts" });
       console.log(accounts);
-      const contractAddress = "0xb4F56d5932cbF71E7f34BCc77C25d6c5856B0554";
+      const contractAddress = "0x4098749575b0F0ade7d05CD65F9A50B2086b9310";
       const ganacheProvider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:7545");
       const metaMaskAddres = ethereum.selectedAddress;
       const wallet = new ethers.Wallet(ethereum.selectedAddress, ganacheProvider);

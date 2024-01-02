@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
 const TransactionBills = require("../models/transactionBillsSchema");
 
-const addTrasaction = async (req, res) => {
+const addTransaction = async (req, res) => {
   try {
-    const Transaction = new TransactionBills.create(req.body);
-    await Transaction.save();
-    res.send();
+    // console.log(req.body)
+    const transaction = await TransactionBills.create(req.body);
+    transaction.save()
+    res.send(transaction);
   } catch (error) {
     console.log(error);
-    res.status(500).send156u();
+    res.status(500).send();
   }
 };
+
+
 const getTrasaction = async (req, res) => {
   try {
     const Transaction = await TransactionBills.findOne(req.body);
@@ -53,6 +56,6 @@ const removeAllTransaction = async (req, res) => {
   };
   
 
-module.exports = {addTrasaction,getTrasaction,getAllTrasaction,removeAllTransaction,removeTransaction}
+module.exports = {addTransaction,getTrasaction,getAllTrasaction,removeAllTransaction,removeTransaction}
   
   
