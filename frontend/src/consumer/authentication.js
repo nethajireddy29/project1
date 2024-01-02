@@ -186,12 +186,18 @@ function ConsumerLogin(){
         
           if(responseData.success===true){
             console.log("done");
+
             localStorage.setItem("consumerAuthToken", responseData.consumerAuthToken);
+
+            localStorage.setItem("authToken", responseData.authToken);
+
+
             history('/consumer/home');
 
           }
           // Redirect to "/login" after successful data submission
           else{
+            console.log("invalid")
             history("/consumer/login");
             setText("INVALID")
         setTimeout(()=>{

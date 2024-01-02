@@ -125,6 +125,10 @@ export default function App() {
     fetchData(); // Invoke the fetchData function when the component mounts
   }, []);
 
+
+
+
+
   return (
     <Router>
       <div>
