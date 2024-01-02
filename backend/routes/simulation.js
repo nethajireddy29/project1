@@ -1,152 +1,133 @@
 const express = require("express");
 const router = express.Router();
-const contractAddress = "0xb617dd6A4dB790AFf981fC4875B8953Ca27612be";
-const listner = require("./listener");
-Data = {0:{
-  battery: {
-    "0": {
-      charge: 100,
-      efficiency: 0.7,
-      max_Charge: 100,
-      charge_per_unit: 10,
+const contractAddress = "0xb4F56d5932cbF71E7f34BCc77C25d6c5856B0554";
+const listener = require("./listener");
+Data = {
+  0: {
+    battery: {
+      0: { charge: 20, maxCharge: 200, efficiency: 10, charge_per_unit: 10 },
     },
-    "1": {
-      charge: 100,
-      efficiency: 0.7,
-      max_Charge: 100,
-      charge_per_unit: 10,
-    },
+    green_energy: { 0: { charge: 0, charge_per_unit: 10, max_Charge: 100 } },
+    grid: { 0: { maxImport: 100, maxExport: 100, charge: 0 } },
+    load: {},
   },
-  green_energy: {
-    "0": {
-      charge_produced: 100,
-      charge_per_unit: 10,
-      max_Charge: 1000,
-    },
-    "1": {
-      charge_produced: 100,
-      charge_per_unit: 10,
-      max_Charge: 1000,
-    },
-  },
-  grid: {
-    "0": {
-      charge:1000,
-      max_export: 1000,
-      max_import: 500,
-    },
-    "1": {
-      charge:700,
-      max_export: 900,
-      max_import: 500,
-    },
-  },
-  load: {
-    "0": { energyRequired:0},
-  }},
 };
 
-// listner(Data,"0x8d21b83fB8B9106a6081eab0855632B308428Ac6")
+listener(Data, contractAddress);
 
 UserWaiting = {
-  "sai sharan":{"microGridId":0,"energyRequired":2000,"energySatisfied":0,"fromBattery":0,"fromGE":0,"fromGrid":0}
-}
-userFullFilled = {
-  
-}
+  "sai sharan": {
+    microGridId: 0,
+    energyRequired: 2000,
+    energySatisfied: 0,
+    fromBattery: 0,
+    fromGE: 0,
+    fromGrid: 0,
+  },
+};
+userFullFilled = {};
 
-
-function Simulation(){
+function Simulation() {
   let microGrid;
-  for(var userReq of Object.keys(UserWaiting)){
-    if (UserWaiting[userReq].energyRequired == UserWaiting[userReq].energySatisfied){
-      userFullFilled[userReq] = UserWaiting[userReq]
+  for (var userReq of Object.keys(UserWaiting)) {
+    if (
+      UserWaiting[userReq].energyRequired ==
+      UserWaiting[userReq].energySatisfied
+    ) {
+      userFullFilled[userReq] = UserWaiting[userReq];
       delete UserWaiting[userReq];
-    }
-    else{
+    } else {
       let microGrid = UserWaiting[userReq].microGridId;
-      energyLeft = UserWaiting[userReq].energyRequired-UserWaiting[userReq].energySatisfied;
-      batteryEnergyLeft=energyTranferFromBattery(energyLeft,microGrid,userReq);
+      energyLeft =
+        UserWaiting[userReq].energyRequired -
+        UserWaiting[userReq].energySatisfied;
+      batteryEnergyLeft = energyTranferFromBattery(
+        energyLeft,
+        microGrid,
+        userReq
+      );
       // console.log(UserWaiting[userReq.username],userReq.username,userReq)
-      UserWaiting[userReq]["fromBattery"] += energyLeft-batteryEnergyLeft;
-      GEenergyLeft=energyTranferFromGreenEnergy(batteryEnergyLeft,microGrid,userReq);
-      UserWaiting[userReq]["fromGE"] += batteryEnergyLeft-GEenergyLeft
-      gridEnergyLeft=energyTranferFromGrid(GEenergyLeft,microGrid,userReq);
-      UserWaiting[userReq]["fromGrid"] += GEenergyLeft-gridEnergyLeft;
-      console.log(gridEnergyLeft);
-      UserWaiting[userReq]["energySatisfied"]+= energyLeft - gridEnergyLeft;
+      UserWaiting[userReq]["fromBattery"] += energyLeft - batteryEnergyLeft;
+      GEenergyLeft = energyTranferFromGreenEnergy(
+        batteryEnergyLeft,
+        microGrid,
+        userReq
+      );
+      UserWaiting[userReq]["fromGE"] += batteryEnergyLeft - GEenergyLeft;
+      gridEnergyLeft = energyTranferFromGrid(GEenergyLeft, microGrid, userReq);
+      UserWaiting[userReq]["fromGrid"] += GEenergyLeft - gridEnergyLeft;
+      // console.log(gridEnergyLeft);
+      UserWaiting[userReq]["energySatisfied"] += energyLeft - gridEnergyLeft;
       // UserWaiting[userReq]["energyRequired"] = gridEnergyLeft;
     }
   }
-  
-
 }
-function yourFunction(){
-  console.log(Data[0]["grid"])
-  Simulation();
-  for (let key in Data) {
-     // Access each key in the object
-     chargeBattery(key)
-     chargeGreenEnergy(key)
-     chargeGrid(key)
+async function yourFunction() {
+  // console.log(Data[0]["grid"])
+  console.log(Data[0]["green_energy"]["0"])
+  if (Object.keys(Data).length !== 0) {
+    Simulation();
   }
-  setTimeout(yourFunction, 5000);
+  for (let key in Data) {
+    // Access each key in the object
+    chargeBattery(key);
+    chargeGreenEnergy(key);
+    chargeGrid(key);
+  }
+  setTimeout(yourFunction, 2000);
 }
 
 yourFunction();
 
-console.log(UserWaiting);
+// console.log(UserWaiting);
 
-
-
-function energyTranferFromBattery(chargeNeeded,microGrid, toUserName) {
+function energyTranferFromBattery(chargeNeeded, microGrid, toUserName) {
   let batterys = Data[microGrid]["battery"];
 
   for (var key of Object.keys(batterys)) {
-      let enegyProvidable = batterys[key].charge * batterys[key].efficiency / 10
-
-      if (enegyProvidable > chargeNeeded) {
-          Data[microGrid]["battery"][key].charge -= chargeNeeded;
-          chargeNeeded -= chargeNeeded;
-      }
-      else {
-          Data[microGrid]["battery"][key].charge -= enegyProvidable;
-          chargeNeeded -= enegyProvidable;
-      }
+    let enegyProvidable =
+      (batterys[key].maxCharge * batterys[key].efficiency) / 100;
+    if (batterys[key].charge < enegyProvidable) {
+      break;
+    }
+    if (enegyProvidable > chargeNeeded) {
+      Data[microGrid]["battery"][key].charge -= chargeNeeded;
+      chargeNeeded -= chargeNeeded;
+    } else {
+      Data[microGrid]["battery"][key].charge -= enegyProvidable;
+      chargeNeeded -= enegyProvidable;
+    }
   }
   return chargeNeeded;
 }
-function energyTranferFromGreenEnergy(chargeNeeded,microGrid, toUserName) {
+function energyTranferFromGreenEnergy(chargeNeeded, microGrid, toUserName) {
   let green_energy = Data[microGrid]["green_energy"];
 
   for (var key of Object.keys(green_energy)) {
-      let enegyProvidable = green_energy[key].charge_produced;
+    let enegyProvidable = green_energy[key].charge;
 
-      if (enegyProvidable > chargeNeeded) {
-          Data[microGrid]["green_energy"][key].charge_produced -= chargeNeeded;
-          chargeNeeded -= chargeNeeded;
-      }
-      else {
-          Data[microGrid]["green_energy"][key].charge_produced -= enegyProvidable;
-          chargeNeeded -= enegyProvidable;
-      }
+    if (enegyProvidable > chargeNeeded) {
+      Data[microGrid]["green_energy"][key].charge -= chargeNeeded;
+      chargeNeeded -= chargeNeeded;
+    } else {
+      Data[microGrid]["green_energy"][key].charge -= enegyProvidable;
+      chargeNeeded -= enegyProvidable;
+    }
   }
   return chargeNeeded;
 }
-function energyTranferFromGrid(chargeNeeded, microGrid,toUserName) {
+function energyTranferFromGrid(chargeNeeded, microGrid, toUserName) {
   let grid = Data[microGrid]["grid"];
 
   for (var key of Object.keys(grid)) {
-    
-      let enegyProvidable = grid[key].charge;
-      if (enegyProvidable > chargeNeeded) {
-          Data[microGrid]["grid"][key].charge -= chargeNeeded;
-          chargeNeeded -= chargeNeeded;
-      }
-      else {
-          Data[microGrid]["grid"][key].charge -= enegyProvidable;
-          chargeNeeded -= enegyProvidable;
-      }
+    let enegyProvidable = grid[key].charge;
+    if (enegyProvidable > chargeNeeded) {
+      Data[microGrid]["grid"][key].charge -= chargeNeeded;
+      chargeNeeded -= chargeNeeded;
+    } else {
+      Data[microGrid]["grid"][key].charge -= enegyProvidable;
+      chargeNeeded -= enegyProvidable;
+    }
   }
   return chargeNeeded;
 }
@@ -154,41 +135,37 @@ function energyTranferFromGrid(chargeNeeded, microGrid,toUserName) {
 function chargeBattery(microGrid) {
   let batterys = Data[microGrid]["battery"];
   for (var key of Object.keys(batterys)) {
-    charge_produced = batterys[key].max_Charge/10
-    if (batterys[key].max_Charge > batterys[key].charge + charge_produced) {
+    charge_produced = batterys[key].maxCharge / 20;
+    if (batterys[key].maxCharge > batterys[key].charge + charge_produced) {
       Data[microGrid]["battery"][key].charge += charge_produced;
-      
     } else {
-      Data[microGrid]["battery"][key].charge = batterys[key].max_Charge;
+      Data[microGrid]["battery"][key].charge = batterys[key].maxCharge;
     }
   }
-
 }
 
 function chargeGreenEnergy(microGrid) {
-
   let green_energy = Data[microGrid]["green_energy"];
   for (var key of Object.keys(green_energy)) {
-    charge_produced = green_energy[key].max_Charge/10
-    if (green_energy.max_Charge > green_energy.charge + charge_produced) {
+    charge_produced = green_energy[key].max_Charge / 10;
+    if (green_energy[key].max_Charge > green_energy[key].charge + charge_produced) {
       Data[microGrid]["green_energy"][key].charge += charge_produced;
     } else {
-      Data[microGrid]["green_energy"][key].charge = green_energy[key].max_Charge;
+      Data[microGrid]["green_energy"][key].charge =
+        green_energy[key].max_Charge;
     }
   }
-
 }
 
-function chargeGrid(microGrid){
+function chargeGrid(microGrid) {
   let grid = Data[microGrid]["grid"];
   for (var key of Object.keys(grid)) {
-    console.log()
-    charge_produced = grid[key].max_import/10
-    if (grid[key].max_export > grid[key].charge + charge_produced) {
+    // console.log()
+    charge_produced = grid[key].maxImport / 10;
+    if (grid[key].maxExport > grid[key].charge + charge_produced) {
       Data[microGrid]["grid"][key].charge += charge_produced;
-    } 
-    else {
-      Data[microGrid]["grid"][key].charge = grid[key].max_export;
+    } else {
+      Data[microGrid]["grid"][key].charge = grid[key].maxExport;
     }
   }
 }
@@ -279,6 +256,14 @@ function chargeGrid(microGrid){
 //   }
 // });
 
+
+
+// {
+//   "userName":"sam walton",
+//   "energyRequired":2000,
+//   "microGridId":0
+// }
+
 router.post("/requireUser", (req, res) => {
   let data = req.body;
   let userBool = false;
@@ -306,4 +291,7 @@ router.get("/getUserWaiting", (req, res) => {
   res.json(UserWaiting);
 });
 
+router.get("/MicrogridData", (req, res) => {
+  res.json(Data);
+});
 module.exports = router;

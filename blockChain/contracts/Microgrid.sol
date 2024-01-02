@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract Microgrid {
-    uint16 public perUnit = 4;
+    uint256 public perUnit = 10000000000000000;
     uint public microGridId = 0;
 
     struct Prosumer {
@@ -30,7 +30,7 @@ contract Microgrid {
         uint uniqueID;
         uint minCapacity;
         uint maxCapacity;
-        uint maxCharge;
+        uint Charge;
         uint16 maxEfficiency;
         uint16 initSoc;
     }
@@ -43,11 +43,13 @@ contract Microgrid {
 
     struct GreenEnergy {
         uint uniqueID;
+        uint charge;
         uint energyProduction;
     }
 
     struct Grid {
         uint uniqueID;
+        uint charge;
         uint maxImport;
         uint maxExport;
     }
@@ -80,9 +82,9 @@ contract Microgrid {
     event EnergyTransferred(address indexed from, address indexed to, uint256 transferAmount);
     event microGridAdded(uint uniqueId);
     event addLoadData(uint microGridUniqueId,uint loadId,uint energyRequired);
-    event addBatteryData(uint microGridUniqueId,uint batteryIndex,uint minCapacity,uint maxCapacity,uint maxCharge,uint16 maxEfficiency,uint16 initSoc);
-    event addGreenEnergyData(uint microGridUniqueId,uint GEId,uint energyProduction);
-    event addGridData(uint microGridUniqueId,uint gridIndex,uint maxImport,uint maxExport);
+    event addBatteryData(uint microGridUniqueId,uint batteryIndex,uint minCapacity,uint maxCapacity,uint Charge,uint16 maxEfficiency,uint16 initSoc);
+    event addGreenEnergyData(uint microGridUniqueId,uint GEId,uint charge,uint energyProduction);
+    event addGridData(uint microGridUniqueId,uint gridIndex,uint charge,uint maxImport,uint maxExport);
 
 
 
@@ -105,15 +107,15 @@ contract Microgrid {
         uint uniqueId,
         uint minCapacity,
         uint maxCapacity,
-        uint maxCharge,
+        uint Charge,
         uint16 maxEfficiency,
         uint16 initSoc
     ) public {
         require (address_Producer[msg.sender].isProducer == true, "Only Producers can access this feature.");
         MicroGrid storage tempMicroGrid = microGrids[uniqueId];
         uint batteryId = tempMicroGrid.batteryUsing.length;
-        tempMicroGrid.batteryUsing.push(Battery(batteryId,minCapacity, maxCapacity, maxCharge, maxEfficiency, initSoc));
-        emit addBatteryData(uniqueId, batteryId, minCapacity,maxCapacity, maxCharge, maxEfficiency, initSoc);
+        tempMicroGrid.batteryUsing.push(Battery(batteryId,minCapacity, maxCapacity, Charge, maxEfficiency, initSoc));
+        emit addBatteryData(uniqueId, batteryId, minCapacity,maxCapacity, Charge, maxEfficiency, initSoc);
 }
 
     function addLoad(address userAddress, uint energyRequired, uint uniqueId) public {
@@ -125,33 +127,37 @@ contract Microgrid {
         emit addLoadData(uniqueId,loadId,energyRequired);
     }
 
-    function addGreenEnergy(uint energyProduction, uint uniqueId) public {
+    function addGreenEnergy(uint uniqueId,uint charge,uint energyProduction) public {
         require (address_Producer[msg.sender].isProducer == true, "Only Producers can access this feature.");
         MicroGrid storage tempMicroGrid = microGrids[uniqueId];
         uint greenEnergyId = tempMicroGrid.greenEnergies.length;
-        tempMicroGrid.greenEnergies.push(GreenEnergy(greenEnergyId,energyProduction));
-        emit addGreenEnergyData(uniqueId,greenEnergyId,energyProduction);
+        tempMicroGrid.greenEnergies.push(GreenEnergy(greenEnergyId,charge,energyProduction));
+        emit addGreenEnergyData(uniqueId,greenEnergyId,charge, energyProduction);
     }
 
-    function addPowerGrid(uint maxImport, uint maxExport, uint uniqueId) public {
+    function addPowerGrid( uint uniqueId,uint charge,uint maxImport, uint maxExport) public {
         require (address_Producer[msg.sender].isProducer == true, "Only Producers can access this feature.");
         MicroGrid storage tempMicroGrid = microGrids[uniqueId];
         uint gridId = tempMicroGrid.powerGrid.length;
-        tempMicroGrid.powerGrid.push(Grid(gridId,maxImport, maxExport));
-        emit addGridData(uniqueId,gridId,maxImport,maxExport);
+        tempMicroGrid.powerGrid.push(Grid(gridId, charge,maxImport, maxExport));
+        emit addGridData(uniqueId,gridId,charge,maxImport,maxExport);
     }
 
     function addProducer(string memory name, uint uniqueID) public {
         Producer memory producer = Producer(name, uniqueID, true);
         address_Producer[msg.sender] = producer;
     }
-
-    function addProsumer(string memory name, uint wallet1, uint energyBalance) public {
-        require (address_Producer[msg.sender].isProducer == true, "Only Producers can access this feature.");
-        Prosumer memory prosumer = Prosumer(name, wallet1, energyBalance, false);
-        address_Prosumer[msg.sender] = prosumer;
+    function addProducerToMicroGrid( uint uniqueId)public {
+        require(address_Producer[msg.sender].isProducer,"you are not a producer");
+        microGrids[uniqueId].Producers.push(msg.sender);
     }
-
+    function addConsumerToMicroGrid( uint uniqueId)public {
+        // require(address_Producer[msg.sender].isProducer,"you are not a producer");
+        microGrids[uniqueId].Consumers.push(msg.sender);
+    }
+    function showAllProducers(uint uniqueId) public view returns (address[] memory) {
+        return microGrids[uniqueId].Producers;
+    }
     function addConsumer(string memory name,string memory micrometerid, uint energyBalance) public {
         uint wallet=msg.sender.balance/1 ether;
         Consumer memory consumer = Consumer(name,micrometerid, energyBalance,wallet);
@@ -159,16 +165,20 @@ contract Microgrid {
     }
 
     // Function to purchase energy  consumer -> prosumer
-    function purchaseEnergy(uint transferUnits) public {
-        require(address_Consumer[msg.sender].wallet >= transferUnits*perUnit, "Insufficient balance");
 
-        Consumer storage details = address_Consumer[msg.sender];
-        address_Consumer[msg.sender].wallet -= transferUnits*perUnit;
-        details.energyBalance += transferUnits;
 
-        // Emit an event to record the energy transfer
-        emit EnergyTransferred(msg.sender, address(this), transferUnits*perUnit);
+
+    function purchaseEnergy(address payable producer) public payable  {
+        require(address_Producer[producer].isProducer, "Invalid producer address");
+        require(msg.value <=msg.sender.balance, "Incorrect Ether value provided");
+
+        uint energyUnits = msg.value/perUnit;
+        producer.transfer(msg.value);
+        address_Consumer[msg.sender].energyBalance += energyUnits;
+        emit EnergyTransferred(msg.sender, producer, energyUnits);
+
     }
+
 
     // Function to sell excess energy,  prosumer -> consumer
     function sellEnergy(uint transferAmount) public {
@@ -228,7 +238,7 @@ contract Microgrid {
 //     require(tempMicroGrid.batteryUsing.length > 0, "No battery found at index 0");
 
 //     Battery storage battery = tempMicroGrid.batteryUsing[0];
-//     return battery.maxCharge;
+//     return battery.Charge;
 // }
 function consumerData()public view returns (string memory){
     Consumer memory data = address_Consumer[msg.sender];

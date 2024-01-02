@@ -97,7 +97,6 @@ import AddGrid from "./components/AddGrid.js";
 import AddProducer from "./components/AddProducer.js";
 
 import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
-
 export default function App() {
   const [getContract, setGetContract] = useState("");
   const [sendContract, setSendContract] = useState("");
@@ -159,7 +158,7 @@ export default function App() {
 
 
           <Route path="/ShowMicroGrid" element={<AvailableMicrogrid   />} />
-        
+   
         </Routes>
       </div>
     </Router>

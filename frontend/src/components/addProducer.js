@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import connectToMetaMask from "../hooks/MetaMaskConnection";
+import { useNavigate } from "react-router-dom";
 
 function AddProducer() {
   const [tem, setTem] = useState("");
-
+const navigate = useNavigate()
   async function connect() {
     const { sendDataContract } = await connectToMetaMask();
     setTem(sendDataContract);
@@ -12,8 +13,9 @@ function AddProducer() {
   async function addProducer() {
     let uniqueID = document.getElementById("uniqueID").value;
     let name = document.getElementById("name").value;
-    // Implement your logic for adding load
     const data = tem.addProducer(name,Number(uniqueID)) 
+    
+    
   }
 
   let style = {
