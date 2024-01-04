@@ -82,6 +82,7 @@ import ConsumerPlans from "./consumer/plans.js";
 import ConsumerHistory from "./consumer/history.js";
 import Form from "./consumer/form.js";
 import AddConsumer from "./components/AddConsumer.js";
+import ConsumerNavbar from "./consumer/navbar.js";
 import IsAuthenticated from "./hooks/IsAuthenticated.js";
 
 // Producer Imports
@@ -95,20 +96,20 @@ import AddLoad from "./components/AddLoad.js";
 import AddGreenEnergy from "./components/AddGreenEnergy.js";
 import AddGrid from "./components/AddGrid.js";
 import AddProducer from "./components/AddProducer.js";
+import JoinOrCreateMicroGrid from "./pages/JoinOrCreateMicroGrid.js";
 
 import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
 export default function App() {
   const [getContract, setGetContract] = useState("");
   const [sendContract, setSendContract] = useState("");
   const [metaMaskAddress, setMetaMaskAddress] = useState("");
-  // const [Authentic, setAuthentic] = useState(false);
 
-  const Authentic=IsAuthenticated()
+  const producerAuthentic=IsAuthenticated("producerAuthToken")
+  const consumerAuthentic=IsAuthenticated("consumerAuthToken")
   useEffect(() => {
     async function fetchData() {
       try {
         const { sendDataContract, getDataContract, metaMaskAddress } = await ConnectToMetaMask();
-        
         console.log(sendDataContract, getDataContract);
 
         // Set state with received data
@@ -127,7 +128,8 @@ export default function App() {
   return (
     <Router>
       <div>
-        {Authentic?<ProducerNavbar connect = {sendContract} />:<></>}
+        {producerAuthentic?<ProducerNavbar connect = {sendContract} />:<></>}
+        {consumerAuthentic?<ConsumerNavbar/>:<></>}
         <Routes>
           <Route path="/" element={<ConsumerAuthentication />} />
           <Route path="/consumer/registration" element={<ConsumerFaceAuthentication />} />
@@ -151,10 +153,8 @@ export default function App() {
           <Route path="/AddGreenEnergy" element={<AddGreenEnergy   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
           <Route path="/AddGrid" element={<AddGrid   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
 
-
-
+          <Route path="/JoinOrCreateMicroGrid" element={<JoinOrCreateMicroGrid  getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress}/>}/>
           <Route path="/ShowMicroGrid" element={<AvailableMicrogrid   />} />
-   
         </Routes>
       </div>
     </Router>

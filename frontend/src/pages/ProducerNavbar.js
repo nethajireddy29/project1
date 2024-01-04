@@ -7,6 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import ConnectToMetaMask from "../hooks/MetaMaskConnection";
 const flatted = require("flatted");
 function BasicExample(props) {
+  let textDeco = {
+    textDecoration: "none",
+    color: "black",
+  };
+
   const navigate = useNavigate();
   const isAuthenticated = IsAuthenticated(); // Call the function to get the authentication status
   console.log("render of navbar");
@@ -18,11 +23,6 @@ function BasicExample(props) {
     localStorage.setItem("metaMaskAddres", metaMaskAddres);
     const data = flatted.parse(localStorage.getItem("SendContract"));
     console.log(data);
-
-    // sendDataContract.addProducer("sai",0);
-    // const data1 = data.addProducer("sai", 0);
-
-    // console.log(JSON.parse(localStorage.getItem('SendContract')).)
   };
   const LogOut = () => {
     localStorage.removeItem("producerAuthToken");
@@ -31,37 +31,55 @@ function BasicExample(props) {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/ProducerHome">Home</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/ProducerHome" style={textDeco}>
+            Home
+          </Link>
+        </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Nav.Link>
+              <Link to="/" style={textDeco}>
+                Link
+              </Link>
+            </Nav.Link>
+
             <NavDropdown title="Microgrid" id="basic-nav-dropdown">
-              <Link>
-                <NavDropdown.Item href="/addMicrogrid">
+              <NavDropdown.Item>
+                <Link to="/addMicrogrid" style={textDeco}>
                   AddMicrogrid
-                </NavDropdown.Item>
-              </Link>
-              <Link to="/addBattery">
-                <NavDropdown.Item href="/addBattery">
+                </Link>
+              </NavDropdown.Item>
+
+              <NavDropdown.Item>
+                <Link to="/addBattery" style={textDeco}>
                   Add Battery
-                </NavDropdown.Item>
-              </Link>
-              <Link>
-                {" "}
-                <NavDropdown.Item href="/addGreenEnergy">
+                </Link>
+              </NavDropdown.Item>
+
+              <NavDropdown.Item>
+              
+                <Link to="/addGreenEnergy" style={textDeco}>
                   Add GreenEnergy
-                </NavDropdown.Item>
-              </Link>
+                </Link>
+           </NavDropdown.Item>
+
               {/* <NavDropdown.Divider /> */}
-              <Link>
-                <NavDropdown.Item href="/addLoad">Add Load</NavDropdown.Item>
-              </Link>
-              <Link>
-                {" "}
-                <NavDropdown.Item href="/addGrid">Add Grid</NavDropdown.Item>
-              </Link>
+
+              <NavDropdown.Item>
+                <Link to="/addLoad" style={textDeco}>
+                  Add Load
+                </Link>
+              </NavDropdown.Item>
+
+              <NavDropdown.Item>
+              
+                <Link to="/addGrid" style={textDeco}>
+                  Add Grid
+                </Link>
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav.Link onClick={connectMetaMask}>connect</Nav.Link>

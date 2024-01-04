@@ -1,7 +1,7 @@
-import React from 'react'
 
-function IsAuthenticated() {
-    if (localStorage.getItem('producerAuthToken')){
+
+function IsAuthenticated(UserType) {
+    if (localStorage.getItem(UserType)){
         return true;
     }
     else{

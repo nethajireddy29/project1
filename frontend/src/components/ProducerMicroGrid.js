@@ -12,14 +12,7 @@ function AvailableMicrogrid() {
     const { sendDataContract } = await ConnectToMetaMask();
     setTem(sendDataContract);
   }
-  const addProducerToThisMicrogrid = (id)=>{
-    // e.preventDefault();
-   
-    const data1 = tem.addProducerToMicroGrid(id);
-    // console.log(e.microgridKey,typeof())
-    navigate("/ProducerHome")
-    
-  }
+
 useEffect(() => {
             async function fetchData() {
               try {
@@ -128,8 +121,8 @@ useEffect(() => {
         //   },
         // });
     
-            fetchData(); // Call the async function inside useEffect
-      }, []); // Empty dependency array to run once on mount
+            fetchData(); 
+      }, []);
     
 
   return (
@@ -139,20 +132,18 @@ useEffect(() => {
       ) : (
         <div class = "microgrid-card-details"  >
           {Object.entries(microGridData).map(([microgridKey, microgridValue]) => (
-            <div onClick={()=>addProducerToThisMicrogrid(0)}  className="micro-grid">
             <Card key={microgridKey} style={{ width: '18rem', marginBottom: '20px' }}>
               <Card.Body>
                 <Card.Title>Microgrid: {microgridKey}</Card.Title>
                 {Object.entries(microgridValue).map(([key, value]) => (
                   <Card.Text key={key}>
-                    {key}: {Object.keys(value).length}
+                    {/* {key}: {Object.keys(value).length} */}
+                    {key}: {JSON.stringify(value)}
                   </Card.Text>
                 ))}
               </Card.Body>
             </Card>
-            </div>
           ))}
-          <button onClick={connect}>Connect</button>
         </div>
       )}
     </div>
