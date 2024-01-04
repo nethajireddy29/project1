@@ -20,7 +20,7 @@ export default function ProducerSignup() {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/createProducerUser", {
+      const response = await fetch("api/createProducerUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

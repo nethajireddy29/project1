@@ -1,16 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const contractAddress = "0xb4F56d5932cbF71E7f34BCc77C25d6c5856B0554";
+const contractAddress = "0xF28e22fFBE372Fab2339cd37a8A9AF62D2846A01";
 const listener = require("./listener");
 Data = {
-  0: {
-    battery: {
-      0: { charge: 20, maxCharge: 200, efficiency: 10, charge_per_unit: 10 },
-    },
-    green_energy: { 0: { charge: 0, charge_per_unit: 10, max_Charge: 100 } },
-    grid: { 0: { maxImport: 100, maxExport: 100, charge: 0 } },
-    load: {},
-  },
+ 
 };
 
 listener(Data, contractAddress);
@@ -64,7 +57,7 @@ function Simulation() {
 }
 async function yourFunction() {
   // console.log(Data[0]["grid"])
-  console.log(Data[0]["green_energy"]["0"])
+  // console.log(Data[0]["green_energy"]["0"])
   if (Object.keys(Data).length !== 0) {
     Simulation();
   }

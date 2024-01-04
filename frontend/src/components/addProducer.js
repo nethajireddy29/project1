@@ -14,7 +14,7 @@ const navigate = useNavigate()
     let uniqueID = document.getElementById("uniqueID").value;
     let name = document.getElementById("name").value;
     const data = tem.addProducer(name,Number(uniqueID)) 
-    
+    navigate("/JoinOrCreateMicroGrid")
     
   }
 

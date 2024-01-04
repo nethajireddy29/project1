@@ -14,7 +14,7 @@ function AddLoad() {
     let userAddress = document.getElementById("userAddress").value;
     let energyRequired = document.getElementById("energyRequired").value;
     // Implement your logic for adding load
-    const data = tem.addLoad(Number(uniqueID),userAddress,Number(energyRequired)) 
+    const data = tem.addLoad(userAddress,Number(energyRequired) ,Number(uniqueID)) 
 
   }
 
@@ -70,6 +70,7 @@ function AddLoad() {
         <button className="btn" style={myButton} onClick={connect}>
           Connect MetaMask
         </button>
+
       </div>
       {/* Uncomment and implement the producer component */}
       {/* <Producer /> */}

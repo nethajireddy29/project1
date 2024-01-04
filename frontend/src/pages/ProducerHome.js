@@ -1,12 +1,12 @@
 import React from 'react'
-import AvailableMicrogrid from '../components/AvailableMicrogrid';
+// import AvailableMicrogrid from '../components/AvailableMicrogrid';
+import ProducerMicrogrid from '../components/ProducerMicroGrid';
 
 function ProducerHome(props) {
 
       return (
         <div>
-          <p>i hate </p>
-          <AvailableMicrogrid/>
+          <ProducerMicrogrid/>
         </div>
       );
     }

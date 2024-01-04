@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import connectToMetaMask from "../hooks/MetaMaskConnection";
+import { useNavigate } from "react-router-dom";
 // import AddLoad from "./components/AddLoad";
 
 function AddMicrogrid() {
   const [tem, setTem] = useState("");
-
+const navigate = useNavigate()
   async function connect() {
     const { sendDataContract } = await connectToMetaMask();
     setTem(sendDataContract);
@@ -12,8 +13,13 @@ function AddMicrogrid() {
   }
 
   async function addMicrogrid() {
+
     let microGridName = document.getElementById("microGridName").value;
-    const data =tem.createMicroGrid(microGridName)
+    const microGridId = await tem.microGridId();
+    // console.log(Number(microGridId))
+    const data = await tem.createMicroGrid(microGridName);
+    tem.addProducerToMicroGrid(microGridId);
+    navigate("/ProducerHomePage")
   }
 
   let style = {
