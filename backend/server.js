@@ -11,7 +11,7 @@ app.use(express.json());
 let dbConnection;
 let jwtSecret = "you are i am"
 require("./config/dbConnection")
-// let {getFace ,compareFace} = require("./controllers/AdharAuthentication-controller")
+let {getFace ,compareFace} = require("./controllers/AdharAuthentication-controller")
 
 // app.get("/data",getFace)
 

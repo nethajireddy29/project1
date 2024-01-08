@@ -7,7 +7,7 @@ const listner = (Data, contractAddress) => {
   //     "http://127.0.0.1:7545"
   // );
   const provider = new ethers.providers.JsonRpcProvider({
-    url: "http://127.0.0.1:7545",
+    url: "http://127.0.0.1:8545",
     network: { chainId: 1337, name: "ganache" },
   });
   const contract = new ethers.Contract(

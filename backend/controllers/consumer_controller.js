@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const jwtSecret = "i am the devil"
 const addConsumer = async (req, res) => {
   try {
-    const consumer = new Consumer.create(req.body);
+    const consumer = await Consumer.create(req.body);
     res.json({ success: true });
   } catch (error) {
     console.log(error);

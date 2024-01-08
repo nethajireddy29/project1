@@ -12,144 +12,144 @@ function AvailableMicrogrid() {
     const { sendDataContract } = await ConnectToMetaMask();
     setTem(sendDataContract);
   }
-  const addProducerToThisMicrogrid = (id)=>{
+  const addProducerToThisMicrogrid = (id) => {
     // e.preventDefault();
-   
+
     const data1 = tem.addProducerToMicroGrid(id);
     // console.log(e.microgridKey,typeof())
-    navigate("/ProducerHome")
-    
+    navigate("/ProducerLogin")
+
   }
-useEffect(() => {
-            async function fetchData() {
-              try {
-                const response = await fetch(
-                  "api/simulation/MicrogridData",
-                  {
-                    method: "GET",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  }
-                );
-                const data = await response.json();
-                setMicroGridData(data);
-              } catch (err) {
-                console.log("Something went wrong error: ", err);
-              }
-            }
-            
-        // setMicroGridData({
-        //   0: {
-        //     battery: {
-        //       0: {
-        //         charge: 100,
-        //         efficiency: 0.7,
-        //         max_Charge: 100,
-        //         charge_per_unit: 10,
-        //       },
-        //       1: {
-        //         charge: 100,
-        //         efficiency: 0.7,
-        //         max_Charge: 100,
-        //         charge_per_unit: 10,
-        //       },
-        //     },
-        //     green_energy: {
-        //       0: {
-        //         charge_produced: 100,
-        //         charge_per_unit: 10,
-        //         max_Charge: 1000,
-        //       },
-        //       1: {
-        //         charge_produced: 100,
-        //         charge_per_unit: 10,
-        //         max_Charge: 1000,
-        //       },
-        //     },
-        //     grid: {
-        //       0: {
-        //         charge: 1000,
-        //         max_export: 1000,
-        //         max_import: 500,
-        //       },
-        //       1: {
-        //         charge: 700,
-        //         max_export: 900,
-        //         max_import: 500,
-        //       },
-        //     },
-        //     load: {
-        //       0: { energyRequired: 0 },
-        //     },
-        //   },
-        //   1: {
-        //     battery: {
-        //       0: {
-        //         charge: 100,
-        //         efficiency: 0.7,
-        //         max_Charge: 100,
-        //         charge_per_unit: 10,
-        //       },
-        //       1: {
-        //         charge: 100,
-        //         efficiency: 0.7,
-        //         max_Charge: 100,
-        //         charge_per_unit: 10,
-        //       },
-        //     },
-        //     green_energy: {
-        //       0: {
-        //         charge_produced: 100,
-        //         charge_per_unit: 10,
-        //         max_Charge: 1000,
-        //       },
-        //       1: {
-        //         charge_produced: 100,
-        //         charge_per_unit: 10,
-        //         max_Charge: 1000,
-        //       },
-        //     },
-        //     grid: {
-        //       0: {
-        //         charge: 1000,
-        //         max_export: 1000,
-        //         max_import: 500,
-        //       },
-        //       1: {
-        //         charge: 700,
-        //         max_export: 900,
-        //         max_import: 500,
-        //       },
-        //     },
-        //     load: {
-        //       0: { energyRequired: 0 },
-        //     },
-        //   },
-        // });
-    
-            fetchData(); // Call the async function inside useEffect
-      }, []); // Empty dependency array to run once on mount
-    
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          "/api/simulation/MicrogridData",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        setMicroGridData(data);
+      } catch (err) {
+        console.log("Something went wrong error: ", err);
+      }
+    }
+
+    // setMicroGridData({
+    //   0: {
+    //     battery: {
+    //       0: {
+    //         charge: 100,
+    //         efficiency: 0.7,
+    //         max_Charge: 100,
+    //         charge_per_unit: 10,
+    //       },
+    //       1: {
+    //         charge: 100,
+    //         efficiency: 0.7,
+    //         max_Charge: 100,
+    //         charge_per_unit: 10,
+    //       },
+    //     },
+    //     green_energy: {
+    //       0: {
+    //         charge_produced: 100,
+    //         charge_per_unit: 10,
+    //         max_Charge: 1000,
+    //       },
+    //       1: {
+    //         charge_produced: 100,
+    //         charge_per_unit: 10,
+    //         max_Charge: 1000,
+    //       },
+    //     },
+    //     grid: {
+    //       0: {
+    //         charge: 1000,
+    //         max_export: 1000,
+    //         max_import: 500,
+    //       },
+    //       1: {
+    //         charge: 700,
+    //         max_export: 900,
+    //         max_import: 500,
+    //       },
+    //     },
+    //     load: {
+    //       0: { energyRequired: 0 },
+    //     },
+    //   },
+    //   1: {
+    //     battery: {
+    //       0: {
+    //         charge: 100,
+    //         efficiency: 0.7,
+    //         max_Charge: 100,
+    //         charge_per_unit: 10,
+    //       },
+    //       1: {
+    //         charge: 100,
+    //         efficiency: 0.7,
+    //         max_Charge: 100,
+    //         charge_per_unit: 10,
+    //       },
+    //     },
+    //     green_energy: {
+    //       0: {
+    //         charge_produced: 100,
+    //         charge_per_unit: 10,
+    //         max_Charge: 1000,
+    //       },
+    //       1: {
+    //         charge_produced: 100,
+    //         charge_per_unit: 10,
+    //         max_Charge: 1000,
+    //       },
+    //     },
+    //     grid: {
+    //       0: {
+    //         charge: 1000,
+    //         max_export: 1000,
+    //         max_import: 500,
+    //       },
+    //       1: {
+    //         charge: 700,
+    //         max_export: 900,
+    //         max_import: 500,
+    //       },
+    //     },
+    //     load: {
+    //       0: { energyRequired: 0 },
+    //     },
+    //   },
+    // });
+
+    fetchData(); // Call the async function inside useEffect
+  }, []); // Empty dependency array to run once on mount
+
 
   return (
     <div>
       {microGridData === null ? (
         <p>No Microgrids are available. Be the first person to create a microgrid!</p>
       ) : (
-        <div class = "microgrid-card-details"  >
+        <div class="microgrid-card-details"  >
           {Object.entries(microGridData).map(([microgridKey, microgridValue]) => (
-            <div onClick={()=>addProducerToThisMicrogrid(0)}  className="micro-grid">
-            <Card key={microgridKey} style={{ width: '18rem', marginBottom: '20px' }}>
-              <Card.Body>
-                <Card.Title>Microgrid: {microgridKey}</Card.Title>
-                {Object.entries(microgridValue).map(([key, value]) => (
-                  <Card.Text key={key}>
-                    {key}: {Object.keys(value).length}
-                  </Card.Text>
-                ))}
-              </Card.Body>
-            </Card>
+            <div onClick={() => addProducerToThisMicrogrid(microgridKey)} className="micro-grid">
+              <Card key={microgridKey} style={{ width: '18rem', marginBottom: '20px' }}>
+                <Card.Body>
+                  <Card.Title>Microgrid: {microgridKey}</Card.Title>
+                  {Object.entries(microgridValue).map(([key, value]) => (
+                    <Card.Text key={key}>
+                      {key}: {Object.keys(value).length}
+                    </Card.Text>
+                  ))}
+                </Card.Body>
+              </Card>
             </div>
           ))}
           <button onClick={connect}>Connect</button>

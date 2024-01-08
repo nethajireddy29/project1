@@ -16,8 +16,8 @@ const addTransaction = async (req, res) => {
 
 const getTrasaction = async (req, res) => {
   try {
-    const Transaction = await TransactionBills.findOne(req.body);
-    res.send(Transaction);
+    const transaction = await TransactionBills.findOne(req.body);
+    res.send(transaction);
   } catch (error) {
     console.log(error);
     res.status(500).send();
@@ -26,13 +26,23 @@ const getTrasaction = async (req, res) => {
 
 const getAllTrasaction = async (req, res) => {
   try {
-    const Transaction = await TransactionBills.find();
-    res.json(Transaction);
+    const transaction = await TransactionBills.find();
+    res.json(transaction);
   } catch (error) {
     console.log(error);
     res.status(500).send();
   }
 }; 
+
+// const updateTransaction = async(req,res)=>{
+//   try{
+
+//     const transaction = await TransactionBills.updateOne()
+    
+//   }catch(err){
+
+//   }
+// }
 
 const removeTransaction = async (req, res) => {
   try { 

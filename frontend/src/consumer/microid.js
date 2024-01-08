@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useHistory from react-router-dom
 
 function Microid() {
-  const history = useNavigate(); // Get the history object
+  const navigate = useNavigate(); // Get the history object
 
   const message = Math.floor(Math.random() * 9000).toString();
   const micrometerid = `0426ELUZ${message}`;
@@ -11,19 +11,19 @@ function Microid() {
     console.log(micrometerid)
     try {
       // ... (your existing code for sending data to the server)
-      const response = await fetch('http://localhost:3001/api/createConsumer', {
+      const response = await fetch('/api/createConsumer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ "id": micrometerid }),
+        body: JSON.stringify({ "microid": micrometerid }),
       });
 
       const responseData = await response.text(); // Await the response text
       console.log('Server response:', responseData);
 
       // Redirect to "/login" after successful data submission
-      history('consumer/login');
+      navigate('/consumer/login');
     } catch (error) {
       console.error('Error sending data to the server:', error);
       // Handle errors, e.g., show an error message to the user

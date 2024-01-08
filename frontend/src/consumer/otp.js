@@ -9,7 +9,7 @@ const ConsumerOtp = () => {
   console.log(message)
 //   const [message, setMessage] = useState(otp);
 
-  const [path, setPath] = useState("/registration/otp");
+  const [path, setPath] = useState("/consumer/otp");
   const [text, setText] = useState("");
   const handleSendSMS = async () => {
     try {
@@ -45,7 +45,7 @@ const ConsumerOtp = () => {
     }
     else{
         console.log("Wrong otp");
-        setPath("/registration/otp");
+        setPath("/consumer/otp");
         setText("Incorrect password. Please Try Again");
         setTimeout(()=>{
             setText("");
