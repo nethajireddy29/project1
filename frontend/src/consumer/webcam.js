@@ -16,7 +16,7 @@ function ShowImage({ webRef,aadharnumber,history}) {
   const sendDataToServer = async () => {
     try {
       // ... (your existing code for sending data to the server)
-      const response = await fetch('http://localhost:3001/api/aadharDatabase', {
+      const response = await fetch('/api/aadharDatabase', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

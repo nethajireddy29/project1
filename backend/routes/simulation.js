@@ -1,26 +1,30 @@
 const express = require("express");
 const router = express.Router();
-const contractAddress = "0xF28e22fFBE372Fab2339cd37a8A9AF62D2846A01";
+const contractAddress = "0xc2ac7A5e7C0298c82490CA20C55263821B146dA2";
 const listener = require("./listener");
+const TransactionBills = require("../models/transactionBillsSchema");
+const mongoose = require('mongoose');
+// const { ObjectId } = mongoose.Types;
+// Data = {"0":{"battery":{"0":{"charge":200,"maxCharge":200,"efficiency":10,"charge_per_unit":10}},"green_energy":{},"grid":{"0":{"maxImport":100,"maxExport":500,"charge":500}},"load":{}}}
 Data = {
- 
-};
+
+}
 
 listener(Data, contractAddress);
 
 UserWaiting = {
-  "sai sharan": {
-    microGridId: 0,
-    energyRequired: 2000,
-    energySatisfied: 0,
-    fromBattery: 0,
-    fromGE: 0,
-    fromGrid: 0,
-  },
+  // "659a8befd320daeabd92488b": {
+  //   microGridId: 0,
+  //   energyRequired: 200,
+  //   energySatisfied: 0,
+  //   fromBattery: 0,
+  //   fromGE: 0,
+  //   fromGrid: 0,
+  // },
 };
 userFullFilled = {};
 
-function Simulation() {
+async function Simulation() {
   let microGrid;
   for (var userReq of Object.keys(UserWaiting)) {
     if (
@@ -28,6 +32,11 @@ function Simulation() {
       UserWaiting[userReq].energySatisfied
     ) {
       userFullFilled[userReq] = UserWaiting[userReq];
+      const temp = UserWaiting[userReq]
+      const done = await TransactionBills.updateOne(
+        { _id: mongoose.Types.ObjectId.createFromHexString(userReq)},
+        { $set: { "energySatisfied": true, "fromBattery": temp.fromBattery ,"fromGE":temp.fromGE,"fromGrid":temp.fromGrid} }
+      )
       delete UserWaiting[userReq];
     } else {
       let microGrid = UserWaiting[userReq].microGridId;
@@ -258,7 +267,7 @@ function chargeGrid(microGrid) {
 // }
 
 router.post("/requireUser", (req, res) => {
-  let data = req.body;
+  let data = req.body;//userName,energyRequired,microGridId
   let userBool = false;
   for (var key in Object.keys(UserWaiting)) {
     if (key === data.userName) {
@@ -278,7 +287,7 @@ router.post("/requireUser", (req, res) => {
     };
     UserWaiting[data.userName] = requestData;
   }
-  res.json(UserWaiting);
+  res.json(UserWaiting[""]);
 });
 router.get("/getUserWaiting", (req, res) => {
   res.json(UserWaiting);

@@ -12,10 +12,9 @@ function JoinOrCreateMicroGrid() {
       </Link>
 
       <Link className = "removeDash">
-        {" "}
         <h1>Create</h1>
         <p>Create Your Own Microgrid</p>
-        <AddMicrogrid />
+        <AddMicrogrid redirectLogIn={true}/>
       </Link>
     </div>
   );

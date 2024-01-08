@@ -14,8 +14,25 @@ const transactionBillsSchema = mongoose.Schema({
     required: true,
   },
   amount:{
-    type:Number,
+    type:mongoose.Schema.Types.Mixed,
     required: true,
+  },
+
+  energySatisfied:{
+    type:Boolean,
+    default:false,
+  },
+  fromBattery:{
+    type:Number,
+    default:0,
+  },
+  fromGE:{
+    type:Number,
+    default:0,
+  },
+  fromGrid:{
+    type:Number,
+    default:0,
   }
 });
 

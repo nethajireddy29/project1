@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function AddProducer() {
   const [tem, setTem] = useState("");
-const navigate = useNavigate()
+  const navigate = useNavigate()
   async function connect() {
     const { sendDataContract } = await connectToMetaMask();
     setTem(sendDataContract);
@@ -13,9 +13,9 @@ const navigate = useNavigate()
   async function addProducer() {
     let uniqueID = document.getElementById("uniqueID").value;
     let name = document.getElementById("name").value;
-    const data = tem.addProducer(name,Number(uniqueID)) 
+    const data = tem.addProducer(name, Number(uniqueID))
     navigate("/JoinOrCreateMicroGrid")
-    
+
   }
 
   let style = {

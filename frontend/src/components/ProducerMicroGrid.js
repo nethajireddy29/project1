@@ -17,7 +17,7 @@ useEffect(() => {
             async function fetchData() {
               try {
                 const response = await fetch(
-                  "api/simulation/MicrogridData",
+                  "/api/simulation/MicrogridData",
                   {
                     method: "GET",
                     headers: {
@@ -27,6 +27,7 @@ useEffect(() => {
                 );
                 const data = await response.json();
                 setMicroGridData(data);
+                console.log(data)
               } catch (err) {
                 console.log("Something went wrong error: ", err);
               }
@@ -127,7 +128,7 @@ useEffect(() => {
 
   return (
     <div>
-      {microGridData === null ? (
+      {((microGridData===null)||(0 === Object.keys(microGridData).length)  )? (
         <p>No Microgrids are available. Be the first person to create a microgrid!</p>
       ) : (
         <div class = "microgrid-card-details"  >

@@ -3,11 +3,12 @@ import React from 'react'
 import ProducerMicrogrid from '../components/ProducerMicroGrid';
 
 function ProducerHome(props) {
-
-      return (
-        <div>
-          <ProducerMicrogrid/>
-        </div>
-      );
-    }
+  
+  return (
+    <div>
+   
+      <ProducerMicrogrid />
+    </div>
+  );
+}
 export default ProducerHome

@@ -18,9 +18,15 @@ const {
   createProducerUser,
   ProducerLogIn,
 } = require("../controllers/ProducerUserController.js");
+
+const { addFace, removeFace, removeAllFaces, getFace ,compareFace} = require("../controllers/AdharAuthentication-controller")
+
 const { body, validationResult } = require("express-validator");
 const Simulation  = require("./simulation.js")
 const router = express.Router();
+
+
+
 
 // addConsumer all CRUD Operation
 router.post("/createConsumer", addConsumer);
@@ -30,6 +36,9 @@ router.post("/loginConsumer", loginConsumer);
 // router.post('/removeConsumer',removeConsumer);
 // router.post('/removeSpecificConsumers',removeMultipleConsumer);
 
+
+
+
 // TransactionBills all CRUD Operations
 router.post("/createTransactionBills", addTransaction);
 router.post("/getTransaction", getTrasaction);
@@ -37,7 +46,14 @@ router.get("/getAllTrasaction", getAllTrasaction);
 // router.post('/removeTransaction',removeTransaction);
 // router.post('/removeAllTransactions',removeAllTransaction);
 
-// router.use("/Producer",ProducerLoginSignup)
+
+
+router.post('/aadharDatabase',compareFace);
+
+
+
+
+
 
 // Producer Function
 router.post(

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract Microgrid {
-    uint256 public perUnit = 10000000000000000;
+    uint256 public perUnit = 4334633723450368;
     uint public microGridId = 0;
 
     struct Prosumer {
