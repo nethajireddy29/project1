@@ -3,9 +3,51 @@ const express = require("express");
 const {ProducerUser} = require("../models/producerUserSchema");
 const { body, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
-const jwtSecret = "MynameisEndtoEndYoutubeChannel$#";
+const Salt = crypto.randomBytes(16).toString("hex");
+const pepper = "nsrssl45";
+const encryptionKey =
+  "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
+
+// Ensure the key is 32 bytes long
+if (Buffer.from(encryptionKey, "hex").length !== 32) {
+  console.error("Invalid key length. Please use a 32-byte key for AES-256.");
+  process.exit(1); // Exit the program due to an error
+}
+
+function hashPassword(password) {
+  return crypto
+    .pbkdf2Sync(password + pepper, Salt, 10000, 64, "sha512")
+    .toString("hex");
+}
+
+function encryptAES(text) {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv(
+    "aes-256-cbc",
+    Buffer.from(encryptionKey, "hex"),
+    iv
+  );
+  let encrypted = cipher.update(text, "utf-8", "hex");
+  encrypted += cipher.final("hex");
+  return iv.toString("hex") + encrypted;
+}
+
+function decryptAES(encryptedText) {
+  const iv = Buffer.from(encryptedText.slice(0, 32), "hex");
+  const encryptedData = encryptedText.slice(32);
+  const decipher = crypto.createDecipheriv(
+    "aes-256-cbc",
+    Buffer.from(encryptionKey, "hex"),
+    iv
+  );
+  let decrypted = decipher.update(encryptedData, "hex", "utf-8");
+  decrypted += decipher.final("utf-8");
+  return decrypted;
+}
+// const jwtSecret = "MynameisEndtoEndYoutubeChannel$#";
 
 // router.post(
 //   "/CreateUser",
@@ -34,8 +76,8 @@ const createProducerUser =   async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const salt = await bcrypt.genSalt(10);
-      const secured_password = await bcrypt.hash(req.body.password, salt);
+      const hashedPassword = hashPassword(req.body.password);
+      const encryptedPassword = encryptAES(hashedPassword);
 
       const username = req.body.name;
       const userData = await ProducerUser.findOne({ name:username });
@@ -43,6 +85,7 @@ const createProducerUser =   async (req, res) => {
       const username1 = req.body.registrant;
       console.log(username1)
       const registrantData = await ProducerUser.findOne({ name: username1 });
+
       if (userData) {
         return res.json({
           success: false,
@@ -54,7 +97,7 @@ const createProducerUser =   async (req, res) => {
         await ProducerUser.create({
           registrant: req.body.registrant,
           name: req.body.name,
-          password: secured_password,
+          password: encryptedPassword,
           designation: req.body.designation,
         });
 
@@ -111,12 +154,10 @@ const ProducerLogIn =  async (req, res) => {
         });
       }
 
-      const pwdCompare = await bcrypt.compare(
-        req.body.password,
-        userData.password
-      );
+      const hashedPassword = hashPassword(req.body.password);
+      const decryptedPassword = decryptAES(userData.password);
 
-      if (!pwdCompare) {
+      if (hashedPassword !== decryptedPassword) {
         return res.status(400).json({
           success: false,
           message: "Try logging with correct password",
@@ -129,7 +170,7 @@ const ProducerLogIn =  async (req, res) => {
         },
       };
 
-      const authToken = jwt.sign(data, jwtSecret);
+      const authToken = jwt.sign(data, encryptionKey);
       let classification;
       switch (userData.designation) {
         case "Chief Engineer":
