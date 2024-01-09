@@ -26,7 +26,7 @@ const getTrasaction = async (req, res) => {
 
 const getAllTrasaction = async (req, res) => {
   try {
-    const transaction = await TransactionBills.find();
+    const transaction = await TransactionBills.find(req.body);
     res.json(transaction);
   } catch (error) {
     console.log(error);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import connectToMetaMask from "../hooks/MetaMaskConnection";
+import connectToMetaMask from "../hooks/MetaMaskConnection.js";
 
 function AddBattery() {
   const [tem, setTem] = useState("");
