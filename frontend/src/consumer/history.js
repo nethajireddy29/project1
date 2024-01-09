@@ -8,12 +8,12 @@ export default function ConsumerHistory(){
     async function send(id){
         try {
           // ... (your existing code for sending data to the server)
-          const response = await fetch('http://localhost:3001/api/getTransaction', {
+          const response = await fetch('/api/getAllTrasaction', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "id":id }),
+            body: JSON.stringify({ "microid":id }),
           });
     
           const responseData = await response.text(); // Await the response text
@@ -24,7 +24,7 @@ export default function ConsumerHistory(){
             // Handle errors, e.g., show an error message to the user
           }
         }
-    send("0426ELUZ7164");
+    send("0426ELUZ4984");
           return (
             <div>
               <p>hi</p>

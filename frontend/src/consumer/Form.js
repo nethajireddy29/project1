@@ -1,17 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 function Form(props) {
-  async function add(){
+  const navigate = useNavigate()
+  async function Add(){
     const cName = document.getElementById("cName").value;
     const cMMID = document.getElementById("cMMID").value;
 
     console.log(cName);
     console.log(cMMID);
-
   
     const k= await props.connect.addConsumer(cName,cMMID,0)
-    const data= await props.connect.address_Consumer("0x5c4813250dd228f7b94DFaeB315aEA66C66bBEA4")
-
-    console.log(data);
+    // const data= await props.connect.address_Consumer("0x5c4813250dd228f7b94DFaeB315aEA66C66bBEA4")
+    // console.log(data);
+    navigate("/consumer/AvailableMicrogrid")
     alert("SUCCESSFULLY ADDED");
   }
   let style = {
@@ -26,6 +27,7 @@ function Form(props) {
     width:"40%",
     borderRadius: "3%"
   }
+  
   let inputbox ={
     height: 40,
     width: "60%",
@@ -50,7 +52,7 @@ return (<>
     <h1> Consumer Form! </h1><br/>
     <input type= "text" id="cName" placeholder="Enter Your Name" style={inputbox}/><br/>
     <input type="text" id="cMMID" placeholder="Enter Your Micro Meter ID" style={inputbox}/><br/>
-    <button className="btn" style={myButton} onClick={add}> Add</button>
+    <button className="btn" style={myButton} onClick={Add}> Add</button>
   </div>
         </>
   );

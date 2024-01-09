@@ -23,7 +23,7 @@ function Microid() {
       console.log('Server response:', responseData);
 
       // Redirect to "/login" after successful data submission
-      navigate('/consumer/login');
+      navigate('/consumer/form');
     } catch (error) {
       console.error('Error sending data to the server:', error);
       // Handle errors, e.g., show an error message to the user
