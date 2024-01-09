@@ -8,13 +8,16 @@ export default function ConsumerHistory(){
     async function send(id){
         try {
           // ... (your existing code for sending data to the server)
+
           const response = await fetch('/api/getAllTransaction', {
+
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ "microid":id }),
-          });     
+
+          });
     
           const responseData = await response.json(); // Await the response text
           console.log('Server response:',responseData);
@@ -25,6 +28,7 @@ export default function ConsumerHistory(){
             // Handle errors, e.g., show an error message to the user
           }
         }
+
     send(localStorage.getItem("micrometerid"));
     return (
       <>
@@ -38,6 +42,7 @@ export default function ConsumerHistory(){
               <p> Micro Meter ID : {item["microid"]} </p>
               <p> Balance : {item["units"]} </p>
               <p> Energy Balance : {item["amount"]} </p>
+
             </div>
           </div>
         ))}
