@@ -42,7 +42,9 @@ router.post("/loginConsumer", loginConsumer);
 // TransactionBills all CRUD Operations
 router.post("/createTransactionBills", addTransaction);
 router.post("/getTransaction", getTrasaction);
-router.post("/getAllTrasaction", getAllTrasaction);
+
+router.post("/getAllTransaction", getAllTrasaction);
+
 // router.post('/removeTransaction',removeTransaction);
 // router.post('/removeAllTransactions',removeAllTransaction);
 
