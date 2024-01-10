@@ -213,7 +213,7 @@ function ConsumerLogin(){
             localStorage.setItem("consumerAuthToken", responseData.consumerAuthToken);
 
             localStorage.setItem("authToken", responseData.authToken);
-            localStorage.setItem("micrometerid",inputValue);
+            localStorage.setItem("micrometerid",encrypted_inputValue);
 
 
             history('/consumer/home');
