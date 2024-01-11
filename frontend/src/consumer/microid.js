@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'; // Import useHistory from react-
 import { Buffer } from "buffer";
 import CryptoJS from "crypto-js";
 
-const encryptionKey =
-  "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
+const encryptionKey = "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
 
 // Ensure the key is 32 bytes long
 if (Buffer.from(encryptionKey, "hex").length !== 32) {

@@ -6,12 +6,8 @@ const flatted = require('flatted');
 
 function AvailableMicrogrid(props) {
   const navigate = useNavigate()
-//   const [tem, setTem] = useState("");
   const [microGridData, setMicroGridData] = useState(null);
-//   async function connect() {
-//     const { sendDataContract } = await ConnectToMetaMask();
-//     setTem(sendDataContract);
-//   }
+
   const addConsumerToMicroGrid = (id) => {
     const data1 = props.connect.addConsumerToMicroGrid(id);
     navigate("/consumer/login")
@@ -30,6 +26,7 @@ function AvailableMicrogrid(props) {
           }
         );
         const data = await response.json();
+        console.log(microGridData)
         setMicroGridData(data);
       } catch (err) {
         console.log("Something went wrong error: ", err);
@@ -131,8 +128,8 @@ function AvailableMicrogrid(props) {
 
   return (
     <div>
-      {microGridData === null ? (
-        <p>No Microgrids are available. Be the first person to create a microgrid!</p>
+      {(microGridData===null || Object.keys(microGridData).length===0)? (
+        <p>Sorry Microgrid are not Available  !</p>
       ) : (
           <div class="microgrid-card-details"  >
             {/* <button onClick={connect}>Connect</button> */}

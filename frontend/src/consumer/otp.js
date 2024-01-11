@@ -40,7 +40,7 @@ const ConsumerOtp = () => {
     let inputValue = document.getElementById("otpNumber").value;
     if (message === inputValue){
         console.log("Yes, It's correct");
-        navigate("/consumer/microid");
+        setPath("/consumer/microid");
 
     }
     else{
