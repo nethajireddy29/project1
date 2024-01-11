@@ -3,6 +3,8 @@ import connectToMetaMask from "../hooks/MetaMaskConnection";
 import { useNavigate } from "react-router-dom";
 
 function AddProducer() {
+
+  const [redirect, setRedirect] = useState(false); 
   const [tem, setTem] = useState("");
   const navigate = useNavigate()
   async function connect() {
@@ -13,9 +15,15 @@ function AddProducer() {
   async function addProducer() {
     let uniqueID = document.getElementById("uniqueID").value;
     let name = document.getElementById("name").value;
-    const data = tem.addProducer(name, Number(uniqueID))
-    navigate("/JoinOrCreateMicroGrid")
+    const data = await tem.addProducer(name, Number(uniqueID))
+    setRedirect(true); // Set redirection to true after MetaMask action is confirmed
+  }
 
+  // ... (rest of your code remains unchanged)
+
+  // Redirect to the specified page when redirect is true
+  if (redirect) {
+    navigate("/JoinOrCreateMicroGrid");
   }
 
   let style = {

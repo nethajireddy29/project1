@@ -14,7 +14,7 @@ function AvailableMicrogrid() {
   }
   const addProducerToThisMicrogrid = (id) => {
     // e.preventDefault();
-
+    console.log("data",tem)
     const data1 = tem.addProducerToMicroGrid(id);
     // console.log(e.microgridKey,typeof())
     navigate("/ProducerLogin")
