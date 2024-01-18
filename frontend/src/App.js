@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ConnectToMetaMask from "./hooks/MetaMaskConnection.js";
+import Base from "./base.js"
+//consumer Imports
 import {ConsumerAuthentication,ConsumerLogin} from "./consumer/authentication.js";
 import ConsumerFaceAuthentication from "./consumer/registration.js";
 import ConsumerOtp from "./consumer/otp.js";
@@ -28,6 +30,15 @@ import JoinOrCreateMicroGrid from "./pages/JoinOrCreateMicroGrid.js";
 import Test from "./components/Test.js"
 import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
 
+//prosumer Imports
+import ProsumerLogin from "./prosumer/login.js";
+import ProsumerHome from "./prosumer/home.js";
+import ProsumerContracts from "./prosumer/contracts.js";
+import ProsumerForm from "./prosumer/form.js";
+import ProsumerHelp from "./prosumer/help.js";
+import ProsumerHistory from "./prosumer/history.js";
+import ProsumerNavbar from "./prosumer/navbar.js"
+
 // import { VariableProvider } from './Context/metaContext.js';
 
 export default function App() {
@@ -35,7 +46,7 @@ export default function App() {
   const [sendContract, setSendContract] = useState("");
   const [metaMaskAddress, setMetaMaskAddress] = useState("");
 
-  const producerAuthentic=IsAuthenticated("producerAuthToken")
+  //const producerAuthentic=IsAuthenticated("producerAuthToken")
   const consumerAuthentic=IsAuthenticated("consumerAuthToken")
   useEffect(() => {
     async function fetchData() {
@@ -63,11 +74,14 @@ export default function App() {
   return (
     <Router>
       <div>
-        {producerAuthentic?<ProducerNavbar connect = {sendContract} />:<></>}
+        {/*producerAuthentic?<ProducerNavbar connect = {sendContract} />:<></>*/}
         {consumerAuthentic?<ConsumerNavbar/>:<></>}
       =
         <Routes>
-          <Route path="/" element={<ConsumerAuthentication />} />
+          <Route path="/" element={<Base />} />
+
+
+          <Route path="/consumer" element={<ConsumerAuthentication />} />
           <Route path="/consumer/registration" element={<ConsumerFaceAuthentication />} />
           <Route path="/consumer/otp" element={<ConsumerOtp />} />
           <Route path="/consumer/microid" element={<ConsumerMicroid />} />
@@ -88,11 +102,16 @@ export default function App() {
           <Route path="/AddLoad" element={<AddLoad   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
           <Route path="/AddGreenEnergy" element={<AddGreenEnergy   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
           <Route path="/AddGrid" element={<AddGrid   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
-
           <Route path="/JoinOrCreateMicroGrid" element={<JoinOrCreateMicroGrid  getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress}/>}/>
           <Route path="/ShowMicroGrid" element={<AvailableMicrogrid   />} />
           <Route path="/test" element={<Test  getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress}   />} />
-
+          {/*ProsumerRoutes*/}
+          <Route path="/prosumer" element={<ProsumerLogin />} />
+          <Route path="/prosumer/home" element={<ProsumerHome />} />
+          <Route path="/prosumer/form" element={<ProsumerForm connect={sendContract} />} />
+          <Route path="/prosumer/contracts" element={<ProsumerContracts connect={sendContract}  metaMaskAddress= {metaMaskAddress}/>} />
+          <Route path="/prosumer/help" element={<ProsumerHelp />} />
+          <Route path="/prosumer/history" element={<ProsumerHistory />} />
         </Routes>
  
       </div>

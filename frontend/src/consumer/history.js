@@ -1,4 +1,4 @@
-import React from "react";
+import{ React ,useState}from "react";
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faMagnifyingGlass, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 // import { Link } from "react";
@@ -32,12 +32,14 @@ export default function ConsumerHistory(){
         <h1>Consumers List!</h1>
         {Dictionary.map((item, outerIndex) => (
           <div key={outerIndex}>
-            <div className="shadow" style={{ backgroundColor: "#DDF2FD", height: "30vh", width: "18vw", margin: "3%", marginRight: 0, padding: "2%", borderRadius: "10px" }}>
+            <div className="shadow" style={{ backgroundColor: "#DDF2FD", margin: "3%", marginRight: 0, padding: "2%", borderRadius: "10px" }}>
                
               <p> Name : {item["name"]} </p>
               <p> Micro Meter ID : {item["microid"]} </p>
               <p> Balance : {item["units"]} </p>
-              <p> Energy Balance : {item["amount"]} </p>
+              <p> FromBattery : {item["fromBattery"]} </p>
+              <p> FromGreenEnergy : {item["fromGE"]} </p>
+              <p> FromGrid : {item["fromGrid"]} </p>
             </div>
           </div>
         ))}

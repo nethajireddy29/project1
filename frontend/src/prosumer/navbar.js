@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import React from "react";
 
 
-export default function ConsumerNavbar(){
+export default function ProsumerNavbar(){
   let img={
     height:"15%",
     width:"15%",
@@ -24,16 +24,16 @@ export default function ConsumerNavbar(){
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <Link className="nav-link" aria-current="page" to="/consumer/home">Home</Link>
+          <Link className="nav-link" aria-current="page" to="/prosumer/home">Home</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/consumer/plans">Buy Plans</Link>
+          <Link className="nav-link" to="/prosumer/contracts">Buy Plans</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/consumer/history" >Transaction History</Link>
+          <Link className="nav-link" to="/prosumer/history">Help</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/consumer/help">Help</Link>
+          <Link className="nav-link" to="/prosumer/help">Help</Link>
         </li>
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,7 +52,7 @@ export default function ConsumerNavbar(){
 </div>
 </div>
     </>
-  );
+  )
 }
 
 
