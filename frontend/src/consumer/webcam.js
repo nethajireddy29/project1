@@ -87,33 +87,83 @@ import React, { useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import { useNavigate } from 'react-router-dom';
 
-let button = {
-  backgroundColor : '#545454',
-  border: 'none',
-  color: 'white',
-  fontFamily: 'Roboto',
-  fontSize: '30px',
-  padding: '10px 40px 10px 40px',
-  margin: '30px 32.25% 0 32.25%'
-}
+const CapturePhotoButton = (text, click) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const buttonStyles = {
+    alignItems: 'center',
+    backgroundImage: 'linear-gradient(144deg, #02ffff, #005b60 50%, #00DDEB)',
+    border: '0',
+    borderRadius: '10px',
+    boxSizing: 'border-box',
+    color: '#FFFFFF',
+    display: 'flex',
+    fontSize: 'large',
+    justifyContent: 'center',
+    lineHeight: '1em',
+    maxWidth: '100%',
+    minWidth: '140px',
+    padding: '3px',
+    textDecoration: 'none',
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
+    touchAction: 'manipulation',
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
+    transition: 'all .3s',
+    background:  'linear-gradient(144deg, #02ffff, #005b60 50%, #00DDEB)',
+    outline: '0',
+    transform: isHovered ? 'scale(0.99)' : 'scale(1)',
+  };
 
-let margin = {
-  margin: '30px 36.75% 0 36.75%'
+  const spanStyles = {
+    background: isHovered ? 'linear-gradient(144deg, #02ffff, #005056, #005b60 50%, #00DDEB)': '#001317',
+    padding: '16px 24px',
+    borderRadius: '6px',
+    width: '100%',
+    height: '100%',
+    transition: '300ms',
+  };
+
+  const handleHover = () => {
+    setIsHovered(true);
+  };
+
+  const handleLeave = () => {
+    setIsHovered(false);
+  };
+  return (
+    <button
+      style={buttonStyles}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleLeave}
+      onClick={click}
+    >
+      <span style={spanStyles} className="text">
+        {text}
+      </span>
+    </button>
+  );
+};
+
+export {CapturePhotoButton};
+let flexcolumn = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignContent: 'center'
 }
 
 let authdiv2 = {
-  height: '70vh',
-  width: '50vw',
-  backgroundColor: '#9bbec8'
+  height: '65vh',
 }
-
-let p={
-  textAlign: 'center',
-  height: '50px',
-  backgroundColor: '#9bbec8',
-  padding: '0 40px 0 40px',
-  fontSize: '25px',
-  fontFamily: 'Roboto'
+let divwebcam={
+  alignItems:'center', 
+  gap: '2rem', 
+  backgroundColor: '#001317', 
+  boxShadow: '0 0 4px #02ffff',
+  margin: '0 2rem 0 2rem',
+  padding: '2rem 2rem 2rem 2rem',
+  borderRadius: '20px'
 }
 
 function ShowImage({ webRef,aadharnumber,navigate}) {
@@ -156,13 +206,12 @@ function ShowImage({ webRef,aadharnumber,navigate}) {
 
   return (
     <div>
-
       {showWebcam ? (
         <>
-          <div>
+          <div style={{...flexcolumn, ...divwebcam}}>
             <Webcam style={{float: 'left',...authdiv2}} ref={webRef} />
-            <button style={button} onClick={captureImage}>Capture Photo</button>
-            
+            {/* <button style={button} onClick={captureImage}>Capture Photo</button> */}
+            {CapturePhotoButton("Capture Photo", captureImage)}
           </div>
         </>
       ) : (
@@ -171,18 +220,22 @@ function ShowImage({ webRef,aadharnumber,navigate}) {
             <p>No image captured</p>
           ) : (
             <>
+            <div style={{...flexcolumn, ...divwebcam}}>
               <img style={{float: 'left',...authdiv2}} src={imageInBase64} alt="Captured" />
-              <button style={{...button,...margin}} className="button" onClick={sendDataToServer}>
+              {/* <button style={{...button}} className="button" onClick={sendDataToServer}>
                 Compare
-              </button>
+              </button> */}
+              {CapturePhotoButton("Compare Photo", sendDataToServer)}
+            </div>
+              
             </>
           )}
         </>
       )}
       <br />
-       {faceMatched === "True" ? (<button onClick={() => navigate('/consumer/otp')}>GET OTP</button> ): (
+       {/* {faceMatched === "True" ? (<button onClick={() => navigate('/otp')}>GET OTP</button> ): (
         <p>Invalid</p>
-      )} 
+      )}  */}
     </div>
   );
 }

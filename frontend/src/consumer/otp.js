@@ -81,61 +81,120 @@ export default ConsumerOtp;*/
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link ,useNavigate} from "react-router-dom";
+import myImage from "./3.jpg";
 
-let button = {
-  backgroundColor : '#164863',
-  border: 'none',
-  color: 'white',
-  fontFamily: 'Roboto',
-  fontSize: '25px',
-  padding: '10px 40px 10px 40px',
-  borderRadius: '25px',
-  textDecoration: 'none',
-  textAlign: 'center'
-}
 let flexrow = {
   display: 'flex',
   flexDirection: 'row',
   alignContent: 'center',
   justifyContent: 'center'
 }
+
 let flexcolumn = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignContent: 'center'
 }
-let authdiv2 = {
-  height: '100vh',
-  width: '45vw',
-  backgroundColor: '#9bbec8'
-}
+
 let authdiv3 ={
-  width: '48vw',
-  backgroundColor: '#DDF2FD',
+  width: '50vw',
   padding: '0 2.5vw 0 2.5vw'
 }
-let input = {
-  height: '70px',
-  border: 'none',
-  backgroundColor: '#9bbec8',
-  padding: '0 40px 0 40px',
-  fontSize: '25px',
-  marginRight: '10vw',
-  marginLeft: '10vw',
-  borderRadius: '10px'
+let div = {
+  height: '100vh',
+  width: '100vw',
+  background: `url(${myImage})`,
+  backgroundSize: "cover",
 }
+let input = {
+  width: '40vw',
+  height: '55px',
+  borderColor: '#02ffff',
+  borderWidth: '2px',
+  backgroundColor: 'rgb(0, 28, 32)',
+  padding: '0 50px 0 50px',
+  borderRadius: '5px',
+  fontSize: '20px',
+  color: '#02ffff',
+}
+let h1={
+  fontFamily: 'Poppins',
+  textAlign: 'center',
+  color: 'white',
+  fontSize: '3rem'
+}
+const RegisterButton = (text, Click) => {
+  const [buttonStyles, setButtonStyles] = useState({
+    border: 'none',
+    width: '200px',
+    height: '65px',
+    borderRadius: '40px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '12px',
+    background: '#005d63',
+    cursor: 'pointer',
+    transition: 'background 0.3s ease-in-out',
+  });
+  const [textStyles, setTextStyles] = useState({
+    fontWeight: '600',
+    color: 'white',
+    fontSize: 'x-large',
+  });
+  const handleHover = () => {
+    setButtonStyles((prevStyles) => ({
+      ...prevStyles,
+      background: 'linear-gradient(0deg, #02ffff, #005d63)',
+      transform: 'translateY(-2px)',
+    }));
+    setTextStyles((prevStyles) => ({
+      ...prevStyles,
+      color: 'white',
+    }));
+  };
+  const handleLeave = () => {
+    setButtonStyles((prevStyles) => ({
+      ...prevStyles,
+      background: '#005d63',
+      transform: 'translateY(0)',
+    }));
+    setTextStyles((prevStyles) => ({
+      ...prevStyles,
+      color: 'white', // Set the original color here
+    }));
+  };
+    return <button className="btn btn-success" onClick={Click} style={buttonStyles} onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+    <span className="text" style={textStyles}>{text}</span>
+  </button>
+  }
+/*let h1={
+  fontFamily: 'Poppins',
+  textAlign: 'center',
+  fontSize: '1.5rem',
+  width: '45vw',
+  marginBottom: '0',
+  marginRight: '1.75vw',
+  marginLeft: '1.75vw'
+  /*paddingLeft: '2.5vw',
+  paddingRight: '2.5vw'
+}*/
+
 let item1= {
   margin: '10px 15px 10px 15px'
 }
+
 let resend = {
   borderColor: '#164863',
   borderRadius: '5px',
   backgroundColor: '#9bbec8',
   fontFamily: 'Roboto',
   color: '#164863',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  marginRight: '20px'
 }
+
 
 
 const Otp = () => {
@@ -194,25 +253,25 @@ const Otp = () => {
   }
 
   return (
-    <div className="conatiner" style={flexrow}>
-      <div style={{float: 'left',...authdiv2, ...flexcolumn}}></div>
-      <div style={{...flexcolumn, ...authdiv3, float:'right'}}>
-        <div style={{...flexcolumn, height:'500px'}}>
+    <div className="conatiner" style={{...flexrow, ...div}}>
+      <div style={{...flexcolumn, ...authdiv3}}></div>
+      <h1 style={{...h1}}>Confirm OTP!</h1>
+        <div style={{...flexcolumn, height:'400px', alignItems:'center'}}>
 
           <label htmlFor="otpNumber"></label>
             <input style={{...item1, ...input}} type="text" id="mobileNumber" className="m-3" placeholder='Enter Mobile Number'/>
 
           <label htmlFor="otpNumber"></label>
             <input style={{...item1, ...input}} type="text" id="otpNumber" className="m-3" placeholder='Enter OTP'/>
-          <div style={{...flexrow, justifyContent: 'flex-end', padding: '0 70px 20px 70px'}}>
+          <div style={{...flexrow, width: '40vw', justifyContent: 'flex-end'}}>
             <button style={resend} onClick={handleSendSMS} className='m-3 btn btn-primary'>{buttonText}</button>
           </div>
-          <div style={{...flexrow, ...item1}}><Link style={{...button}} className="btn btn-success" onClick={handleOnSubmit}> Submit </Link></div>
+          {/* <div style={{...flexrow, ...item1}}><Link style={{...button}} className="btn btn-success" onClick={handleOnSubmit}> Submit </Link></div> */}
+          {RegisterButton("Submit", handleOnSubmit)}
           <p> {text}</p>
       </div>
       </div>
       
-    </div>
   );
 };
 
