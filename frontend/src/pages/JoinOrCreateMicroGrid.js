@@ -7,7 +7,10 @@ function JoinOrCreateMicroGrid() {
   return (
     <div>
       <h1>Join</h1>
-      <Link to = "/ProducerLogin" className = "removeDash">
+
+      <Link to = "/ProducerLogin" className = "removeDash"> </Link>
+      <Link  className = "removeDash">
+
         <AvailableMicrogrid />
       </Link>
 

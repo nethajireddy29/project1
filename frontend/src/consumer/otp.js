@@ -1,9 +1,9 @@
 /*import React, { useState } from 'react';
 import axios from 'axios';
 //import { useNavigate } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const ConsumerOtp = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   //const [phoneNumber, setPhoneNumber] = useState('+919346512861');
   const message = Math.floor(Math.random() * 900000).toString();
   console.log(message)
@@ -50,7 +50,6 @@ const ConsumerOtp = () => {
         setTimeout(()=>{
             setText("");
          },3000);
-        
     }
   }
 

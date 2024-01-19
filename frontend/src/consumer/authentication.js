@@ -58,7 +58,29 @@ function ConsumerLogin(){
 export {ConsumerAuthentication,ConsumerLogin}*/
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Buffer } from "buffer";
+import CryptoJS from "crypto-js";
 
+const encryptionKey =
+  "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
+
+// Ensure the key is 32 bytes long
+if (Buffer.from(encryptionKey, "hex").length !== 32) {
+  console.error("Invalid key length. Please use a 32-byte key for AES-256.");
+  process.exit(1); // Exit the program due to an error
+}
+
+function encryptAES(text) {
+  const encrypted = CryptoJS.AES.encrypt(text, encryptionKey).toString();
+  return encrypted;
+}
+
+function decryptAES(encryptedText) {
+  const decrypted = CryptoJS.AES.decrypt(encryptedText, encryptionKey).toString(
+    CryptoJS.enc.Utf8
+  );
+  return decrypted;
+}
 let button = {
   backgroundColor : '#164863',
   border: 'none',
@@ -173,12 +195,13 @@ function ConsumerLogin(){
         console.log(typeof(inputValue))
         try {
           // ... (your existing code for sending data to the server)
+          const encrypted_inputValue = encryptAES(inputValue);
           const response = await fetch('/api/loginConsumer', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "id": inputValue }),
+            body: JSON.stringify({ "id": encrypted_inputValue }),
           });
     
           const responseData = await response.json(); // Await the response text
@@ -190,7 +213,7 @@ function ConsumerLogin(){
             localStorage.setItem("consumerAuthToken", responseData.consumerAuthToken);
 
             localStorage.setItem("authToken", responseData.authToken);
-            localStorage.setItem("micrometerid",inputValue);
+            localStorage.setItem("micrometerid",encrypted_inputValue);
 
 
             history('/consumer/home');

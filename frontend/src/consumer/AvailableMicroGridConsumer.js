@@ -4,20 +4,13 @@ import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 const flatted = require('flatted');
 
-function AvailableMicrogrid() {
+function AvailableMicrogrid(props) {
   const navigate = useNavigate()
-  const [tem, setTem] = useState("");
   const [microGridData, setMicroGridData] = useState(null);
-  async function connect() {
-    const { sendDataContract } = await ConnectToMetaMask();
-    setTem(sendDataContract);
-  }
-  const addProducerToThisMicrogrid = (id) => {
-    // e.preventDefault();
-    console.log("data",tem)
-    const data1 = tem.addProducerToMicroGrid(id);
-    // console.log(e.microgridKey,typeof())
-    navigate("/ProducerLogin")
+
+  const addConsumerToMicroGrid = (id) => {
+    const data1 = props.connect.addConsumerToMicroGrid(id);
+    navigate("/consumer/login")
 
   }
   useEffect(() => {
@@ -33,6 +26,7 @@ function AvailableMicrogrid() {
           }
         );
         const data = await response.json();
+        console.log(microGridData)
         setMicroGridData(data);
       } catch (err) {
         console.log("Something went wrong error: ", err);
@@ -134,12 +128,13 @@ function AvailableMicrogrid() {
 
   return (
     <div>
-      {microGridData === null ? (
-        <p>No Microgrids are available. Be the first person to create a microgrid!</p>
+      {(microGridData===null || Object.keys(microGridData).length===0)? (
+        <p>Sorry Microgrid are not Available  !</p>
       ) : (
-        <div class="microgrid-card-details"  >
+          <div class="microgrid-card-details"  >
+            {/* <button onClick={connect}>Connect</button> */}
           {Object.entries(microGridData).map(([microgridKey, microgridValue]) => (
-            <div onClick={() => addProducerToThisMicrogrid(microgridKey)} className="micro-grid">
+            <div onClick={() => addConsumerToMicroGrid(microgridKey)} className="micro-grid">
               <Card key={microgridKey} style={{ width: '18rem', marginBottom: '20px' }}>
                 <Card.Body>
                   <Card.Title>Microgrid: {microgridKey}</Card.Title>
@@ -152,7 +147,6 @@ function AvailableMicrogrid() {
               </Card>
             </div>
           ))}
-          <button onClick={connect}>Connect</button>
         </div>
       )}
     </div>
