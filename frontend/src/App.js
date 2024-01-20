@@ -12,7 +12,6 @@ import ConsumerPlans from "./consumer/plans.js";
 import ConsumerHistory from "./consumer/history.js";
 import Form from "./consumer/Form.js";
 import AddConsumer from "./components/AddConsumer.js";
-import ConsumerNavbar from "./consumer/navbar.js";
 import IsAuthenticated from "./hooks/IsAuthenticated.js";
 import AvailableMicroGridConsumer from "./consumer/AvailableMicroGridConsumer.js";
 
@@ -32,13 +31,16 @@ import Test from "./components/Test.js"
 import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
 
 //prosumer Imports
+import ProsumerSignup from "./prosumer/signup.js";
+import ProsumerSetPassword  from "./prosumer/setpassword.js";
+import ProsumerOtm from "./prosumer/otm.js";
 import ProsumerLogin from "./prosumer/login.js";
 import ProsumerHome from "./prosumer/home.js";
 import ProsumerContracts from "./prosumer/contracts.js";
-import ProsumerForm from "./prosumer/form.js";
 import ProsumerHelp from "./prosumer/help.js";
 import ProsumerHistory from "./prosumer/history.js";
-import ProsumerNavbar from "./prosumer/navbar.js"
+import ProsumerAuthentication from "./prosumer/authentication.js";
+
 
 // import { VariableProvider } from './Context/metaContext.js';
 
@@ -120,12 +122,17 @@ export default function App() {
           <Route path="/ShowMicroGrid" element={<AvailableMicrogrid   />} />
           <Route path="/test" element={<Test  getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress}   />} />
           {/*ProsumerRoutes*/}
-          <Route path="/prosumer" element={<ProsumerLogin />} />
+          <Route path="/prosumer" element={<ProsumerAuthentication />} />
+          <Route path="/prosumer/signup" element={<ProsumerSignup />} />
+          <Route path="/prosumer/otm" element={<ProsumerOtm />} />
+          <Route path="/prosumer/setpassword" element={<ProsumerSetPassword />} />
+          <Route path="/prosumer/login" element={<ProsumerLogin />} />
           <Route path="/prosumer/home" element={<ProsumerHome />} />
-          <Route path="/prosumer/form" element={<ProsumerForm connect={sendContract} />} />
           <Route path="/prosumer/contracts" element={<ProsumerContracts connect={sendContract}  metaMaskAddress= {metaMaskAddress}/>} />
           <Route path="/prosumer/help" element={<ProsumerHelp />} />
           <Route path="/prosumer/history" element={<ProsumerHistory />} />
+          
+          
         </Routes>
  
       </div>

@@ -1,10 +1,10 @@
 import React from "react";
-// import ConsumerNavbar from "./navbar.js";
+import ProsumerNavbar from "./navbar.js";
 
 export default function ProsumerHome(){
     return(
         <>
-        {/* <ConsumerNavbar/> */}
+        <ProsumerNavbar/>
         <div style={{backgroundColor:"#9BBEC8", height:"100vh"}}>
             
             <p>HOME</p>

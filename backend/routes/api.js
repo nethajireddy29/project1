@@ -1,4 +1,5 @@
 const express = require("express");
+const {addPlan,getPlan,getAllPlans} = require("../controllers/plans-controllers.js")
 const {
   addConsumer,
   getConsumer,
@@ -101,5 +102,11 @@ router.post(
   ],
   createProducerUser
 );
+
+
+
+router.post("/addPlan",addPlan);
+router.post("/getPlan",getPlan);
+router.post("/getAllPlans",getAllPlans);
 router.use("/simulation",Simulation)
 module.exports = router;
