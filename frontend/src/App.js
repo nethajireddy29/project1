@@ -76,7 +76,6 @@ export default function App() {
     <Router>
       <div>
         {/*producerAuthentic?<ProducerNavbar connect = {sendContract} />:<></>*/}
-        {consumerAuthentic?<ConsumerNavbar/>:<></>}
       
         <Routes>
           <Route path="/" element={<Base />} />

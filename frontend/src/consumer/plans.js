@@ -133,12 +133,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faMagnifyingGlass,
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ConsumerNavbar from "./navbar.js";
+import ConsumerNavbar from "./navbar";
 
 export default function ConsumerPlans(props) {
   let img={
@@ -283,7 +282,6 @@ export default function ConsumerPlans(props) {
 
   return (
     <>
-      <ConsumerNavbar />
       <div
         style={{
           height: "91vh",
@@ -292,6 +290,7 @@ export default function ConsumerPlans(props) {
           backgroundColor: '#010c0e'
         }}
       >
+        <ConsumerNavbar/>
         <div style={{ padding: 10 }}>
           <form className="d-flex">
             <input

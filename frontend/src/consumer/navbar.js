@@ -41,7 +41,7 @@ export default function ConsumerNavbar() {
 
   return (
     <>
-      <div>
+      <div style={{width:'100vw'}}>
         <div className="header">
           <nav
             className="navbar navbar-expand-lg navbar-light"
