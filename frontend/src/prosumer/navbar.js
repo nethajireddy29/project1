@@ -85,9 +85,18 @@ export default function ProsumerNavbar() {
                     <Link
                       className="nav-link"
                       style={navLink}
-                      to="/prosumer/contracts"
+                      to="/prosumer/mycontracts"
                     >
-                      Buy Plans
+                      MyContracts
+                    </Link>
+                  </li>
+                  <li className="nav-item" style={{ ...navItem }}>
+                    <Link
+                      className="nav-link"
+                      style={navLink}
+                      to="/prosumer/allplans"
+                    >
+                     AllPlans
                     </Link>
                   </li>
                   <li className="nav-item" style={navItem}>
@@ -96,7 +105,7 @@ export default function ProsumerNavbar() {
                       style={navLink}
                       to="/prosumer/history"
                     >
-                      Transaction History
+                      History
                     </Link>
                   </li>
                   <li className="nav-item" style={navItem}>

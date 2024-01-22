@@ -8,6 +8,7 @@ export default function ProsumerHome(){
         <div style={{backgroundColor:"#9BBEC8", height:"100vh"}}>
             
             <p>HOME</p>
+            <a href = "/prosumer/createcontract">create</a>
         </div>
         </>
     )

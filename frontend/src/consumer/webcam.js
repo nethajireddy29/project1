@@ -196,8 +196,9 @@ function ShowImage({ webRef,aadharnumber,navigate}) {
       console.log('Server response:', responseData);
 
       // Assuming there's a variable in the server response indicating face match status
-      const isFaceMatched = responseData === "True";
-      setFaceMatched(isFaceMatched ? "True" : "False");
+      if (responseData === "True"){
+        navigate("/consumer/otp")
+      }
     } catch (error) {
       console.error('Error sending data to server:', error);
       // Handle errors, e.g., show an error message to the user

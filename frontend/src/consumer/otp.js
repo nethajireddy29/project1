@@ -210,14 +210,17 @@ const Otp = () => {
     try {
       setButtonText("Resend OTP");
       // Replace with your Twilio Account SID, Auth Token, and Twilio phone number
-      const accountSid = 'AC1bccfed0756711b04099070150496740';
-      const authToken = '1a81cd4481eb179f989ff94fb9992399';
+      const accountSid = "AC08cfe458768b236e7cd0639698669edd";
+      const authToken = "fcfdb2bf0f09401ae298b598672ca273";
+
+
+
       //async ()=>{setPhoneNumber(await document.getElementById("mobileNumber"));}
       console.log(document.getElementById("mobileNumber").value)
       const response = await axios.post(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
         {
           To:document.getElementById("mobileNumber").value,
-          From:'+15674557713',
+          From:'+12029525061',
           Body: message,
         },
         {
@@ -236,20 +239,21 @@ const Otp = () => {
   };
   const handleOnSubmit = () =>{
     let inputValue = document.getElementById("otpNumber").value;
-    if (message === inputValue){
+    console.log("hi")
+   if (message === inputValue){
         console.log("Yes, It's correct");
         navigate("consumer/sucess");
 
-    }
-    else{
-        console.log("Wrong otp");
-        navigate("consumer/otp");
+   }
+   else{
+       console.log("Wrong otp");
+       navigate("/consumer/otp");
         setText("Incorrect OTP. Please Try Again");
         setTimeout(()=>{
-            setText("");
-         },3000);
+           setText("");
+        },3000);
         
-    }
+     }
   }
 
   return (

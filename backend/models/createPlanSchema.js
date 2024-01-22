@@ -4,7 +4,10 @@ const planSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  
+  microGridId:{
+    type:Number,
+    required: true,
+  },
   units:{
     type:Number,
     required: true,
