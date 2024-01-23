@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 // import ConsumerNavbar from "./navbar.js";
 import { ethers } from 'ethers';
 export default function ConsumerPlans(props) {
+    const [plans,setPlans] = useState([]);
     let buyButton = {
         backgroundColor: "#A6A6A6",
         fontSize: "15px",
@@ -49,16 +50,18 @@ export default function ConsumerPlans(props) {
         }
     };
 
-    async function purchaseEnergy(value) {
+    async function purchaseEnergy(microGridId,value) {
         // console.log(props)
-
-        const producers = await props.connect.showAllProducers(0);
+        try{
+        const producers = await props.connect.showAllProducers(microGridId);
+        const prosumers = await props.connect.showAllProsumer(microGridId);
         const bigValue = ethers.BigNumber.from(value.toString());
         const multiplier = ethers.BigNumber.from("4334633723450368");
         const amount = bigValue.mul(multiplier);
         //   const ans = await props.connect.purchaseEnergy(producers[0], { value: amount });
         // const amount = value*4334633723450368;
-        const ans = await props.connect.purchaseEnergy(producers[0], { "value": amount });
+        
+        const ans = await props.connect.purchaseEnergy_to_Prosumer(producers[0],prosumers[0], { "value": amount });
         // console.log(props)
         const view = await props.connect.address_Consumer(props.metaMaskAddress)
         console.log("microid", 1)
@@ -66,10 +69,39 @@ export default function ConsumerPlans(props) {
         console.log(view[3].toNumber())
         sendDataToServer(view[0], view[1], value, amount );
         // sendDataToServer("rama","0426ELUZ7164",12,23);
+        }catch(err){
+            console.log(err)
+        }
     }
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch("/api/getAllPlans", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({})
+            });
+      
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+      
+            const data = await response.json(); // await the promise resolution
+            console.log("Data from server:", data);
+            setPlans(data); // assuming 'data' is the array of plans
+          } catch (error) {
+            console.error("Error fetching plans:", error);
+            // Handle errors, e.g., show an error message to the user
+          }
+        };
+      
+        fetchData();
+      }, []);
+      
     return (
         <>
             {/* <ConsumerNavbar/> */}
+
             <div style={{ backgroundColor: "#9BBEC8", height: "100%", padding: "3%", paddingTop: "0.9%" }}>
                 <div style={{ padding: 10 }}>
                     <form className="d-flex">
@@ -81,12 +113,23 @@ export default function ConsumerPlans(props) {
                     </form>
                 </div>
                 <div className="d-flex flex-row">
-                    <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-                        <img src="" alt="" />
-                        <h1>100</h1>
-                        <button style={buyButton} onClick={() => { purchaseEnergy(100) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
-                    </div>
-                    <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
+
+
+<div style={{ backgroundColor: "#9BBEC8", height: "100%", padding: "3%", paddingTop: "0.9%" }}>
+        {/* ... your search and cart code ... */}
+        <div className="d-flex flex-row">
+          {plans.map((plan, index) => (
+            <div key={index} style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
+              <img src="" alt="" />
+              <h1>{plan.units}</h1>
+              <button style={buyButton} onClick={() => { purchaseEnergy(plan.microGridId,plan.units) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+                    
+                    {/* <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
                         <img src="" alt="" />
                         <h1>200</h1>
                         <button style={buyButton} onClick={() => { purchaseEnergy(200) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
@@ -122,7 +165,7 @@ export default function ConsumerPlans(props) {
                         <img src="" alt="" />
                         <h1>777</h1>
                         <button style={buyButton} onClick={() => { purchaseEnergy(103) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>

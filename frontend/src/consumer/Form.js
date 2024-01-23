@@ -1,5 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import myImage from "./3.jpg";
+import RegisterButton from "./authentication";
+
 function Form(props) {
   const navigate = useNavigate()
   async function Add(){
@@ -15,46 +18,74 @@ function Form(props) {
     navigate("/consumer/AvailableMicrogrid")
     alert("SUCCESSFULLY ADDED");
   }
-  let style = {
-    backgroundColor: "#DAFFFB",
-    color: "black",
-    fontSize: 20,
-    textAlign: "center",
-    padding: "2%",
-    marginTop: "3%",
-    marginLeft: "30%",
-    heigth: "70%",
-    width:"40%",
-    borderRadius: "3%"
-  }
+  // let style = {
+  //   backgroundColor: "#DAFFFB",
+  //   color: "black",
+  //   fontSize: 20,
+  //   textAlign: "center",
+  //   padding: "2%",
+  //   marginTop: "3%",
+  //   marginLeft: "30%",
+  //   height: "70%",
+  //   width:"40%",
+  //   borderRadius: "3%"
+  // }
   
   let inputbox ={
-    height: 40,
-    width: "60%",
-    borderRadius: 20,
-    backgroundColor: "#9BBEC8",
-    margin: 5,
-    borderWidth: 0,
-    textAlign: "center",
-    fontSize: 15,
-    marginBottom: 8
+    width: '40vw',
+    height: '55px',
+    borderColor: '#02ffff',
+    borderWidth: '2px',
+    backgroundColor: 'rgb(0, 28, 32)',
+    padding: '0 50px 0 50px',
+    borderRadius: '5px',
+    fontSize: '20px',
+    color: '#02ffff',
   }
-  let myButton = {
-    backgroundColor: "#164863",
-    color:"#ffffff",
-    height: "20%",
-    width: "30%",
-    borderRadius: 20,
-    padding: "2%"
+  // let myButton = {
+  //   backgroundColor: "#164863",
+  //   color:"#ffffff",
+  //   height: "20%",
+  //   width: "30%",
+  //   borderRadius: '20px',
+  //   padding: "2%"
+  // }
+
+  let div = {
+    height: '100vh',
+    width: '100vw',
+    background: `url(${myImage})`,
+    backgroundSize: "cover",
   }
-return (<>
-  <div className ="welcomeContainer shadow" style={style}>
-    <h1> Consumer Form! </h1><br/>
+  let h1={
+    fontFamily: 'Poppins',
+    textAlign: 'center',
+    color: 'white',
+    fontSize: '3rem'
+  }
+  let flexrow = {
+    display: 'flex',
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center'
+  }
+  let flexcolumn = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+
+return (
+<div style={{...div,...flexrow}}>
+  <div style={{...flexcolumn, gap:'0.25rem'}}>
+    <h1 style={{...h1}}> Consumer Form! </h1><br/>
     <input type= "text" id="cName" placeholder="Enter Your Name" style={inputbox}/><br/>
     <input type="text" id="cMMID" placeholder="Enter Your Micro Meter ID" style={inputbox}/><br/>
-    <button className="btn" style={myButton} onClick={Add}> Add</button>
+    {RegisterButton("Confirm", Add)}
+    {/* <button className="btn" style={{}} onClick={Add}> Add</button> */}
   </div>
-        </>
+</div>
   );
 }
 

@@ -19,12 +19,18 @@ const {
   ProducerLogIn,
 } = require("../controllers/ProducerUserController.js");
 
-const { addFace, removeFace, removeAllFaces, getFace ,compareFace} = require("../controllers/AdharAuthentication-controller")
+const {
+  createProsumerUser,
+  ProsumerLogIn,
+} = require("../controllers/ProsumerUserController.js");
 
+const { addFace, removeFace, removeAllFaces, getFace ,compareFace} = require("../controllers/AdharAuthentication-controller")
+const {addPlan,getPlan,getAllPlans} = require("../controllers/plans_controllers.js")
+const {addGst,getGst,getAllGst}  = require("../controllers/getUser_controller.js")
 const { body, validationResult } = require("express-validator");
 const Simulation  = require("./simulation.js")
 const router = express.Router();
-
+ 
 
 
 
@@ -42,9 +48,7 @@ router.post("/loginConsumer", loginConsumer);
 // TransactionBills all CRUD Operations
 router.post("/createTransactionBills", addTransaction);
 router.post("/getTransaction", getTrasaction);
-
 router.post("/getAllTransaction", getAllTrasaction);
-
 // router.post('/removeTransaction',removeTransaction);
 // router.post('/removeAllTransactions',removeAllTransaction);
 
@@ -53,7 +57,24 @@ router.post("/getAllTransaction", getAllTrasaction);
 router.post('/aadharDatabase',compareFace);
 
 
-
+// Prosumer Function
+router.post(
+  "/ProsumerLogIn",
+  [
+    body("gst_number", "Incorrect GST Number").isLength({ min: 14 }),
+    body("password", "Incorrect Password").isLength({ min: 8 }),
+  ],
+  ProsumerLogIn
+);
+router.post(
+  "/createProsumerUser",
+  [
+    body("registrant", "Incorrect Registrant").isLength({ min: 5 }),
+    body("gst_number", "Incorrect GST Number").isLength({ min: 14 }),
+    body("password", "Incorrect Password").isLength({ min: 8 }),
+  ],
+  createProsumerUser
+);
 
 
 
@@ -101,5 +122,15 @@ router.post(
   ],
   createProducerUser
 );
+
+
+
+router.post("/addPlan",addPlan);
+router.post("/getPlan",getPlan);
+router.post("/getAllPlans",getAllPlans);
+
+router.post("/getGst",getGst)
+
+
 router.use("/simulation",Simulation)
 module.exports = router;
