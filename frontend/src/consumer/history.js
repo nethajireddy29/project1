@@ -1,6 +1,5 @@
 
 import{ React ,useState}from "react";
-import myImage from "../images/5.jpg";
 import CryptoJS from "crypto-js";
 import ConsumerNavbar from "./navbar";
 

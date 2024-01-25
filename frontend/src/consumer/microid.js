@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useHistory from react-router-dom
 import { Buffer } from "buffer";
 import CryptoJS from "crypto-js";
@@ -25,15 +25,6 @@ let h1login={
   color: 'white'
 }
 
-let button = {
-  backgroundColor : '#164863',
-  border: 'none',
-  color: 'white',
-  fontFamily: 'Roboto',
-  fontSize: '30px',
-  padding: '10px 40px 10px 40px',
-  borderRadius: '25px'
-}
 let p={
   fontFamily: 'Poppins',
   padding: '0 10px 0 10px',
@@ -78,16 +69,17 @@ function decryptAES(encryptedText) {
   return decrypted;
 }
 
+const message = Math.floor(Math.random() * 9000).toString();
 
 function Microid() {
   const navigate = useNavigate(); // Get the history object
-  const [micrometerid, setMicrometerid] = useState(() => {
-    const msg = Math.floor(Math.random() * 9000).toString();
-    return `0426ELUZ${msg}`;
-  });
+
+  const micrometerid =` 0426ELUZ${message}`;
   const encryptedId = encryptAES(micrometerid);
-  
+
   const sendDataToServer = async () => {
+    console.log(micrometerid)
+    console.log(encryptedId);
     try {
       // ... (your existing code for sending data to the server)
       const response = await fetch('/api/createConsumer', {
@@ -100,10 +92,9 @@ function Microid() {
 
       const responseData = await response.text(); // Await the response text
       console.log('Server response:', responseData);
-      alert(micrometerid)
 
       // Redirect to "/login" after successful data submission
-      navigate('/consumer/login');
+      navigate('/consumer/form');
     } catch (error) {
       console.error('Error sending data to the server:', error);
       // Handle errors, e.g., show an error message to the user

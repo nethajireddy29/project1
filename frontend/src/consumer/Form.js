@@ -18,18 +18,7 @@ function Form(props) {
     navigate("/consumer/AvailableMicrogrid")
     alert("SUCCESSFULLY ADDED");
   }
-  // let style = {
-  //   backgroundColor: "#DAFFFB",
-  //   color: "black",
-  //   fontSize: 20,
-  //   textAlign: "center",
-  //   padding: "2%",
-  //   marginTop: "3%",
-  //   marginLeft: "30%",
-  //   height: "70%",
-  //   width:"40%",
-  //   borderRadius: "3%"
-  // }
+  
   
   let inputbox ={
     width: '40vw',
@@ -42,14 +31,7 @@ function Form(props) {
     fontSize: '20px',
     color: '#02ffff',
   }
-  // let myButton = {
-  //   backgroundColor: "#164863",
-  //   color:"#ffffff",
-  //   height: "20%",
-  //   width: "30%",
-  //   borderRadius: '20px',
-  //   padding: "2%"
-  // }
+  
 
   let div = {
     height: '100vh',
@@ -83,7 +65,6 @@ return (
     <input type= "text" id="cName" placeholder="Enter Your Name" style={inputbox}/><br/>
     <input type="text" id="cMMID" placeholder="Enter Your Micro Meter ID" style={inputbox}/><br/>
     {RegisterButton("Confirm", Add)}
-    {/* <button className="btn" style={{}} onClick={Add}> Add</button> */}
   </div>
 </div>
   );

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import myImage from "../images/3.jpg";
+import myImage from "./images/3.jpg";
 
 let div = {
   background: `url(${myImage})`,
@@ -46,7 +46,7 @@ let subtitle = {
   textAlign: "center",
   color: "white",
   fontSize: "1.25rem",
-  fontFamily: Montserrat,
+  fontFamily:'Montserrat',
 };
 
 export default function Base() {

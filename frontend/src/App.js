@@ -32,6 +32,8 @@ import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
 
 //prosumer Imports
 import ProsumerLogin from "./prosumer/login.js";
+import ProsumerSignUp from "./prosumer/signup.js";
+import ProsumerJoinMicroGrid from "./prosumer/joinmicrogrid.js"
 import ProsumerHome from "./prosumer/home.js";
 import ProsumerMyContracts from "./prosumer/mycontracts.js";
 import ProsumerAllPlans from  "./prosumer/allplans.js";
@@ -39,6 +41,7 @@ import ProsumerHelp from "./prosumer/help.js";
 import ProsumerHistory from "./prosumer/history.js";
 import ProsumerAuthentication from "./prosumer/authentication.js";
 import ProducerCreateContract from "./prosumer/createcontract.js";
+import AddProsumer from "./components/AddProsumer.js";
 
 
 // import { VariableProvider } from './Context/metaContext.js';
@@ -108,6 +111,11 @@ export default function App() {
           <Route path="/prosumer/help" element={<ProsumerHelp />} />
           <Route path="/prosumer/history" element={<ProsumerHistory />} />,
           <Route path="/prosumer/createcontract" element={<ProducerCreateContract />} />
+          <Route path="/prosumer/signup" element={<ProsumerSignUp />} />
+          <Route path="/prosumer/joinmicrogrid" element={<ProsumerJoinMicroGrid />} />
+          <Route path="/addProsumer" element={<AddProsumer connect={sendContract} />} />
+
+
           
           
         </Routes>

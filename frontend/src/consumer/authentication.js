@@ -172,10 +172,10 @@ function ConsumerAuthentication(){
 function ConsumerLogin(){
     const history = useNavigate();
     const [text, setText] = useState("");
-    console.log("hi")
+    
     const sendDataToServer = async () => {
+      console.log("hi")
         let inputValue = document.getElementById("microid").value;
-        localStorage.setItem("micrometerid",inputValue);
         console.log(typeof(inputValue))
         try {
           // ... (your existing code for sending data to the server)
@@ -198,10 +198,7 @@ function ConsumerLogin(){
 
             localStorage.setItem("authToken", responseData.authToken);
             localStorage.setItem("micrometerid",encrypted_inputValue);
-
-
             history('/consumer/home');
-
           }
           // Redirect to "/login" after successful data submission
           else{

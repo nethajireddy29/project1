@@ -1,39 +1,37 @@
 import React, { useEffect, useState } from "react";
 import ConnectToMetaMask from "../hooks/MetaMaskConnection";
-import { Card } from 'react-bootstrap';
+import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-const flatted = require('flatted');
+const flatted = require("flatted");
 
-function AvailableMicrogrid() {
-  const navigate = useNavigate()
+function ProsumerAvailable() {
+  const navigate = useNavigate();
   const [tem, setTem] = useState("");
-  const [meta, setmeta] = useState("");
+  const [meta , setmeta] = useState("");
   const [microGridData, setMicroGridData] = useState(null);
+  
   async function connect() {
-    const { sendDataContract, metaMaskAddress } = await ConnectToMetaMask();
+    const {metaMaskAddress , sendDataContract } = await ConnectToMetaMask();
     setTem(sendDataContract);
     setmeta(metaMaskAddress);
   }
-  const addProducerToThisMicrogrid = async(id) => {
-    // e.preventDefault();
-    console.log("data",tem)
-    const data1 =  await tem.addProducerToMicroGrid(id , meta);
-    // console.log(e.microgridKey,typeof())
-    navigate("/producer/login")
 
-  }
+  const addProsumerToThisMicrogrid = (id) => {
+    // e.preventDefault();
+
+    const data1 = tem.addProsumerToMicroGrid(id , meta);
+    // console.log(e.microgridKey,typeof())
+    navigate("/prosumer/login");
+  };
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(
-          "/api/simulation/MicrogridData",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch("/api/simulation/MicrogridData", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await response.json();
         setMicroGridData(data);
       } catch (err) {
@@ -133,32 +131,42 @@ function AvailableMicrogrid() {
     fetchData(); // Call the async function inside useEffect
   }, []); // Empty dependency array to run once on mount
 
-
   return (
     <div>
       {microGridData === null ? (
-        <p>No Microgrids are available. Be the first person to create a microgrid!</p>
+        <p>
+          No Microgrids are available. Be the first person to create a
+          microgrid!
+        </p>
       ) : (
-        <div class="microgrid-card-details"  >
-          {Object.entries(microGridData).map(([microgridKey, microgridValue]) => (
-            <div onClick={() => addProducerToThisMicrogrid(microgridKey)} className="micro-grid">
-              <Card key={microgridKey} style={{ width: '18rem', marginBottom: '20px' }}>
-                <Card.Body>
-                  <Card.Title>Microgrid: {microgridKey}</Card.Title>
-                  {Object.entries(microgridValue).map(([key, value]) => (
-                    <Card.Text key={key}>
-                      {key}: {Object.keys(value).length}
-                    </Card.Text>
-                  ))}
-                </Card.Body>
-              </Card>
-            </div>
-          ))}
-          <button onClick={connect}>Connect</button>
+        <div class="microgrid-card-details">
+          {Object.entries(microGridData).map(
+            ([microgridKey, microgridValue]) => (
+                <div
+                onClick={() => addProsumerToThisMicrogrid(microgridKey)}
+                className="micro-grid"
+              >
+                <Card
+                  key={microgridKey}
+                  style={{ width: "18rem", marginBottom: "20px" }}
+                >
+                  <Card.Body>
+                    <Card.Title>Microgrid: {microgridKey}</Card.Title>
+                    {Object.entries(microgridValue).map(([key, value]) => (
+                      <Card.Text key={key}>
+                        {key}: {Object.keys(value).length}
+                      </Card.Text>
+                    ))}
+                  </Card.Body>
+                </Card>
+              </div>
+            )
+          )}
+      <button onClick={connect}>Connect</button>
         </div>
       )}
     </div>
   );
 }
 
-export default AvailableMicrogrid;
+export default ProsumerAvailable;

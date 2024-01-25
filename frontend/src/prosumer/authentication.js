@@ -1,108 +1,152 @@
-// prosumer authentication
+// import React from "react";
+// import { Link } from "react-router-dom";
 
-import React, { useState } from "react";
+// export default function ProducerAuthentication(){
+//     return(
+//   <div className="auth-container">
+//     <h1>Welcome to Netha!</h1>
+//     <p>Ready to join or log in?</p>
+//     <div className="button-group">
+//       <Link to="/prosumer/login"><button>Log In</button></Link>
+//       <Link to="/prosumer/signup"><button>Sign Up</button></Link>
+//     </div>
+//   </div>);
+// }
+
+
+import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 import myImage from "../images/3.jpg";
 
-let div = {
-  height: "100vh",
-  width: "100vw",
-  background: `url(${myImage})`,
-  backgroundSize: "cover",
-};
+const RegisterButton = ({text, Click}) => {
+  const [buttonStyles, setButtonStyles] = useState({
+    border: 'none',
+    width: '200px',
+    height: '65px',
+    borderRadius: '40px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '12px',
+    background: '#005d63',
+    cursor: 'pointer',
+    transition: 'background 0.3s ease-in-out',
+  });
+  const [textStyles, setTextStyles] = useState({
+    fontWeight: '600',
+    color: 'white',
+    fontSize: 'x-large',
+  });
+  const handleHover = () => {
+    setButtonStyles((prevStyles) => ({
+      ...prevStyles,
+      background: 'linear-gradient(0deg, #02ffff, #005d63)',
+      transform: 'translateY(-2px)',
+    }));
+    setTextStyles((prevStyles) => ({
+      ...prevStyles,
+      color: 'white',
+    }));
+  };
+  const handleLeave = () => {
+    setButtonStyles((prevStyles) => ({
+      ...prevStyles,
+      background: '#005d63',
+      transform: 'translateY(0)',
+    }));
+    setTextStyles((prevStyles) => ({
+      ...prevStyles,
+      color: 'white', // Set the original color here
+    }));
+  };
+  if (Click !== 0) {
+    return (
+      <button className="btn" style={buttonStyles} onMouseEnter={handleHover} onMouseLeave={handleLeave} onClick={Click}>
+        <span className="text" style={textStyles}>{text}</span>
+      </button>
+    );
+  } else {
+    return (
+      <button className="btn" style={buttonStyles} onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+        <span className="text" style={textStyles}>{text}</span>
+      </button>
+    );
+  }
+}
+export {RegisterButton};
 
 let flexrow = {
-  display: "flex",
-  flexDirection: "row",
-  alignContent: "center",
-  justifyContent: "center",
-};
+  display: 'flex',
+  flexDirection: 'row',
+  alignContent: 'center',
+  justifyContent: 'center'
+}
 
 let flexcolumn = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignContent: "center",
-};
-
-let h1 = {
-  fontFamily: "Poppins",
-  textAlign: "center",
-  fontSize: "5rem",
-  color: "white",
-  margin: "0",
-  /*paddingLeft: '2.5vw',
-  paddingRight: '2.5vw'*/
-};
-
-let p = {
-  fontFamily: "Poppins",
-  color: "#02ffff",
-  paddingLeft: "30px",
-  fontSize: "1.5rem",
-  marginBottom: "2.5rem",
-  textAlign: "center",
-};
-
-const BeautifulButton = (text) => {
-  const [isHovered, setHovered] = useState(false);
-
-  const buttonStyle = {
-    position: "relative",
-    display: "inline-block",
-    width: "15rem",
-    height: "4rem",
-    background: isHovered
-      ? "linear-gradient(to bottom, #003939, #005353)"
-      : "linear-gradient(to bottom, #003939, #02ffff)",
-    color: "white",
-    fontFamily: '"Segoe UI", sans-serif',
-    letterSpacing: "0.1ch",
-    fontWeight: "600",
-    fontSize: "1.3rem",
-    border: "none",
-    borderRadius: "30px",
-    padding: "14px 28px",
-    cursor: "pointer",
-    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.2)",
-    animation: "button-shimmer 2s infinite",
-    transition: "all 0.3s ease-in-out",
-    transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-  };
-
-  const handleHover = () => {
-    setHovered(true);
-  };
-
-  const handleLeave = () => {
-    setHovered(false);
-  };
-
-  return (
-    <button
-      style={buttonStyle}
-      onMouseEnter={handleHover}
-      onMouseLeave={handleLeave}
-    >
-      {text}
-    </button>
-  );
-};
-
-export { BeautifulButton };
-
-export default function ProducerAuthentication() {
-  return (
-    <div
-      className="auth-container"
-      style={{ ...div, ...flexcolumn, alignItems: "center" }}
-    >
-      <h1 style={{ ...h1 }}>Welcome to Netha!</h1>
-      <p style={{ ...p }}>Ready to join or log in?</p>
-      <div className="button-group" style={{ ...flexrow, gap: "2rem" }}>
-        <Link to="/prosumer/login">{BeautifulButton("Log In")}</Link>
-        <Link to="/prosumer/signup">{BeautifulButton("Sign Up")}</Link>
-      </div>
-    </div>
-  );
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignContent: 'center'
 }
+
+let div = {
+  height: '100vh',
+  width: '100vw',
+  background:` url(${myImage})`,
+  backgroundSize: "cover",
+}
+
+let h1={
+  fontFamily: 'Poppins',
+  textAlign: 'center',
+  fontSize: '4rem',
+  color: 'white'
+ 
+}
+
+
+let p={
+  fontFamily: 'Poppins',
+  color: '#02ffff',
+  marginBottom: '0',
+  paddingLeft:'30px',
+}
+
+let box= {
+  backgroundColor: '#001719',
+  opacity: '0.9',
+  height: '350px',
+  width: '45vw',
+  borderRadius: '25px',
+  padding: '20px'
+}
+
+
+function ProducerAuthentication() {
+  return (
+    <div style={{ ...flexrow, ...div }}>
+      <div style={{ ...flexcolumn, gap: '3.5rem' }}>
+        <h1 style={h1}>Welcome to Netha!</h1>
+        <div style={{ ...flexrow }}>
+          <div style={{ ...box, ...flexcolumn, gap: '3rem' }}>
+            <div style={{ ...flexcolumn, gap: '1rem' }}>
+              <p style={p}>ready to join or log in?</p>
+              <Link to="/prosumer/login" style={{ ...flexrow, textDecoration: 'none' }}>
+                <RegisterButton text="Log In" Click={0} />
+              </Link>
+            </div>
+            <div style={{ ...flexcolumn, gap: '1rem' }}>
+              {/* <p style={p}>already have an accout?</p> */}
+              <Link to="/prosumer/signup" style={{ ...flexrow, textDecoration: 'none' }}>
+                <RegisterButton text="Sign Up" Click={0} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ProducerAuthentication ;

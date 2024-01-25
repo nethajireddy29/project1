@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Add this line to import Bootstrap styles
 
-export default function ProducerSignup() {
+export default function ProsumerSignUp() {
   let navigate = useNavigate();
   const [credentials, setcredentials] = useState({
     registrant: "",
-    name: "",
+    gst_number: "",
     password: "",
-    designation: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -20,16 +19,15 @@ export default function ProducerSignup() {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/createProducerUser", {
+      const response = await fetch("/api/createProsumerUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           registrant: credentials.registrant,
-          name: credentials.name,
+          gst_number: credentials.gst_number,
           password: credentials.password,
-          designation: credentials.designation,
         }),
       });
 
@@ -38,11 +36,10 @@ export default function ProducerSignup() {
 
       if (!json.success) {
         alert(
-          "Username or Registrant should have atleast 5 characters and Password should have atleast 8 characters"
+          "Registrant should have atleast 5 characters and Password should have atleast 8 characters"
         );
-      }
-      else{
-        navigate("/AddProducer")
+      } else {
+        navigate("/addProsumer");
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -81,13 +78,13 @@ export default function ProducerSignup() {
           </div>
           <div className="mb-3">
             <label htmlFor="Username" className="form-label">
-              UserName
+              GST Number
             </label>
             <input
               type="text"
               className="form-control"
-              name="name"
-              value={credentials.name}
+              name="gst_number"
+              value={credentials.gst_number}
               onChange={onChange}
             />
           </div>
@@ -103,38 +100,10 @@ export default function ProducerSignup() {
               onChange={onChange}
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputDesignation1" className="form-label">
-              Designation
-            </label>
-            <select
-              className="form-select"
-              name="designation"
-              value={credentials.designation}
-              onChange={onChange}
-            >
-              <option value="">Select Designation</option>
-              <option value="Chief Engineer">Chief Engineer</option>
-              <option value="Superintendent Engineer">
-                Superintendent Engineer
-              </option>
-              <option value="Divisional Engineer">Divisional Engineer</option>
-              <option value="Assistant Director">Assistant Director</option>
-              <option value="Assistant Engineer">Assistant Engineer</option>
-              <option value="Assistant Sub-Engineer">
-                Assistant Sub-Engineer
-              </option>
-              <option value="Foreman">Foreman</option>
-              <option value="Line Inspector">Line Inspector</option>
-              <option value="Lineman">Lineman</option>
-              <option value="Junior Lineman">Junior Lineman</option>
-              <option value="Assistant Lineman">Assistant Lineman</option>
-            </select>
-          </div>
           <button type="submit" className="btn btn-primary" disabled={loading}>
             {loading ? "Submitting..." : "Submit"}
           </button>
-          <Link to="/producer/login" className="m-3 btn btn-danger">
+          <Link to="/prosumer/login" className="m-3 btn btn-danger">
             Already a user
           </Link>
         </form>

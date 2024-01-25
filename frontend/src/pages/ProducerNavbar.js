@@ -6,7 +6,7 @@ import IsAuthenticated from "../hooks/IsAuthenticated.js";
 import { Link, useNavigate } from "react-router-dom";
 import ConnectToMetaMask from "../hooks/MetaMaskConnection";
 const flatted = require("flatted");
-function BasicExample(props) {
+function ProducerNavbar(props) {
   let textDeco = {
     textDecoration: "none",
     color: "black",
@@ -40,12 +40,6 @@ function BasicExample(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link>
-              <Link to="/" style={textDeco}>
-                Link
-              </Link>
-            </Nav.Link>
-
             <NavDropdown title="Microgrid" id="basic-nav-dropdown">
               <NavDropdown.Item>
                 <Link to="/addMicrogrid" style={textDeco}>
@@ -81,6 +75,18 @@ function BasicExample(props) {
                 </Link>
               </NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title="Add Users" id="basic-nav-dropdown">
+              <NavDropdown.Item>
+                <Link to="/prosumer/signup" style={textDeco}>
+                  Add Prosumer
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/producer/signup" style={textDeco}>
+                  Add Producer
+                </Link>
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           <Nav.Link onClick={connectMetaMask}>connect</Nav.Link>
           {IsAuthenticated ? (
@@ -96,4 +102,4 @@ function BasicExample(props) {
   );
 }
 
-export default BasicExample;
+export default ProducerNavbar;

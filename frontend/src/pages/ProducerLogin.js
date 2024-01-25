@@ -11,7 +11,7 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     // Synthetic Event
     e.preventDefault();
-    const response = await fetch("api/ProducerLogIn", {
+    const response = await fetch("/api/ProducerLogIn", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export default function Signup() {
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
-          <Link to="/ProducerSignup" className="m-3 btn btn-danger">
+          <Link to="/producer/signup" className="m-3 btn btn-danger">
             I'm a new user
           </Link>
         </form>

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import ConsumerNavbar from "./navbar.js";
-import myImage from "../images/3.jpg";
 
 export default function ConsumerHome() {
   const [isHovered, setHovered] = useState(false);
   let img = {
-    // https://img.freepik.com/free-photo/abstract-digital-grid-black-background_53876-97647.jpg?w=996&t=st=1704914203~exp=1704914803~hmac=dba82b1193632cb3c2991420cf2ad657d5dd2d3dc6454b1e163c26d62dbf42ad
-    backgroundImage: `url(${myImage})`,
+    backgroundImage:
+      "url('https://img.freepik.com/free-photo/abstract-digital-grid-black-background_53876-97647.jpg')",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };
@@ -19,9 +18,9 @@ export default function ConsumerHome() {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "15rem",
+    width: "13rem",
     overflow: "hidden",
-    height: "3.5rem",
+    height: "3rem",
     backgroundSize: "300% 300%",
     backdropFilter: "blur(1rem)",
     borderRadius: "5rem",
@@ -35,7 +34,7 @@ export default function ConsumerHome() {
   let strong = {
     zIndex: "2",
     fontFamily: "Mukta",
-    fontSize: "20px",
+    fontSize: "15px",
     letterSpacing: "5px",
     color: "#FFFFFF",
     // textShadow: '0 0 4px white'
@@ -54,9 +53,9 @@ export default function ConsumerHome() {
 
   return (
     <>
-      <div style={{ ...img, height: "100vh" }}>
-        <ConsumerNavbar />
-        <div style={{ ...top, height: "89vh" }}>
+      <ConsumerNavbar />
+      <div style={{ ...img }}>
+        <div style={{ ...top, height: "500px" }}>
           <div
             style={{ display: "flex-column" }}
             className="align-items-center"
@@ -64,7 +63,7 @@ export default function ConsumerHome() {
             <h1
               style={{
                 textAlign: "center",
-                fontSize: "50px",
+                fontSize: "45px",
                 fontFamily: "Mukta",
                 margin: "0",
                 color: "white",
@@ -74,13 +73,13 @@ export default function ConsumerHome() {
             </h1>
             <p
               style={{
-                fontSize: "18px",
                 margin: "20px 0 20px 0",
                 textAlign: "center",
                 color: "white",
               }}
             >
-              Smart Homes for Smart People
+              Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem
+              ipsum Lorem ipsum{" "}
             </p>
             <a
               style={{
@@ -115,14 +114,14 @@ export default function ConsumerHome() {
         </div>
       </div>
 
-      {/* <div style={{ backgroundColor: "#001c20", display: "flex-row" }}>
+      <div style={{ backgroundColor: "#001c20", display: "flex-row" }}>
         <div style={{}}>
           <h3 style={{ color: "white" }}>Lorem Ipsum</h3>
         </div>
         <div style={{}}>
           <img />
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

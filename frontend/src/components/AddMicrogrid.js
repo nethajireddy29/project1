@@ -6,13 +6,16 @@ import { useNavigate } from "react-router-dom";
 function AddMicrogrid(props) {
   const [send, setSend] = useState("");
   const [get, setGet] = useState("");
+  const [meta , setmeta] = useState("");
   // const [send, setSend] = useState("");
 
   const navigate = useNavigate()
   async function connect() {
-    const { sendDataContract, getDataContract } = await connectToMetaMask();
+    const { sendDataContract, metaMaskAddress, getDataContract } =
+      await connectToMetaMask();
     setSend(sendDataContract);
     setGet(getDataContract);
+    setmeta(metaMaskAddress);
   }
 
   async function addMicrogrid() {
@@ -22,11 +25,12 @@ function AddMicrogrid(props) {
     // console.log(microGridId)
     const data = await send.createMicroGrid(microGridName);
     // console.log("microgrid NUmber :",Number(microGridId))
-    send.addProducerToMicroGrid(microGridId);
+    console.log(microGridId , meta);
+    await send.addProducerToMicroGrid(microGridId, meta);
     if (props.redirectLogIn) {
-      navigate("/ProducerLogin")
+      navigate("/producer/login")
       // console.log("login redir")
-    } {
+    } else{
       navigate("/ProducerHome")
       // console.log("home redir")
 
