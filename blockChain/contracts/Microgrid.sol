@@ -7,9 +7,11 @@ contract Microgrid {
 
     struct Prosumer {
         string name;
-        uint wallet1;
-        uint energyBalance;
-        bool isProducer;
+        // uint wallet1;
+        // uint energyBalance;
+        uint uinqueID;
+        bool isProsumer;
+        
     }
 
     struct Consumer{
@@ -147,17 +149,30 @@ contract Microgrid {
         Producer memory producer = Producer(name, uniqueID, true);
         address_Producer[msg.sender] = producer;
     }
-    function addProducerToMicroGrid( uint uniqueId)public {
-        require(address_Producer[msg.sender].isProducer,"you are not a producer");
-        microGrids[uniqueId].Producers.push(msg.sender);
+    function addProsumer(string memory name, uint uniqueID) public {
+        Prosumer memory prosumer = Prosumer(name,uniqueID, true);
+        address_Prosumer[msg.sender] = prosumer;
     }
-    function addConsumerToMicroGrid( uint uniqueId)public {
+    function addProducerToMicroGrid( uint uniqueId,address producer)public {
+        require(address_Producer[producer].isProducer,"you are not a producer");
+        microGrids[uniqueId].Producers.push(producer);
+    }
+    function addConsumerToMicroGrid( uint uniqueId,address producer)public {
         // require(address_Producer[msg.sender].isProducer,"you are not a producer");
-        microGrids[uniqueId].Consumers.push(msg.sender);
+        microGrids[uniqueId].Consumers.push(producer);
+    }
+    function addProsumerToMicroGrid(uint uniqueId,address prosumer)public {
+        require(address_Prosumer[prosumer].isProsumer,"you are not a prosumer");
+        microGrids[uniqueId].Prosumers.push(prosumer);
     }
     function showAllProducers(uint uniqueId) public view returns (address[] memory) {
         return microGrids[uniqueId].Producers;
     }
+    
+    function showAllProsumer(uint uniqueId) public view returns (address[] memory) {
+        return microGrids[uniqueId].Prosumers;
+    }
+    
     function addConsumer(string memory name,string memory micrometerid, uint energyBalance) public {
         uint wallet=msg.sender.balance/1 ether;
         Consumer memory consumer = Consumer(name,micrometerid, energyBalance,wallet);
@@ -168,7 +183,7 @@ contract Microgrid {
 
 
 
-    function purchaseEnergy(address payable producer) public payable  {
+    function purchaseEnergy_to_Producer(address payable producer) public payable  {
         require(address_Producer[producer].isProducer, "Invalid producer address");
         require(msg.value <=msg.sender.balance, "Incorrect Ether value provided");
 
@@ -179,34 +194,65 @@ contract Microgrid {
 
     }
 
+    function purchaseEnergy_to_Prosumer(address payable prosumerAddress, address payable producerAddress) public payable  {
+    require(address_Prosumer[prosumerAddress].isProsumer, "Invalid prosumer address");
+    require(msg.value <= msg.sender.balance, "Incorrect Ether value p68rovided");
 
-    // Function to sell excess energy,  prosumer -> consumer
-    function sellEnergy(uint transferAmount) public {
-        require(address_Prosumer[msg.sender].energyBalance >= transferAmount, "Insufficient energy balance");
-        Prosumer storage prosumer = address_Prosumer[msg.sender];
-        prosumer.energyBalance -= transferAmount;
-        prosumer.wallet1 += transferAmount * perUnit;
 
-        // Emit an event to record the energy sale
-        emit EnergyTransferred(msg.sender, address(this), transferAmount * perUnit);
-    }
+    uint energyUnits = msg.value / perUnit;
+    uint producerShare = (msg.value * 10) / 100;
+
+    prosumerAddress.transfer(msg.value - producerShare);
+    producerAddress.transfer(producerShare);
+
+    address_Consumer[msg.sender].energyBalance += energyUnits;
+
+    emit EnergyTransferred(msg.sender, prosumerAddress, energyUnits);
+    // emit ProducerShareTransferred(msg.sender, producerAddress, producerShare);
+}
+
+
+
+
+
+    // function Prosumer_to_Producer(address payable producer) public payable {
+    //     require(address_producer[producer].isProducer,"Invalid producer address");
+    //     require(address_Prosumer[msg.sender],"Invalid producer address");
+    //     uint256 To_be_paid =0;
+
+
+
+    // }
+
+
+
+    // // Function to sell excess energy,  prosumer -> consumer
+    // function sellEnergy(uint transferAmount) public {
+    //     require(address_Prosumer[msg.sender].energyBalance >= transferAmount, "Insufficient energy balance");
+    //     Prosumer storage prosumer = address_Prosumer[msg.sender];
+    //     prosumer.energyBalance -= transferAmount;
+    //     prosumer.wallet1 += transferAmount * perUnit;
+
+    //     // Emit an event to record the energy sale
+    //     emit EnergyTransferred(msg.sender, address(this), transferAmount * perUnit);
+    // }
 
     // Function to transfer energy from one user to another
-    function transferEnergy(address to, uint transferAmount) public {
-        require(address_Prosumer[msg.sender].energyBalance >= transferAmount, "Not enough energy to transfer");
+    // function transferEnergy(address to, uint transferAmount) public {
+    //     require(address_Prosumer[msg.sender].energyBalance >= transferAmount, "Not enough energy to transfer");
 
-        Prosumer storage senderDetails = address_Prosumer[msg.sender];
-        Prosumer storage receiverDetails = address_Prosumer[to];
+    //     Prosumer storage senderDetails = address_Prosumer[msg.sender];
+    //     Prosumer storage receiverDetails = address_Prosumer[to];
 
-        senderDetails.energyBalance -= transferAmount;
-        receiverDetails.energyBalance += transferAmount;
+    //     senderDetails.energyBalance -= transferAmount;
+    //     receiverDetails.energyBalance += transferAmount;
 
-        // Emit an event to record the energy transfer
-        emit EnergyTransferred(msg.sender, to, transferAmount);
-    }
+    //     // Emit an event to record the energy transfer
+    //     emit EnergyTransferred(msg.sender, to, transferAmount);
+    // }
 
  
-    Transaction[] public transactions;
+    Transaction[] public transactions; 
 
     event TransactionAdded(address indexed from, address indexed to, uint256 amount, uint256 timestamp);
 

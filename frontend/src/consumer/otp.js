@@ -1,87 +1,7 @@
-/*import React, { useState } from 'react';
-import axios from 'axios';
-//import { useNavigate } from 'react-router-dom';
-import { Link, useNavigate } from "react-router-dom";
-const ConsumerOtp = () => {
-  const navigate = useNavigate();
-  //const [phoneNumber, setPhoneNumber] = useState('+919346512861');
-  const message = Math.floor(Math.random() * 900000).toString();
-  console.log(message)
-//   const [message, setMessage] = useState(otp);
-
-  const [path, setPath] = useState("/consumer/otp");
-  const [text, setText] = useState("");
-  const handleSendSMS = async () => {
-    try {
-      // Replace with your Twilio Account SID, Auth Token, and Twilio phone number
-      const accountSid = 'AC1bccfed0756711b04099070150496740';
-      const authToken = '1a81cd4481eb179f989ff94fb9992399';
-
-      const response = await axios.post(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
-        {
-          To:'+916302618501',
-          From:'+15674557713',
-          Body: message,
-        },
-        {
-            headers: {
-                Authorization: `Basic ${btoa(`${accountSid}:${authToken}`)}`,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-        }
-      );
-
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error sending SMS:', error);
-    }
-  };
-  const handleOnSubmit = () =>{
-    let inputValue = document.getElementById("otpNumber").value;
-    if (message === inputValue){
-        console.log("Yes, It's correct");
-        setPath("/consumer/microid");
-
-    }
-    else{
-        console.log("Wrong otp");
-        setPath("/consumer/otp");
-        setText("Incorrect password. Please Try Again");
-        setTimeout(()=>{
-            setText("");
-         },3000);
-    }
-  }
-
-  let mystyle ={
-    backgroundColor: "#DAFFFB",
-    textAlign: "center",
-    height: "100vh",
-    padding: 100
-  }
-  return (
-    <div className="conatiner" style={mystyle}>
-      <h1>Enter OTP</h1>
-      <div>
-      <label htmlFor="otpNumber"></label>
-        <input type="text" id="otpNumber" className="m-3"/>
-      <div style={{ paddingLeft:70}}>
-      </div>
-      <div style={{paddingRight: 80}}>
-      <button onClick={handleSendSMS} className='m-3 btn btn-primary'>Resend OTP</button>
-      </div>
-      <Link className="btn btn-success" onClick={handleOnSubmit} to={path}> Submit </Link>
-      <p> {text}</p>
-    </div>
-    </div>
-  );
-};
-
-export default ConsumerOtp;*/
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link ,useNavigate} from "react-router-dom";
-import myImage from "./3.jpg";
+import myImage from "../images/3.jpg";
 
 let flexrow = {
   display: 'flex',
@@ -196,13 +116,13 @@ let resend = {
 }
 
 
-
+const message = Math.floor(Math.random() * 900000).toString();
 const Otp = () => {
   const navigate = useNavigate();
   //const [phoneNum, setPhoneNumber] = useState('12');
   const [buttonText, setButtonText] = useState("Send OTP");
-  const message = Math.floor(Math.random() * 900000).toString();
-  console.log(message)
+  
+  console.log("This is message" + message)
 //   const [message, setMessage] = useState(otp);
   const [text, setText] = useState("");
   const handleSendSMS = async () => {
@@ -210,17 +130,14 @@ const Otp = () => {
     try {
       setButtonText("Resend OTP");
       // Replace with your Twilio Account SID, Auth Token, and Twilio phone number
-      const accountSid = "AC08cfe458768b236e7cd0639698669edd";
-      const authToken = "fcfdb2bf0f09401ae298b598672ca273";
-
-
-
+      const accountSid = 'AC6f23287e154d45fcd72209ea6ec0400f';
+      const authToken = '61ffae9e15aceee59de083a6b704b3ad';
       //async ()=>{setPhoneNumber(await document.getElementById("mobileNumber"));}
       console.log(document.getElementById("mobileNumber").value)
       const response = await axios.post(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
         {
-          To:document.getElementById("mobileNumber").value,
-          From:'+12029525061',
+          To:"+91" + document.getElementById("mobileNumber").value,
+          From:'+17086278314',
           Body: message,
         },
         {
@@ -231,33 +148,31 @@ const Otp = () => {
               },
         }
       );
-
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error('Error sending SMS:', error);
     }
   };
   const handleOnSubmit = () =>{
     let inputValue = document.getElementById("otpNumber").value;
-    console.log("hi")
-   if (message === inputValue){
+    if (message === inputValue){
         console.log("Yes, It's correct");
-        navigate("consumer/sucess");
+        navigate("/consumer/microid");
 
-   }
-   else{
-       console.log("Wrong otp");
-       navigate("/consumer/otp");
+    }
+    else{
+        console.log("Wrong otp");
+        navigate("");
         setText("Incorrect OTP. Please Try Again");
         setTimeout(()=>{
-           setText("");
-        },3000);
+            setText("/consumer/otp");
+         },3000);
         
-     }
+    }
   }
 
   return (
-    <div className="conatiner" style={{...flexrow, ...div}}>
+    <div className="conatiner" style={{...flexcolumn, ...div}}>
       <div style={{...flexcolumn, ...authdiv3}}></div>
       <h1 style={{...h1}}>Confirm OTP!</h1>
         <div style={{...flexcolumn, height:'400px', alignItems:'center'}}>
@@ -272,7 +187,7 @@ const Otp = () => {
           </div>
           {/* <div style={{...flexrow, ...item1}}><Link style={{...button}} className="btn btn-success" onClick={handleOnSubmit}> Submit </Link></div> */}
           {RegisterButton("Submit", handleOnSubmit)}
-          <p> {text}</p>
+          <p style={{color:"red"}}> {text}</p>
       </div>
       </div>
       
@@ -280,3 +195,7 @@ const Otp = () => {
 };
 
 export default Otp;
+
+
+
+// Smitha T1KZHJENLBEDUWBAPE2A16XX

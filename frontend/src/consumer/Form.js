@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import myImage from "./3.jpg";
+import myImage from "../images/3.jpg";
 import RegisterButton from "./authentication";
 
 function Form(props) {

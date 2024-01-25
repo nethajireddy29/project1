@@ -1,6 +1,6 @@
 
 import{ React ,useState}from "react";
-import myImage from "./5.jpg";
+import myImage from "../images/5.jpg";
 import CryptoJS from "crypto-js";
 import ConsumerNavbar from "./navbar";
 
@@ -49,6 +49,7 @@ export default function ConsumerHistory(){
   }
   
     async function send(id){
+       const microid=localStorage.getItem("micrometerid")
         try {
           // ... (your existing code for sending data to the server)
 
@@ -58,7 +59,7 @@ export default function ConsumerHistory(){
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "microid":id }),
+            body: JSON.stringify({ "microid":microid }),
 
           });
     

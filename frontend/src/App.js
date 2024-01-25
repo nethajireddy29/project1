@@ -87,8 +87,8 @@ export default function App() {
           <Route path="/addConsumer" element={<AddConsumer connect={sendContract} />} />
           <Route path="/consumer/AvailableMicrogrid" element={<AvailableMicroGridConsumer connect={sendContract} />} />
           {/* Producer Routes */}
-          <Route path="/ProducerSignup" element={<ProducerSignup />} />
-          <Route path="/ProducerLogin" element={<ProducerLogIn />} />
+          <Route path="/producer/signup" element={<ProducerSignup />} />
+          <Route path="/producer/login" element={<ProducerLogIn />} />
           <Route path="/ProducerHome" element={<ProducerHome   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
           <Route path="/addProducer" element={<AddProducer   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
           <Route path="/addMicrogrid" element={<AddMicrogrid   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />

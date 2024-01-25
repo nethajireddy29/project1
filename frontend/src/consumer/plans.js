@@ -33,7 +33,7 @@ export default function ConsumerPlans(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ "name": name, "microid": microid, "units": units, "amount": amount }),
+                body: JSON.stringify({ "name": name, "microid": microid, "units": units, "amount": amount ,"microGridId": 0}),
             });
             const responseData = await response.json(); // Await the response text
             const simulationResponse = await fetch("/api/simulation/requireUser", {

@@ -1,8 +1,8 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useHistory from react-router-dom
 import { Buffer } from "buffer";
 import CryptoJS from "crypto-js";
-import myImage from "./3.jpg"
+import myImage from "../images/3.jpg"
 import RegisterButton from "./authentication";
 
 let flexrow = {
@@ -81,14 +81,13 @@ function decryptAES(encryptedText) {
 
 function Microid() {
   const navigate = useNavigate(); // Get the history object
-
-  const message = Math.floor(Math.random() * 9000).toString();
-  const micrometerid = `0426ELUZ${message}`;
+  const [micrometerid, setMicrometerid] = useState(() => {
+    const msg = Math.floor(Math.random() * 9000).toString();
+    return `0426ELUZ${msg}`;
+  });
   const encryptedId = encryptAES(micrometerid);
-
+  
   const sendDataToServer = async () => {
-    console.log(micrometerid)
-    console.log(encryptedId);
     try {
       // ... (your existing code for sending data to the server)
       const response = await fetch('/api/createConsumer', {
@@ -101,9 +100,10 @@ function Microid() {
 
       const responseData = await response.text(); // Await the response text
       console.log('Server response:', responseData);
+      alert(micrometerid)
 
       // Redirect to "/login" after successful data submission
-      navigate('/consumer/form');
+      navigate('/consumer/login');
     } catch (error) {
       console.error('Error sending data to the server:', error);
       // Handle errors, e.g., show an error message to the user

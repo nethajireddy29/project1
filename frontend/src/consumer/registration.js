@@ -30,7 +30,7 @@ function FaceAuthentication() {
 export default FaceAuthentication;*/
 import React, { useState } from 'react';
 import Compare from "./webcam.js"
-import myImage from "./3.jpg";
+import myImage from "../images/3.jpg";
 
 const RegisterButton = (text) => {
   const [buttonStyles, setButtonStyles] = useState({

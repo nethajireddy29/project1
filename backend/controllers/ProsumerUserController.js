@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 // const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
-const Salt = crypto.randomBytes(16).toString("hex");
+const Salt = "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
 const pepper = "nsrssl45";
 const encryptionKey =
   "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";

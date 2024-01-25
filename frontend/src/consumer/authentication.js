@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Buffer } from "buffer";
 import CryptoJS from "crypto-js";
-import myImage from "./3.jpg";
+import myImage from "../images/3.jpg";
 
 const encryptionKey =
   "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
@@ -175,6 +175,7 @@ function ConsumerLogin(){
     console.log("hi")
     const sendDataToServer = async () => {
         let inputValue = document.getElementById("microid").value;
+        localStorage.setItem("micrometerid",inputValue);
         console.log(typeof(inputValue))
         try {
           // ... (your existing code for sending data to the server)

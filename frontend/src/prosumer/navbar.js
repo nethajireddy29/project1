@@ -87,7 +87,7 @@ export default function ProsumerNavbar() {
                       style={navLink}
                       to="/prosumer/mycontracts"
                     >
-                      MyContracts
+                      My Contracts
                     </Link>
                   </li>
                   <li className="nav-item" style={{ ...navItem }}>
@@ -96,7 +96,7 @@ export default function ProsumerNavbar() {
                       style={navLink}
                       to="/prosumer/allplans"
                     >
-                     AllPlans
+                     All Plans
                     </Link>
                   </li>
                   <li className="nav-item" style={navItem}>
