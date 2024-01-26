@@ -176,16 +176,16 @@ function ConsumerLogin(){
     const sendDataToServer = async () => {
       console.log("hi")
         let inputValue = document.getElementById("microid").value;
-        console.log(typeof(inputValue))
         try {
           // ... (your existing code for sending data to the server)
           const encrypted_inputValue = encryptAES(inputValue);
+          console.log(encrypted_inputValue,"encrypted value")
           const response = await fetch('/api/loginConsumer', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "id": encrypted_inputValue }),
+            body: JSON.stringify({ "microid": encrypted_inputValue }),
           });
     
           const responseData = await response.json(); // Await the response text

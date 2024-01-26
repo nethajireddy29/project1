@@ -54,15 +54,15 @@ const removeConsumer = async (req, res) => {
 };
 const loginConsumer = async (req, res) => {
   try {
- 
     const consumer =  await Consumer.findOne(req.body);
+    console.log("ifugwqi")
+    console.log("login",consumer)
     if (consumer) {
       const authToken = jwt.sign(req.body.id, jwtSecret);
       return res.json({ success: true, consumerAuthToken: authToken });
     } else {
-      res.json({ success: false });
+      res.json({ success: false })
     }
-    res.json({ success: true });
   } catch (error) {
     console.log(error);
     res.status(500).send({ success: false });
