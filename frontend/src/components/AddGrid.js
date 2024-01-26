@@ -136,32 +136,67 @@ function AddGrid() {
 
   return (
     <>
-    <div style={{ ...flexrow, ...div }}>
-      <div style={{ ...flexcolumn, gap: '2rem' }}>
-      <h1 style={h1}>Add Grid</h1> 
+      <div style={{ ...flexrow, ...div }}>
+        <div style={{ ...flexcolumn, gap: "2rem" }}>
+          <h1 style={h1}>Add Grid</h1>
 
-        <div style={{...box, ...flexcolumn, gap:'2rem'}}>
-          <div style={{ ...flexcolumn, gap:'1rem'}}>
-            
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="uniqueID" placeholder="Enter the uniqueID" className="form-control m-3" name="gst_number" />
-            
-              <input style={input} type="text" id="charge" placeholder="Enter the charge" className="form-control m-3" name="gst_number" />
+          <div style={{ ...box, ...flexcolumn, gap: "2rem" }}>
+            <div style={{ ...flexcolumn, gap: "1rem" }}>
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="uniqueID"
+                  placeholder="Enter the uniqueID"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+
+                <input
+                  style={input}
+                  type="text"
+                  id="charge"
+                  placeholder="Enter the charge"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
+
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="maxImport"
+                  placeholder="Enter the maxImport"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+
+                <input
+                  style={input}
+                  type="text"
+                  id="maxExport"
+                  placeholder="Enter the maxExport"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
+              <Link
+                style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
+              >
+                {RegisterButton("Connect MetaMask", connect)}
+              </Link>
+
+              <Link
+                to="/ProducerHome"
+                style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
+              >
+                {RegisterButton("Add load", addGrid)}
+              </Link>
             </div>
-
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="maxImport" placeholder="Enter the maxImport" className="form-control m-3" name="gst_number" />
-            
-              <input style={input} type="text" id="maxExport" placeholder="Enter the maxExport" className="form-control m-3" name="gst_number" />
-            </div>
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Connect MetaMask", connect)}</Link>
-
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Add load", addGrid)}</Link>
-            
           </div>
-        </div> 
+        </div>
       </div>
-    </div>
       {/* <div className="welcomeContainer shadow" style={style}>
         <h1>Add Grid</h1>
         <br />

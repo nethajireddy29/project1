@@ -5,21 +5,83 @@ import { useNavigate } from "react-router-dom";
 const flatted = require("flatted");
 
 function ProsumerAvailable() {
+  const BuyButton = ({ buttonText }) => {
+    const [buttonStyles, setButtonStyles] = useState({
+      border: "none",
+      width: "150px",
+      height: "40px",
+      borderRadius: "3em",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "12px",
+      background: "#005d63",
+      cursor: "pointer",
+      transition: "all 450ms ease-in-out",
+    });
+    const [textStyles, setTextStyles] = useState({
+      fontWeight: "600",
+      color: "#02ffff",
+      fontSize: "medium",
+    });
+    const handleHover = () => {
+      setButtonStyles((prevStyles) => ({
+        ...prevStyles,
+        background: "linear-gradient(0deg, #02ffff, #005d63)",
+        transform: "translateY(-2px)",
+      }));
+      setTextStyles((prevStyles) => ({
+        ...prevStyles,
+        color: "white",
+      }));
+    };
+    const handleLeave = () => {
+      setButtonStyles((prevStyles) => ({
+        ...prevStyles,
+        background: "#005d63",
+        transform: "translateY(0)",
+      }));
+      setTextStyles((prevStyles) => ({
+        ...prevStyles,
+        color: "#02ffff",
+      }));
+    };
+    return (
+      <button
+        className="btn"
+        style={buttonStyles}
+        onMouseEnter={handleHover}
+        onMouseLeave={handleLeave}
+        onClick={connect}
+      >
+        <span className="text" style={textStyles}>
+          {buttonText}
+        </span>
+      </button>
+    );
+  };
+
+  const handleOnCart = () => {
+    setColor("#B6D8EB");
+  };
+
+  const [color, setColor] = useState("#DDF2FD");
+
   const navigate = useNavigate();
   const [tem, setTem] = useState("");
-  const [meta , setmeta] = useState("");
   const [microGridData, setMicroGridData] = useState(null);
-  
+  const [meta, setmeta] = useState("");
+
   async function connect() {
-    const {metaMaskAddress , sendDataContract } = await ConnectToMetaMask();
+    const { sendDataContract, metaMaskAddress } = await ConnectToMetaMask();
     setTem(sendDataContract);
     setmeta(metaMaskAddress);
   }
 
-  const addProsumerToThisMicrogrid = (id) => {
+  const addProsumerToThisMicrogrid = async (id) => {
     // e.preventDefault();
 
-    const data1 = tem.addProsumerToMicroGrid(id , meta);
+    const data1 = await tem.addProsumerToMicroGrid(id, meta);
     // console.log(e.microgridKey,typeof())
     navigate("/prosumer/login");
   };
@@ -39,95 +101,6 @@ function ProsumerAvailable() {
       }
     }
 
-    // setMicroGridData({
-    //   0: {
-    //     battery: {
-    //       0: {
-    //         charge: 100,
-    //         efficiency: 0.7,
-    //         max_Charge: 100,
-    //         charge_per_unit: 10,
-    //       },
-    //       1: {
-    //         charge: 100,
-    //         efficiency: 0.7,
-    //         max_Charge: 100,
-    //         charge_per_unit: 10,
-    //       },
-    //     },
-    //     green_energy: {
-    //       0: {
-    //         charge_produced: 100,
-    //         charge_per_unit: 10,
-    //         max_Charge: 1000,
-    //       },
-    //       1: {
-    //         charge_produced: 100,
-    //         charge_per_unit: 10,
-    //         max_Charge: 1000,
-    //       },
-    //     },
-    //     grid: {
-    //       0: {
-    //         charge: 1000,
-    //         max_export: 1000,
-    //         max_import: 500,
-    //       },
-    //       1: {
-    //         charge: 700,
-    //         max_export: 900,
-    //         max_import: 500,
-    //       },
-    //     },
-    //     load: {
-    //       0: { energyRequired: 0 },
-    //     },
-    //   },
-    //   1: {
-    //     battery: {
-    //       0: {
-    //         charge: 100,
-    //         efficiency: 0.7,
-    //         max_Charge: 100,
-    //         charge_per_unit: 10,
-    //       },
-    //       1: {
-    //         charge: 100,
-    //         efficiency: 0.7,
-    //         max_Charge: 100,
-    //         charge_per_unit: 10,
-    //       },
-    //     },
-    //     green_energy: {
-    //       0: {
-    //         charge_produced: 100,
-    //         charge_per_unit: 10,
-    //         max_Charge: 1000,
-    //       },
-    //       1: {
-    //         charge_produced: 100,
-    //         charge_per_unit: 10,
-    //         max_Charge: 1000,
-    //       },
-    //     },
-    //     grid: {
-    //       0: {
-    //         charge: 1000,
-    //         max_export: 1000,
-    //         max_import: 500,
-    //       },
-    //       1: {
-    //         charge: 700,
-    //         max_export: 900,
-    //         max_import: 500,
-    //       },
-    //     },
-    //     load: {
-    //       0: { energyRequired: 0 },
-    //     },
-    //   },
-    // });
-
     fetchData(); // Call the async function inside useEffect
   }, []); // Empty dependency array to run once on mount
 
@@ -142,7 +115,7 @@ function ProsumerAvailable() {
         <div class="microgrid-card-details">
           {Object.entries(microGridData).map(
             ([microgridKey, microgridValue]) => (
-                <div
+              <div
                 onClick={() => addProsumerToThisMicrogrid(microgridKey)}
                 className="micro-grid"
               >
@@ -162,7 +135,8 @@ function ProsumerAvailable() {
               </div>
             )
           )}
-      <button onClick={connect}>Connect</button>
+          {/* <button onClick={connect}>Connect</button> */}
+          <BuyButton buttonText="Connect" style={{ margin: "10px" }} />
         </div>
       )}
     </div>
@@ -170,3 +144,92 @@ function ProsumerAvailable() {
 }
 
 export default ProsumerAvailable;
+
+// setMicroGridData({
+//   0: {
+//     battery: {
+//       0: {
+//         charge: 100,
+//         efficiency: 0.7,
+//         max_Charge: 100,
+//         charge_per_unit: 10,
+//       },
+//       1: {
+//         charge: 100,
+//         efficiency: 0.7,
+//         max_Charge: 100,
+//         charge_per_unit: 10,
+//       },
+//     },
+//     green_energy: {
+//       0: {
+//         charge_produced: 100,
+//         charge_per_unit: 10,
+//         max_Charge: 1000,
+//       },
+//       1: {
+//         charge_produced: 100,
+//         charge_per_unit: 10,
+//         max_Charge: 1000,
+//       },
+//     },
+//     grid: {
+//       0: {
+//         charge: 1000,
+//         max_export: 1000,
+//         max_import: 500,
+//       },
+//       1: {
+//         charge: 700,
+//         max_export: 900,
+//         max_import: 500,
+//       },
+//     },
+//     load: {
+//       0: { energyRequired: 0 },
+//     },
+//   },
+//   1: {
+//     battery: {
+//       0: {
+//         charge: 100,
+//         efficiency: 0.7,
+//         max_Charge: 100,
+//         charge_per_unit: 10,
+//       },
+//       1: {
+//         charge: 100,
+//         efficiency: 0.7,
+//         max_Charge: 100,
+//         charge_per_unit: 10,
+//       },
+//     },
+//     green_energy: {
+//       0: {
+//         charge_produced: 100,
+//         charge_per_unit: 10,
+//         max_Charge: 1000,
+//       },
+//       1: {
+//         charge_produced: 100,
+//         charge_per_unit: 10,
+//         max_Charge: 1000,
+//       },
+//     },
+//     grid: {
+//       0: {
+//         charge: 1000,
+//         max_export: 1000,
+//         max_import: 500,
+//       },
+//       1: {
+//         charge: 700,
+//         max_export: 900,
+//         max_import: 500,
+//       },
+//     },
+//     load: {
+//       0: { energyRequired: 0 },
+//     },
+//   },
+// });

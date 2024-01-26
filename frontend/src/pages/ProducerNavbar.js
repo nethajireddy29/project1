@@ -58,80 +58,186 @@ function BasicExample(props) {
     navigate("/ProducerLogin");
   };
   return (
-
     <>
-    <div style={{width:'100vw'}}>
+      <div style={{ width: "100vw" }}>
         <div className="header">
-          <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#000a0b" }} >
+          <nav
+            className="navbar navbar-expand-lg navbar-light"
+            style={{ backgroundColor: "#000a0b" }}
+          >
             <div className="container-fluid">
               <a className="navbar-brand" href="/">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMB8cCp__yOIsNq2QWPruTIU6aagud-FNcCA&usqp=CAU" alt="Icon" style={img} />
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMB8cCp__yOIsNq2QWPruTIU6aagud-FNcCA&usqp=CAU"
+                  alt="Icon"
+                  style={img}
+                />
               </a>
-              <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
                 <span className="navbar-toggler-icon"></span>
               </button>
-              <div className="collapse navbar-collapse d-flex flex-row justify-content-end" id="navbarNav"  >
+              <div
+                className="collapse navbar-collapse d-flex flex-row justify-content-end"
+                id="navbarNav"
+              >
                 <ul className="navbar-nav">
                   <li className="nav-item" style={navItem}>
-                    <Link className="nav-link"  aria-current="page" style={{ ...navLink }} to="//ProducerHome" >
+                    <Link
+                      className="nav-link"
+                      aria-current="page"
+                      style={{ ...navLink }}
+                      to="/ProducerHome"
+                    >
                       Home
                     </Link>
                   </li>
-                  <li className="nav-item" style={{ ...navItem }}>
-                    <Link className="nav-link" style={navLink} to="/prosumer/mycontracts" >
-                      Link
-                    </Link>
-                  </li>
-                  <li className="nav-item" style={navItem}>
-                    <Link className="nav-link" style={navLink} to="/prosumer/help"  onClick={connectMetaMask} >
-                      Connect
-                    </Link>
-                  </li>
                   <li className="nav-item dropdown" style={navItemDrop}>
-                    <a className="nav-link" href="/"  id="navbarDropdownMenuLink"  role="button" data-toggle="dropdown" aria-expanded="false" drop="left" style={navLink} >
+                    <a
+                      className="nav-link"
+                      href="/"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                      drop="left"
+                      style={navLink}
+                    >
                       Microgrid
                     </a>
-                    <div>
-                    </div>
-                    <ul className="dropdown-menu " style={{...myStyle, backgroundColor:'#006f79', marginTop: '5px'}} aria-labelledby="navbarDropdownMenuLink" >
-                    <li>
-                        <Link to="/addMicrogrid"  style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item">Add Microgrid</Link>
-                      </li>
+                    <div></div>
+                    <ul
+                      className="dropdown-menu "
+                      style={{
+                        ...myStyle,
+                        backgroundColor: "#006f79",
+                        marginTop: "5px",
+                      }}
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
                       <li>
-                        <Link to="/addBattery"  style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item">Add Battery</Link>
-                      </li>
-                      <li>
-                        <Link to="/addGreenEnergy" style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item" href="/">
-                        Add GreenEnergy
+                        <Link
+                          to="/addMicrogrid"
+                          style={{ backgroundColor: "#006f79", color: "white" }}
+                          className="dropdown-item"
+                        >
+                          Add Microgrid
                         </Link>
                       </li>
                       <li>
-                        <Link  to="/addLoad" style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item" href="/">
-                        Add Load
+                        <Link
+                          to="/addBattery"
+                          style={{ backgroundColor: "#006f79", color: "white" }}
+                          className="dropdown-item"
+                        >
+                          Add Battery
                         </Link>
                       </li>
                       <li>
-                        <Link to="/addGrid"  style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item" href="/">
-                        Add Grid
+                        <Link
+                          to="/addGreenEnergy"
+                          style={{ backgroundColor: "#006f79", color: "white" }}
+                          className="dropdown-item"
+                          href="/"
+                        >
+                          Add GreenEnergy
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/addLoad"
+                          style={{ backgroundColor: "#006f79", color: "white" }}
+                          className="dropdown-item"
+                          href="/"
+                        >
+                          Add Load
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/addGrid"
+                          style={{ backgroundColor: "#006f79", color: "white" }}
+                          className="dropdown-item"
+                          href="/"
+                        >
+                          Add Grid
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                  <li className="nav-item dropdown" style={navItemDrop}>
+                    <a
+                      className="nav-link"
+                      href="/"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                      drop="left"
+                      style={navLink}
+                    >
+                      Registeration
+                    </a>
+                    <div></div>
+                    <ul
+                      className="dropdown-menu "
+                      style={{
+                        ...myStyle,
+                        backgroundColor: "#006f79",
+                        marginTop: "5px",
+                      }}
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
+                      <li>
+                        <Link
+                          to="/producer/signup"
+                          style={{ backgroundColor: "#006f79", color: "white" }}
+                          className="dropdown-item"
+                        >
+                          Add Producer
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/prosumer/signup"
+                          style={{ backgroundColor: "#006f79", color: "white" }}
+                          className="dropdown-item"
+                        >
+                          Add Prosumer
                         </Link>
                       </li>
                     </ul>
                   </li>
                   <li className="nav-item" style={navItem}>
-                  {IsAuthenticated ? (
-                      <Link className="nav-link" style={navLink}  onClick={LogOut} >
-                      Log Out
-                    </Link>
+                    {IsAuthenticated ? (
+                      <Link
+                        className="nav-link"
+                        style={navLink}
+                        onClick={LogOut}
+                      >
+                        Log Out
+                      </Link>
                     ) : (
-                      <Link className="nav-link" style={navLink} onClick={connectMetaMask} >
-                      Log in 
-                    </Link>
+                      <Link
+                        className="nav-link"
+                        style={navLink}
+                        onClick={connectMetaMask}
+                      >
+                        Log in
+                      </Link>
                     )}
                   </li>
                 </ul>
               </div>
             </div>
-          </nav> 
+          </nav>
         </div>
       </div>
     </>
@@ -166,7 +272,7 @@ function BasicExample(props) {
     //           </NavDropdown.Item>
 
     //           <NavDropdown.Item>
-              
+
     //             <Link to="/addGreenEnergy" style={textDeco}>
     //               Add GreenEnergy
     //             </Link>
@@ -181,7 +287,7 @@ function BasicExample(props) {
     //           </NavDropdown.Item>
 
     //           <NavDropdown.Item>
-              
+
     //             <Link to="/addGrid" style={textDeco}>
     //               Add Grid
     //             </Link>

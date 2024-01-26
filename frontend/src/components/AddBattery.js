@@ -159,9 +159,9 @@ function AddBattery() {
           
               <input style={input} type="text" id="initSoc" placeholder="Enter your initSoc" className="form-control m-3" name="gst_number" />
             </div>
-            <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}> {RegisterButton("Connect MetaMask", connect)}</Link>   
+            <Link style={{...flexrow, textDecoration:'none', margin:"3px"}}> {RegisterButton("Connect MetaMask", connect)}</Link>   
 
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Add Battery", addBattery)}</Link>
+              <Link to="/ProducerHome" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Add Battery", addBattery)}</Link>
           </div>
         </div>
       </div>

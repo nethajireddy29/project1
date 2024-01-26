@@ -119,13 +119,16 @@ const RegisterButton = (text, Click) => {
 function AddMicrogrid(props) {
   const [send, setSend] = useState("");
   const [get, setGet] = useState("");
+  const [meta , setmeta] = useState("");
   // const [send, setSend] = useState("");
 
   const navigate = useNavigate() 
   async function connect() {
-    const { sendDataContract, getDataContract } = await connectToMetaMask();
+    const { sendDataContract, metaMaskAddress, getDataContract } =
+      await connectToMetaMask();
     setSend(sendDataContract);
     setGet(getDataContract);
+    setmeta(metaMaskAddress);
   }
 
   async function addMicrogrid() {
@@ -135,9 +138,9 @@ function AddMicrogrid(props) {
     // console.log(microGridId)
     const data = await send.createMicroGrid(microGridName);
     // console.log("microgrid NUmber :",Number(microGridId))
-    send.addProducerToMicroGrid(microGridId);
+    send.addProducerToMicroGrid(microGridId , meta);
     if (props.redirectLogIn) {
-      navigate("/ProducerLogin")
+      navigate("/producer/login")
       // console.log("login redir")
     } {
       navigate("/ProducerHome")
@@ -163,9 +166,9 @@ function AddMicrogrid(props) {
             </div>
               
             
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Connect MetaMask", connect)}</Link>
+              <Link style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Connect MetaMask", connect)}</Link>
 
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Add Microgrid", addMicrogrid)}</Link>
+              <Link style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Add Microgrid", addMicrogrid)}</Link>
             
           </div>
         </div> 

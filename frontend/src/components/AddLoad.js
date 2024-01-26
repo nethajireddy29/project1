@@ -133,36 +133,63 @@ function AddLoad() {
 
   
 
-  return ( 
+  return (
     <>
+      <div style={{ ...flexrow, ...div }}>
+        <div style={{ ...flexcolumn, gap: "2rem" }}>
+          <h1 style={h1}>Add Load</h1>
 
-<div style={{ ...flexrow, ...div }}>
-      <div style={{ ...flexcolumn, gap: '2rem' }}>
-      <h1 style={h1}>Add Load</h1> 
+          <div style={{ ...box, ...flexcolumn, gap: "2rem" }}>
+            <div style={{ ...flexcolumn, gap: "1rem" }}>
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="uniqueID"
+                  placeholder="Enter the uniqueID"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
 
-        <div style={{...box, ...flexcolumn, gap:'2rem'}}>
-          <div style={{ ...flexcolumn, gap:'1rem'}}>
-            
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="uniqueID" placeholder="Enter the uniqueID" className="form-control m-3" name="gst_number" />
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="userAddress"
+                  placeholder="Enter the userAddress"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
+
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="energyRequired"
+                  placeholder="Enter the energyRequired"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
+              <Link
+                style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
+              >
+                {RegisterButton("Connect MetaMask", connect)}
+              </Link>
+
+              <Link
+                to="/ProducerHome"
+                style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
+              >
+                {RegisterButton("Add Load", addload)}
+              </Link>
             </div>
-              
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="userAddress" placeholder="Enter the userAddress" className="form-control m-3" name="gst_number" />
-            </div>
-
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="energyRequired" placeholder="Enter the energyRequired" className="form-control m-3" name="gst_number" />
-            </div>
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Connect MetaMask", connect)}</Link>
-
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Add Load", addload)}</Link>
-            
           </div>
-        </div> 
+        </div>
       </div>
-    </div>
- 
+
       {/* <div className="welcomeContainer shadow" style={style}>
         <h1>Add load</h1>
         <br />
