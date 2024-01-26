@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useHistory from react-router-dom
 import { Buffer } from "buffer";
 import CryptoJS from "crypto-js";
-import myImage from "./3.jpg"
+import myImage from "../images/3.jpg"
 import RegisterButton from "./authentication";
 
 let flexrow = {
@@ -25,15 +25,6 @@ let h1login={
   color: 'white'
 }
 
-let button = {
-  backgroundColor : '#164863',
-  border: 'none',
-  color: 'white',
-  fontFamily: 'Roboto',
-  fontSize: '30px',
-  padding: '10px 40px 10px 40px',
-  borderRadius: '25px'
-}
 let p={
   fontFamily: 'Poppins',
   padding: '0 10px 0 10px',
@@ -78,12 +69,12 @@ function decryptAES(encryptedText) {
   return decrypted;
 }
 
+const message = Math.floor(Math.random() * 9000).toString();
 
 function Microid() {
   const navigate = useNavigate(); // Get the history object
 
-  const message = Math.floor(Math.random() * 9000).toString();
-  const micrometerid = `0426ELUZ${message}`;
+  const micrometerid =` 0426ELUZ${message}`;
   const encryptedId = encryptAES(micrometerid);
 
   const sendDataToServer = async () => {

@@ -7,6 +7,17 @@ import React from "react";
     const timespan = document.getElementById("timespan").value;
 
 
+    const dataAbtgst = await fetch('/api/getGst',{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        "gst_number":gstNumber
+      })
+
+
+    })
+    const dataAbtGstResponse = await dataAbtgst.json()
+    console.log(dataAbtGstResponse)
       const response = await fetch("/api/addPlan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -15,6 +26,9 @@ import React from "react";
           microGridId:0,
           units: Number(units),
           timespan: Number(timespan),
+          mobile_number:Number(dataAbtGstResponse.phone_number),
+          company_name: dataAbtGstResponse.company_name
+
         }),
       });
       alert("SuccessFully Created an plan")
@@ -72,7 +86,7 @@ import React from "react";
         /> 
         <br />*/}
         <input
-          type="number"
+          type="text" inputMode="numeric" pattern="[0-9]*" title="Please enter only numeric values" 
           id="units"
           placeholder="Enter units"
           style={inputbox}
@@ -86,7 +100,6 @@ import React from "react";
         />
         <br />
         <button className="btn" style={myButton} onClick={add}>
-  
           Add
         </button>
       </div>

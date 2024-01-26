@@ -1,36 +1,6 @@
-/*import React, { useState } from 'react';
-import Compare from "./webcam.js"
-function FaceAuthentication() {
-  const [aadharNumber, setAadharNumber] = useState('');
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Add your logic for handling the submitted Aadhar Number here
-    console.log('Aadhar Number submitted:', aadharNumber);
-    // Redirect to /camera or perform other actions as needed
-  };
-
-  const handleInputChange = (event) => {
-    setAadharNumber(event.target.value);
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Aadhar Number
-          <input type="text" value={aadharNumber} onChange={handleInputChange} />
-        </label>
-        <Compare aadhar={aadharNumber}/>
-        <button className="button" type="submit">ENTER</button>
-      </form>
-    </div>
-  );
-}
-
-export default FaceAuthentication;*/
 import React, { useState } from 'react';
 import Compare from "./webcam.js"
-import myImage from "./3.jpg";
+import myImage from "../images/3.jpg";
 
 const RegisterButton = (text) => {
   const [buttonStyles, setButtonStyles] = useState({
@@ -73,7 +43,10 @@ const RegisterButton = (text) => {
       color: 'white', // Set the original color here
     }));
   };
-    return <button className="button" type='submit' style={buttonStyles} onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+  const handleOnClick = ()=>{
+    console.log("Button clicked");
+  };
+    return <button className="button" type='submit' style={buttonStyles} onMouseEnter={handleHover} onMouseLeave={handleLeave} onClick={handleOnClick}>
     <span className="text" style={textStyles}>{text}</span>
   </button>
   }
@@ -81,7 +54,7 @@ const RegisterButton = (text) => {
 let div = {
   height: '100vh',
   width: '100vw',
-  backgroundImage: `url(${myImage})`,
+  backgroundImage:` url(${myImage})`,
   backgroundSize: "cover",
 }
 let flexrow = {

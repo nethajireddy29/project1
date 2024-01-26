@@ -3,28 +3,97 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import ConsumerNavbar from "./navbar.js";
+import ConsumerNavbar from "./navbar.js";
 import { ethers } from 'ethers';
 export default function ConsumerPlans(props) {
-    const [plans,setPlans] = useState([]);
-    let buyButton = {
-        backgroundColor: "#A6A6A6",
-        fontSize: "15px",
-        height: "6vh",
-        width: "20vw",
-        bottom: 0,
-        padding: "3%",
-        borderWidth: 0,
-        textAlign: "left"
-    }
-    let favIcon = {
-        color: "#808080",
-        marginLeft: "60%"
-    }
-    const handleOnCart = () => {
-        setColor("#B6D8EB");
-    }
-    const [color, setColor] = useState("#DDF2FD");
+  const [plans,setPlans] = useState([]);
+      let cardBody={
+        backgroundColor:'#001c20', 
+        color: 'white',
+        borderRadius: '20px'
+      }
+      let rowdiv={
+        margin: '50px 30px 0 30px',
+        display: 'flex-row !important',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '2rem'
+      }
+      let flexrow={
+        display:'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }
+      let card={
+        backgroundColor: 'rgb(0, 28, 32)',
+        //boxShadow: '0 0 20px #001c20',
+        borderWidth: '4px',
+        borderRadius: '20px',
+        borderImage: 'linear-gradient(45deg, #005d63, #02ffff, #005d63, #005d63) 1',
+      }
+    
+      const BuyButton = ({ buttonText }) => {
+        const [buttonStyles, setButtonStyles] = useState({
+          border: 'none',
+          width: '150px',
+          height: '40px',
+          borderRadius: '3em',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '12px',
+          background: '#005d63',
+          cursor: 'pointer',
+          transition: 'all 450ms ease-in-out',
+        });
+        const [textStyles, setTextStyles] = useState({
+          fontWeight: '600',
+          color: '#02ffff',
+          fontSize: 'medium',
+        });
+        const handleHover = () => {
+          setButtonStyles((prevStyles) => ({
+            ...prevStyles,
+            background: 'linear-gradient(0deg, #02ffff, #005d63)',
+            transform: 'translateY(-2px)',
+          }));
+          setTextStyles((prevStyles) => ({
+            ...prevStyles,
+            color: 'white',
+          }));
+        };
+        const handleLeave = () => {
+          setButtonStyles((prevStyles) => ({
+            ...prevStyles,
+            background: '#005d63',
+            transform: 'translateY(0)',
+          }));
+          setTextStyles((prevStyles) => ({
+            ...prevStyles,
+            color: '#02ffff',
+          }));
+        };
+        return (
+            <button
+              className="btn"
+              style={buttonStyles}
+              onMouseEnter={handleHover}
+              onMouseLeave={handleLeave}
+            >
+              <span className="text" style={textStyles}>
+                {buttonText}
+              </span>
+            </button>
+          );
+        };
+      
+        
+        const handleOnCart = () => {
+          setColor("#B6D8EB");
+        };
+        
+        const [color, setColor] = useState("#DDF2FD");
     async function sendDataToServer(name, microid, units, amount) {
         try {
             // ... (your existing code for sending data to the server)
@@ -100,74 +169,60 @@ export default function ConsumerPlans(props) {
       
     return (
         <>
-            {/* <ConsumerNavbar/> */}
-
-            <div style={{ backgroundColor: "#9BBEC8", height: "100%", padding: "3%", paddingTop: "0.9%" }}>
+            <div style={{ backgroundColor: '#010c0e', width: '100vw' }} >
+                <ConsumerNavbar/>
                 <div style={{ padding: 10 }}>
                     <form className="d-flex">
                         <input className="form-control me-2" type="search" placeholder="Search for electric plans..." style={{ borderRadius: 20, backgroundColor: "#DDF2FD" }} aria-label="Search" />
-                        <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#808080", paddingTop: "1%", marginRight: "1%" }} />
+                        <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#ffffff", paddingTop: "1%", marginRight: "1%" }} />
                         <div onChange={handleOnCart} style={{ backgroundColor: { color }, height: "6vh", width: "3%", textAlign: "center", borderRadius: "100%", padding: "6px" }} >
-                            <Link to="/carts"><FontAwesomeIcon icon={faCartShopping} style={{ color: "#808080", paddingTop: "1%" }} /></Link>
+                            <Link to="/carts"><FontAwesomeIcon icon={faCartShopping} style={{ color: "#ffffff", paddingTop: "1%" }} /></Link>
                         </div>
                     </form>
                 </div>
-                <div className="d-flex flex-row">
-
-
-<div style={{ backgroundColor: "#9BBEC8", height: "100%", padding: "3%", paddingTop: "0.9%" }}>
-        {/* ... your search and cart code ... */}
-        <div className="d-flex flex-row">
-          {plans.map((plan, index) => (
-            <div key={index} style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-              <img src="" alt="" />
-              <h1>{plan.units}</h1>
-              <button style={buyButton} onClick={() => { purchaseEnergy(plan.microGridId,plan.units) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-                    
-                    {/* <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-                        <img src="" alt="" />
-                        <h1>200</h1>
-                        <button style={buyButton} onClick={() => { purchaseEnergy(200) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
+                <div style={{...rowdiv, display: 'flex', flexDirection: 'row', gap: '9rem'}}>
+                    <div className="container">
+                        <div className="row">
+                            {plans.map((plan, index) => (
+                            <div className="col-4 mb-5" style={{...flexrow}}>
+                                <div className="card" style={{width: '18rem', ...card, objectFit:"Fill"}}>
+                                    <div key={index} style={{ width: "20vw", margin: "3%", marginRight: 0 }}>
+                                        <img src="" alt="" />
+                                        <div className="card-body" style={{ ...cardBody }}>
+                                            <h1>{plan.units}</h1>
+                                            <p className="card-text">Timespan {plan.timespan}</p>
+                                            <p className="card-text">mobile number {plan.mobile_number}</p>
+                                            <p className="card-text">company name {plan.company_name} </p>
+                                            <div className = "d-flex flex-row gap-2">
+                                                <BuyButton buttonText="Buy Now" />
+                                                <BuyButton buttonText="Add to Cart" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            ))}
+                        </div>
                     </div>
-                    <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-                        <img src="" alt="" />
-                        <h1>400</h1>
-                        <button style={buyButton} onClick={() => { purchaseEnergy(400) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
+                </div>  
+                {/* <div style={{...rowdiv, display: 'flex', flexDirection: 'row', gap: '9rem'}}>
+                    <div className="container">
+                       <div className="row">
+                        {plans.map((plan)=>(
+                        <div className="col-4 mb-5" style={{...flexrow}}>
+                            <div className="card" style={{width: '18rem', ...card, objectFit:"Fill"}}>
+                                <img style={{...img}} src="https://www.eclosio.ong/wp-content/uploads/2018/08/default.png" className="card-img-top" alt="..."/>
+                                <div className="card-body" style={{...cardBody}}>
+                                    <h5 className="card-title">Card title</h5>
+                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <BuyButton buttonText="Buy Now" />
+                                </div>
+                            </div>
+                         </div>
+                        ))}
+                        </div>
                     </div>
-                    <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-                        <img src="" alt="" />
-                        <h1>700</h1>
-                        <button style={buyButton} onClick={() => { purchaseEnergy(700) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
-                    </div>
-                </div>
-                <div className="d-flex flex-row">
-                    <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-                        <img src="" alt="" />
-                        <h1>103</h1>
-                        <button style={buyButton} onClick={() => { purchaseEnergy(103) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
-                    </div>
-                    <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-                        <img src="" alt="" />
-                        <h1>270</h1>
-                        <button style={buyButton} onClick={() => { purchaseEnergy(103) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
-                    </div>
-                    <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-                        <img src="" alt="" />
-                        <h1>401</h1>
-                        <button style={buyButton} onClick={() => { purchaseEnergy(103) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
-                    </div>
-                    <div style={{ backgroundColor: "#DDF2FD", height: "20vh", width: "20vw", margin: "3%", marginRight: 0 }}>
-                        <img src="" alt="" />
-                        <h1>777</h1>
-                        <button style={buyButton} onClick={() => { purchaseEnergy(103) }}> Buy Now <FontAwesomeIcon icon={faCartShopping} style={favIcon} /></button>
-                    </div> */}
-                </div>
-
+                </div> */}
             </div>
         </>
     );

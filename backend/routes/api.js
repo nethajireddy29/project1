@@ -39,6 +39,7 @@ router.post("/createConsumer", addConsumer);
 router.post("/getConsumer", getConsumer);
 router.get("/allConsumer", getAllConsumer);
 router.post("/loginConsumer", loginConsumer);
+console.log("ugui")
 // router.post('/removeConsumer',removeConsumer);
 // router.post('/removeSpecificConsumers',removeMultipleConsumer);
 

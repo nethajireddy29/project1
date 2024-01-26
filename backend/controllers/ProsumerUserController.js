@@ -9,7 +9,6 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
 const Salt = crypto.randomBytes(16).toString("hex");
-const pepper = "nsrssl45";
 const encryptionKey =
   "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
 
@@ -20,9 +19,7 @@ if (Buffer.from(encryptionKey, "hex").length !== 32) {
 }
 
 function hashPassword(password) {
-  return crypto
-    .pbkdf2Sync(password + pepper, Salt, 10000, 64, "sha512")
-    .toString("hex");
+  return crypto.pbkdf2Sync(password, Salt, 10000, 64, "sha512").toString("hex");
 }
 
 function encryptAES(text) {
@@ -52,23 +49,24 @@ function decryptAES(encryptedText) {
 
 const createProsumerUser = async (req, res) => {
   try {
+    console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
     const hashedPassword = hashPassword(req.body.password);
+    console.log(hashedPassword);
     const encryptedPassword = encryptAES(hashedPassword);
 
     const username = req.body.gst_number;
-    const userData = await ProsumerUser.findOne({ gst_number: username });
-    const userData2 = await GstUser.findOne({ gst_number: username });
-
+    const userData2 = await ProsumerUser.findOne({ gst_number: username });
+    const userData = await GstUser.findOne({ gst_number: username });
+    console.log(userData);
     const username1 = req.body.registrant;
-    console.log(username1);
     const registrantData = await ProducerUser.findOne({ name: username1 });
 
-    if (userData || !userData2) {
+    if (!userData || userData2) {
       return res.json({
         success: false,
         message: "GST Number already registered!",
@@ -79,7 +77,7 @@ const createProsumerUser = async (req, res) => {
       await ProsumerUser.create({
         registrant: req.body.registrant,
         gst_number: req.body.gst_number,
-        password: encryptedPassword
+        password: encryptedPassword,
       });
 
       return res.json({ success: true });
@@ -109,12 +107,14 @@ const ProsumerLogIn = async (req, res) => {
     if (!userData) {
       return res.status(400).json({
         success: false,
-        message: "Try logging with correct GST Number",
+        message: "Try logging with correct Username",
       });
     }
 
     const hashedPassword = hashPassword(req.body.password);
+    console.log(hashedPassword);
     const decryptedPassword = decryptAES(userData.password);
+    console.log(decryptedPassword);
 
     if (hashedPassword !== decryptedPassword) {
       return res.status(400).json({

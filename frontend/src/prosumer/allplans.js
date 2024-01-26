@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ProsumerNavbar from "./navbar.js";
+
 function ProsumerAllPlans() {
   const [plans, getPlans] = useState([]);
   useEffect(() => {
@@ -142,18 +144,21 @@ function ProsumerAllPlans() {
     borderRadius: 20,
     padding: "2%",
   };
+  let flexrow={
+    display:'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  };
   return (
     <>
-      <div className="d-flex flex-wrap"
-        style={{
-          ...rowdiv,
-          display: "flex",
-          flexDirection: "row",
-          gap: "1rem",
-
-        }}
-      >
+    <div style={{ backgroundColor: '#010c0e', width: '100vw' }} >
+    <ProsumerNavbar/>
+      <div className="d-flex flex-wrap" style={{...rowdiv, display: 'flex', flexDirection: 'row', gap: '9rem'}}>
+        <div className="container">
+          <div className="row">
         {plans.map((plan) => (
+          <div className="col-4 mb-5" style={{...flexrow}}>
           <div className="card" style={{ width: "20vw", ...card }}>
             <img
               style={{ ...img }}
@@ -163,12 +168,19 @@ function ProsumerAllPlans() {
             />
             <div className="card-body" style={{ ...cardBody }}>
               <h5 className="card-title">Units {plan.units}</h5>
-              <p className="card-text">Timespan {plan.timespan}
+              <p className="card-text">Timespan {plan.timespan}</p>
+              <p className="card-text">mobile number {plan.mobile_number}</p>
+              <p className="card-text">company name {plan.company_name}
               </p>
             </div>
           </div>
+          </div>
         ))}
       </div>
+      </div>
+       </div>
+      </div>
+      
     </>
   );
 }

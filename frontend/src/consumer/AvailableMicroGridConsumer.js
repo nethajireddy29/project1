@@ -11,7 +11,6 @@ function AvailableMicrogrid(props) {
   const addConsumerToMicroGrid = (id) => {
     const data1 = props.connect.addConsumerToMicroGrid(id);
     navigate("/consumer/login")
-
   }
   useEffect(() => {
     async function fetchData() {

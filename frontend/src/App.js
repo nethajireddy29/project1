@@ -32,6 +32,8 @@ import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
 
 //prosumer Imports
 import ProsumerLogin from "./prosumer/login.js";
+import ProsumerSignUp from "./prosumer/signup.js";
+import ProsumerJoinMicroGrid from "./prosumer/joinmicrogrid.js"
 import ProsumerHome from "./prosumer/home.js";
 import ProsumerMyContracts from "./prosumer/mycontracts.js";
 import ProsumerAllPlans from  "./prosumer/allplans.js";
@@ -39,6 +41,7 @@ import ProsumerHelp from "./prosumer/help.js";
 import ProsumerHistory from "./prosumer/history.js";
 import ProsumerAuthentication from "./prosumer/authentication.js";
 import ProducerCreateContract from "./prosumer/createcontract.js";
+import AddProsumer from "./components/AddProsumer.js";
 
 
 // import { VariableProvider } from './Context/metaContext.js';
@@ -87,8 +90,8 @@ export default function App() {
           <Route path="/addConsumer" element={<AddConsumer connect={sendContract} />} />
           <Route path="/consumer/AvailableMicrogrid" element={<AvailableMicroGridConsumer connect={sendContract} />} />
           {/* Producer Routes */}
-          <Route path="/ProducerSignup" element={<ProducerSignup />} />
-          <Route path="/ProducerLogin" element={<ProducerLogIn />} />
+          <Route path="/producer/signup" element={<ProducerSignup />} />
+          <Route path="/producer/login" element={<ProducerLogIn />} />
           <Route path="/ProducerHome" element={<ProducerHome   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
           <Route path="/addProducer" element={<AddProducer   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
           <Route path="/addMicrogrid" element={<AddMicrogrid   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
@@ -108,6 +111,11 @@ export default function App() {
           <Route path="/prosumer/help" element={<ProsumerHelp />} />
           <Route path="/prosumer/history" element={<ProsumerHistory />} />,
           <Route path="/prosumer/createcontract" element={<ProducerCreateContract />} />
+          <Route path="/prosumer/signup" element={<ProsumerSignUp />} />
+          <Route path="/prosumer/joinmicrogrid" element={<ProsumerJoinMicroGrid />} />
+          <Route path="/addProsumer" element={<AddProsumer connect={sendContract} />} />
+
+
           
           
         </Routes>

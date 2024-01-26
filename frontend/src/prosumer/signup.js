@@ -108,7 +108,7 @@ let box = {
   backgroundColor: "#001719",
   opacity: "0.9",
   // #001b1e
-  height: "600px",
+  height: "500px",
   width: "45vw",
   borderRadius: "25px",
   padding: "20px",
@@ -125,22 +125,13 @@ let input = {
   fontSize: "20px",
   color: "#02ffff",
 };
-let h1 = {
-  fontFamily: "Poppins",
-  textAlign: "center",
-  fontSize: "4rem",
-  color: "white",
-  /*paddingLeft: '2.5vw',
-    paddingRight: '2.5vw'*/
-};
 
-export default function ProducerLogIn() {
+export default function ProsumerSignUp() {
   let navigate = useNavigate();
   const [credentials, setcredentials] = useState({
     registrant: "",
-    name: "",
+    gst_number: "",
     password: "",
-    designation: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -152,16 +143,15 @@ export default function ProducerLogIn() {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/createProducerUser", {
+      const response = await fetch("/api/createProsumerUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           registrant: credentials.registrant,
-          name: credentials.name,
+          gst_number: credentials.gst_number,
           password: credentials.password,
-          designation: credentials.designation,
         }),
       });
 
@@ -170,10 +160,10 @@ export default function ProducerLogIn() {
 
       if (!json.success) {
         alert(
-          "Username or Registrant should have atleast 5 characters and Password should have atleast 8 characters"
+          "Registrant should have atleast 5 characters and Password should have atleast 8 characters"
         );
       } else {
-        navigate("/AddProducer");
+        navigate("/addProsumer");
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -219,16 +209,21 @@ export default function ProducerLogIn() {
                     </div>
                   </div>
                   <div className="mb-3">
-                    <label style={p} htmlFor="Username" className="form-label">
-                      Username
+                    <label
+                      style={p}
+                      htmlFor="gst_number"
+                      className="form-label"
+                    >
+                      GST Number
                     </label>
                     <div style={{ ...flexrow }}>
                       <input
                         style={input}
                         type="text"
+                        id="microid"
                         className="form-control m-3"
-                        name="name"
-                        value={credentials.name}
+                        name="gst_number"
+                        value={credentials.gst_number}
                         onChange={onChange}
                       />
                     </div>
@@ -252,67 +247,9 @@ export default function ProducerLogIn() {
                       />
                     </div>
                   </div>
-                  <div className="mb-3">
-                    <label
-                      style={p}
-                      htmlFor="exampleInputDesignation1"
-                      className="form-label mb-3"
-                    >
-                      Designation
-                    </label>
-                    <div style={{ ...flexrow }}>
-                      <select
-                        style={input}
-                        className="form-select"
-                        name="designation"
-                        value={credentials.designation}
-                        onChange={onChange}
-                      >
-                        <option style={input} value="">
-                          Select Designation
-                        </option>
-                        <hr />
-                        <option value="Chief Engineer">Chief Engineer</option>
-                        <hr />
-                        <option value="Superintendent Engineer">
-                          Superintendent Engineer
-                        </option>
-                        <hr />
-                        <option value="Divisional Engineer">
-                          Divisional Engineer
-                        </option>
-                        <hr />
-                        <option value="Assistant Director">
-                          Assistant Director
-                        </option>
-                        <hr />
-                        <option value="Assistant Engineer">
-                          Assistant Engineer
-                        </option>
-                        <hr />
-                        <option value="Assistant Sub-Engineer">
-                          Assistant Sub-Engineer
-                        </option>
-                        <hr />
-                        <option value="Foreman">Foreman</option>
-                        <hr />
-                        <option value="Line Inspector">Line Inspector</option>
-                        <hr />
-                        <option value="Lineman">Lineman</option>
-                        <hr />
-                        <option value="Junior Lineman">Junior Lineman</option>
-                        <hr />
-                        <option value="Assistant Lineman">
-                          Assistant Lineman
-                        </option>
-                        <hr />
-                      </select>
-                    </div>
-                  </div>
-
                   <div className="d-flex flex-row justify-content-center">
                     <Link
-                      to="/AddProducer"
+                      to="/prosumer/login"
                       style={{
                         ...flexrow,
                         textDecoration: "none",
@@ -322,7 +259,7 @@ export default function ProducerLogIn() {
                       {RegisterButton("Submit", 0)}
                     </Link>
                     <Link
-                      to="/producer/login"
+                      to="/prosumer/login"
                       style={{
                         ...flexrow,
                         fontWeight: "200",

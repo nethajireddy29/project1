@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Buffer } from "buffer";
 import CryptoJS from "crypto-js";
-import myImage from "./3.jpg";
+import myImage from "../images/3.jpg";
 
 const encryptionKey =
   "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
@@ -172,19 +172,20 @@ function ConsumerAuthentication(){
 function ConsumerLogin(){
     const history = useNavigate();
     const [text, setText] = useState("");
-    console.log("hi")
+    
     const sendDataToServer = async () => {
+      console.log("hi")
         let inputValue = document.getElementById("microid").value;
-        console.log(typeof(inputValue))
         try {
           // ... (your existing code for sending data to the server)
           const encrypted_inputValue = encryptAES(inputValue);
+          console.log(encrypted_inputValue,"encrypted value")
           const response = await fetch('/api/loginConsumer', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "id": encrypted_inputValue }),
+            body: JSON.stringify({ "microid": encrypted_inputValue }),
           });
     
           const responseData = await response.json(); // Await the response text
@@ -197,10 +198,7 @@ function ConsumerLogin(){
 
             localStorage.setItem("authToken", responseData.authToken);
             localStorage.setItem("micrometerid",encrypted_inputValue);
-
-
             history('/consumer/home');
-
           }
           // Redirect to "/login" after successful data submission
           else{

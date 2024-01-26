@@ -33,6 +33,9 @@ const transactionBillsSchema = mongoose.Schema({
   fromGrid:{
     type:Number,
     default:0,
+  },
+  microGridId: {
+    type:Number
   }
 });
 
