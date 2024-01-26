@@ -256,7 +256,7 @@ export default function ProsumerSignUp() {
                         margin: "3px",
                       }}
                     >
-                      {RegisterButton("Submit", 0)}
+                      {RegisterButton("Submit", handleSubmit)}
                     </Link>
                     <Link
                       to="/prosumer/login"

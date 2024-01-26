@@ -238,7 +238,7 @@ export default function Base() {
                 height: "500px",
               }}
             >
-              <Link to="/prosumer">Prosumer</Link>
+              <Link to="/prosumer/login">Prosumer</Link>
             </div>
             <div
               style={{
@@ -295,7 +295,7 @@ export default function Base() {
       </section>
       <section id="section4">
         <div style={{ ...box }}>
-          <Link to="/producer">Producer</Link>
+          <Link to="/producer/login">Producer</Link>
         </div>
       </section>
       <section id="section5">
@@ -303,7 +303,6 @@ export default function Base() {
           <p>Contact Us</p>
         </div>
       </section>
-         
-    </div>
-  );
+    </div>
+  );
 }

@@ -39,7 +39,6 @@ import ProsumerMyContracts from "./prosumer/mycontracts.js";
 import ProsumerAllPlans from  "./prosumer/allplans.js";
 import ProsumerHelp from "./prosumer/help.js";
 import ProsumerHistory from "./prosumer/history.js";
-import ProsumerAuthentication from "./prosumer/authentication.js";
 import ProducerCreateContract from "./prosumer/createcontract.js";
 import AddProsumer from "./components/AddProsumer.js";
 
@@ -73,53 +72,171 @@ export default function App() {
   }, []);
   return (
     <Router>
-      <div>      
+      <div>
         <Routes>
           <Route path="/" element={<Base />} />
-
-
           <Route path="/consumer" element={<ConsumerAuthentication />} />
-          <Route path="/consumer/registration" element={<ConsumerFaceAuthentication />} />
+          <Route
+            path="/consumer/registration"
+            element={<ConsumerFaceAuthentication />}
+          />
           <Route path="/consumer/otp" element={<ConsumerOtp />} />
           <Route path="/consumer/microid" element={<ConsumerMicroid />} />
-          <Route path="/consumer/form" element={<Form connect={sendContract} />} />
+          <Route
+            path="/consumer/form"
+            element={<Form connect={sendContract} />}
+          />
           <Route path="/consumer/login" element={<ConsumerLogin />} />
           <Route path="/consumer/home" element={<ConsumerHome />} />
-          <Route path="/consumer/plans" element={<ConsumerPlans connect={sendContract}  metaMaskAddress= {metaMaskAddress}/>} />
+          <Route
+            path="/consumer/plans"
+            element={
+              <ConsumerPlans
+                connect={sendContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
           <Route path="/consumer/history" element={<ConsumerHistory />} />
-          <Route path="/addConsumer" element={<AddConsumer connect={sendContract} />} />
-          <Route path="/consumer/AvailableMicrogrid" element={<AvailableMicroGridConsumer connect={sendContract} />} />
+          <Route
+            path="/addConsumer"
+            element={<AddConsumer connect={sendContract} />}
+          />
+          <Route
+            path="/consumer/AvailableMicrogrid"
+            element={<AvailableMicroGridConsumer connect={sendContract} />}
+          />
           {/* Producer Routes */}
           <Route path="/producer/signup" element={<ProducerSignup />} />
           <Route path="/producer/login" element={<ProducerLogIn />} />
-          <Route path="/ProducerHome" element={<ProducerHome   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
-          <Route path="/addProducer" element={<AddProducer   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
-          <Route path="/addMicrogrid" element={<AddMicrogrid   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
-          <Route path="/AddBattery" element={<AddBattery   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
-          <Route path="/AddLoad" element={<AddLoad   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
-          <Route path="/AddGreenEnergy" element={<AddGreenEnergy   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
-          <Route path="/AddGrid" element={<AddGrid   getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress} />} />
-          <Route path="/JoinOrCreateMicroGrid" element={<JoinOrCreateMicroGrid  getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress}/>}/>
-          <Route path="/ShowMicroGrid" element={<AvailableMicrogrid   />} />
-          <Route path="/test" element={<Test  getContract = {getContract} sendContract = {getContract} metaMaskAddress= {metaMaskAddress}   />} />
+          <Route
+            path="/ProducerHome"
+            element={
+              <ProducerHome
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route
+            path="/addProducer"
+            element={
+              <AddProducer
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route
+            path="/addMicrogrid"
+            element={
+              <AddMicrogrid
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route
+            path="/AddBattery"
+            element={
+              <AddBattery
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route
+            path="/AddLoad"
+            element={
+              <AddLoad
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route
+            path="/AddGreenEnergy"
+            element={
+              <AddGreenEnergy
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route
+            path="/AddGrid"
+            element={
+              <AddGrid
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route
+            path="/JoinOrCreateMicroGrid"
+            element={
+              <JoinOrCreateMicroGrid
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route path="/ShowMicroGrid" element={<AvailableMicrogrid />} />
+          <Route
+            path="/test"
+            element={
+              <Test
+                getContract={getContract}
+                sendContract={getContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
           {/*ProsumerRoutes*/}
-          <Route path="/prosumer" element={<ProsumerAuthentication />} />
           <Route path="/prosumer/login" element={<ProsumerLogin />} />
           <Route path="/prosumer/home" element={<ProsumerHome />} />
-          <Route path="/prosumer/mycontracts" element={<ProsumerMyContracts connect={sendContract}  metaMaskAddress= {metaMaskAddress}/>} />
-          <Route path="/prosumer/allplans" element={<ProsumerAllPlans connect={sendContract}  metaMaskAddress= {metaMaskAddress}/>} />
+          <Route
+            path="/prosumer/mycontracts"
+            element={
+              <ProsumerMyContracts
+                connect={sendContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
+          <Route
+            path="/prosumer/allplans"
+            element={
+              <ProsumerAllPlans
+                connect={sendContract}
+                metaMaskAddress={metaMaskAddress}
+              />
+            }
+          />
           <Route path="/prosumer/help" element={<ProsumerHelp />} />
           <Route path="/prosumer/history" element={<ProsumerHistory />} />,
-          <Route path="/prosumer/createcontract" element={<ProducerCreateContract />} />
+          <Route
+            path="/prosumer/createcontract"
+            element={<ProducerCreateContract />}
+          />
           <Route path="/prosumer/signup" element={<ProsumerSignUp />} />
-          <Route path="/prosumer/joinmicrogrid" element={<ProsumerJoinMicroGrid />} />
-          <Route path="/addProsumer" element={<AddProsumer connect={sendContract} />} />
-
-
-          
-          
+          <Route
+            path="/prosumer/joinmicrogrid"
+            element={<ProsumerJoinMicroGrid />}
+          />
+          <Route
+            path="/addProsumer"
+            element={<AddProsumer connect={sendContract} />}
+          />
         </Routes>
- 
       </div>
     </Router>
   );

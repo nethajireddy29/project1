@@ -135,33 +135,61 @@ function AddGreenEnergy() {
 
   return (
     <>
-    <div style={{ ...flexrow, ...div }}>
-      <div style={{ ...flexcolumn, gap: '2rem' }}>
-      <h1 style={h1}>Add Green Energy</h1> 
+      <div style={{ ...flexrow, ...div }}>
+        <div style={{ ...flexcolumn, gap: "2rem" }}>
+          <h1 style={h1}>Add Green Energy</h1>
 
-        <div style={{...box, ...flexcolumn, gap:'2rem'}}>
-          <div style={{ ...flexcolumn, gap:'1rem'}}>
-            
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="uniqueID" placeholder="Enter the uniqueID" className="form-control m-3" name="gst_number" />
-            </div>
-              
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="charge" placeholder="Enter the charge" className="form-control m-3" name="gst_number" />
-            </div>
+          <div style={{ ...box, ...flexcolumn, gap: "2rem" }}>
+            <div style={{ ...flexcolumn, gap: "1rem" }}>
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="uniqueID"
+                  placeholder="Enter the uniqueID"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
 
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="energyProduction" placeholder="Enter the energyProduction" className="form-control m-3" name="gst_number" />
-            </div>
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Connect MetaMask", connect)}</Link>
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="charge"
+                  placeholder="Enter the charge"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
 
-              <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Add Green Energy", addGreenEnergy)}</Link>
-            
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="energyProduction"
+                  placeholder="Enter the energyProduction"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
+              <Link
+                style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
+              >
+                {RegisterButton("Connect MetaMask", connect)}
+              </Link>
+
+              <Link
+                to="/ProducerHome"
+                style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
+              >
+                {RegisterButton("Add Green Energy", addGreenEnergy)}
+              </Link>
+            </div>
           </div>
-        </div> 
+        </div>
       </div>
-    </div>
- 
+
       {/* <div className="welcomeContainer shadow" style={style}>
         <h1>Add Green Energy</h1>
         <br />

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import AvailableMicrogrid from "../components/AvailableMicrogrid";
 import "../consumer/styles.css"
-import {Link} from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import myImage from "../images/3.jpg";
 
 
@@ -142,7 +141,7 @@ function JoinOrCreateMicroGrid() {
         <div className="d-flex flex-row align-items-center" style={{...box, ...flexcolumn, gap:'1rem'}}>
           <div>
             <h1 style={h1}>Join</h1>
-            <Link to = "/ProducerLogin" className = "removeDash"> 
+            <Link className = "removeDash"> 
               <AvailableMicrogrid />
             </Link>
           </div>

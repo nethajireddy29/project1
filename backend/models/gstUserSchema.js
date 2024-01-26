@@ -11,6 +11,10 @@ const GstUserSchema = new mongoose.Schema({
   company_name: {
     type: String,
     required: true,
+  },
+  address: {
+    type: String,
+    required: true,
   }
 });
 

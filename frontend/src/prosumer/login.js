@@ -134,7 +134,7 @@ function ProsumerLogin() {
   const handleSubmit = async (e) => {
     // Synthetic Event
     e.preventDefault();
-    const response = await fetch("api/ProsumerLogIn", {
+    const response = await fetch("/api/ProsumerLogIn", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -189,9 +189,8 @@ function ProsumerLogin() {
                           <input style={input} type="password" className="form-control m-3"  name="password" value={credentials.password} onChange={onChange}/></div>
                       </div>
                       <div className="d-flex flex-row justify-content-center">
-                        <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Submit", 0)}</Link>
-                        <Link to="/prosumer/signup" style={{...flexrow, fontWeight:"200", textDecoration:'none', margin:"3px"}}> {RegisterButton("I am a new user", 0)}</Link>   
-                        </div>
+                        <Link to="/prosumer/signup" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Submit", handleSubmit)}</Link>  
+                      </div>
                   </form>
                       
                   </div>

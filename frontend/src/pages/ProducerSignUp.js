@@ -319,7 +319,7 @@ export default function ProducerSignup() {
                         margin: "3px",
                       }}
                     >
-                      {RegisterButton("Submit", 0)}
+                      {RegisterButton("Submit", handleSubmit)}
                     </Link>
                     <Link
                       to="/producer/login"
