@@ -138,7 +138,7 @@ function AddMicrogrid(props) {
     // console.log(microGridId)
     const data = await send.createMicroGrid(microGridName);
     // console.log("microgrid NUmber :",Number(microGridId))
-    send.addProducerToMicroGrid(microGridId , meta);
+    await send.addProducerToMicroGrid(microGridId , meta);
     if (props.redirectLogIn) {
       navigate("/producer/login")
       // console.log("login redir")

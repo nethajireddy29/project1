@@ -6,6 +6,7 @@ const {
   removeMultipleConsumer,
   removeConsumer,
   loginConsumer,
+  updateMicrogridId
 } = require("../controllers/consumer_controller");
 const {
     addTransaction,
@@ -17,11 +18,14 @@ const {
 const {
   createProducerUser,
   ProducerLogIn,
+  updateProducer,
+  removeMultipleProducer
 } = require("../controllers/ProducerUserController.js");
 
 const {
   createProsumerUser,
   ProsumerLogIn,
+  updateProsumer
 } = require("../controllers/ProsumerUserController.js");
 
 const { addFace, removeFace, removeAllFaces, getFace ,compareFace} = require("../controllers/AdharAuthentication-controller")
@@ -39,6 +43,8 @@ router.post("/createConsumer", addConsumer);
 router.post("/getConsumer", getConsumer);
 router.get("/allConsumer", getAllConsumer);
 router.post("/loginConsumer", loginConsumer);
+router.post("/UpdateConsumer", updateMicrogridId);
+
 console.log("ugui")
 // router.post('/removeConsumer',removeConsumer);
 // router.post('/removeSpecificConsumers',removeMultipleConsumer);
@@ -76,6 +82,8 @@ router.post(
   ],
   createProsumerUser
 );
+router.post("/updateProsumer",updateProsumer)
+
 
 
 
@@ -123,7 +131,8 @@ router.post(
   ],
   createProducerUser
 );
-
+router.post("/updateProducer",updateProducer)
+router.post("/removeMultipleProducer",removeMultipleProducer)
 
 
 router.post("/addPlan",addPlan);
@@ -131,7 +140,7 @@ router.post("/getPlan",getPlan);
 router.post("/getAllPlans",getAllPlans);
 
 router.post("/getGst",getGst)
-
+router.post("/getAllGst",getAllGst)
 
 router.use("/simulation",Simulation)
 module.exports = router;

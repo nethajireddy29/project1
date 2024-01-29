@@ -33,6 +33,7 @@ const ProducerUserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  microGridId:Number
 });
 
 const ProducerUser = mongoose.model("ProducerUser", ProducerUserSchema);

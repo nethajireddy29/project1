@@ -147,7 +147,7 @@ function AddGrid() {
                   style={input}
                   type="text"
                   id="uniqueID"
-                  placeholder="Enter the uniqueID"
+                  placeholder="Enter the Micro Grid Id"
                   className="form-control m-3"
                   name="gst_number"
                 />

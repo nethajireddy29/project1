@@ -58,8 +58,8 @@ const loginConsumer = async (req, res) => {
     console.log("ifugwqi")
     console.log("login",consumer)
     if (consumer) {
-      const authToken = jwt.sign(req.body.id, jwtSecret);
-      return res.json({ success: true, consumerAuthToken: authToken });
+      const authToken = jwt.sign(req.body.microid, jwtSecret);
+      return res.json({ success: true, consumerAuthToken: authToken ,microGridId:consumer.microGridId});
     } else {
       res.json({ success: false })
     }
@@ -69,11 +69,39 @@ const loginConsumer = async (req, res) => {
   }
 };
 
+const updateMicrogridId = async (req, res) => {
+  try {
+    const microid = req.body.microid
+    const microGridId = req.body.microGridId
+
+    const filter = { microid: microid };
+    const update = {
+      $set: {
+        microGridId: microGridId
+      }
+    };
+
+    const result = await Consumer.updateOne(filter, update);
+
+    if (result) {
+      console.log("Document updated successfully");
+      return res.json( { success: true });
+    } else {
+      console.log(microid,"No document matched the filter or value already up to date");
+      return { success: false };
+    }
+  } catch (error) {
+    console.error(error);
+    return res.json({ success: false, error: error.message });
+  }
+};
+
 module.exports = {
   addConsumer,
   getConsumer,
   getAllConsumer,
   removeMultipleConsumer,
   removeConsumer,
-  loginConsumer
+  loginConsumer,
+  updateMicrogridId
 };

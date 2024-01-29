@@ -8,7 +8,8 @@ const jwt = require("jsonwebtoken");
 // const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
-const Salt = crypto.randomBytes(16).toString("hex");
+const Salt = "a79691a03088a88f3d3acd4302f575e2"
+// const Salt = crypto.randomBytes(16).toString("hex");
 const encryptionKey =
   "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
 
@@ -134,11 +135,37 @@ const ProsumerLogIn = async (req, res) => {
     return res.json({
       success: true,
       authToken: authToken,
+      microGridId:userData.microGridId
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+const updateProsumer = async (req, res) => {
+  try {
+    const filter = req.body.filter
+    const updateData = req.body.update
 
-module.exports = { createProsumerUser, ProsumerLogIn };
+    // const filter = { name: name };
+    const update = {
+      $set: updateData
+    };
+    console.log(filter,update)
+    const result = await ProsumerUser.updateOne(filter, update);
+
+    if (result) {
+      console.log("Document updated successfully");
+      return res.json( { success: true });
+    } else {
+      console.log(microid,"No document matched the filter or value already up to date");
+      return { success: false };
+    }
+  } catch (error) {
+    console.error(error);
+    return res.json({ success: false, error: error.message });
+  }
+};
+
+
+module.exports = { createProsumerUser, ProsumerLogIn ,updateProsumer};

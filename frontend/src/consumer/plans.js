@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ConsumerNavbar from "./navbar.js";
 import { ethers } from 'ethers';
+import {decryptAES} from "../hooks/encryption.js"
 export default function ConsumerPlans(props) {
   const [plans,setPlans] = useState([]);
       let cardBody={
@@ -94,7 +95,7 @@ export default function ConsumerPlans(props) {
         };
         
         const [color, setColor] = useState("#DDF2FD");
-    async function sendDataToServer(name, microid, units, amount) {
+    async function sendDataToServer(name, microid, units, amount,microGridId) {
         try {
             // ... (your existing code for sending data to the server)
             const response = await fetch('/api/createTransactionBills', {
@@ -102,15 +103,16 @@ export default function ConsumerPlans(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ "name": name, "microid": microid, "units": units, "amount": amount }),
+                body: JSON.stringify({ "name": name, "microid": microid, "units": units, "amount": amount ,"microGridId":microGridId}),
             });
+            
             const responseData = await response.json(); // Await the response text
             const simulationResponse = await fetch("/api/simulation/requireUser", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ "userName": responseData._id, "energyRequired": units, "microGridId": 0 })
+                body: JSON.stringify({ "userName": responseData._id, "energyRequired": units, "microGridId": microGridId })
             })
             console.log('Server response:', responseData);
         } catch (error) {
@@ -122,33 +124,37 @@ export default function ConsumerPlans(props) {
     async function purchaseEnergy(microGridId,value) {
         // console.log(props)
         try{
-        const producers = await props.connect.showAllProducers(microGridId);
+          console.log(typeof(microGridId),microGridId)
+        const producers = await props.connect.showAllProducers(Number(microGridId));
         const prosumers = await props.connect.showAllProsumer(microGridId);
+          console.log(producers,prosumers)
         const bigValue = ethers.BigNumber.from(value.toString());
         const multiplier = ethers.BigNumber.from("4334633723450368");
-        const amount = bigValue.mul(multiplier);
-        //   const ans = await props.connect.purchaseEnergy(producers[0], { value: amount });
-        // const amount = value*4334633723450368;
+        const Both = bigValue.mul(multiplier);
+        const ProducerAmount = Both.div(10);
+
+        // console.log(amount)
         
-        const ans = await props.connect.purchaseEnergy_to_Prosumer(producers[0],prosumers[0], { "value": amount });
-        // console.log(props)
+        const data1 = await props.connect.purchaseEnergy_to_Producer(producers[0],{value:ProducerAmount}) 
+        const data2 = await props.connect.purchaseEnergy_to_Prosumer(prosumers[0],{value:Both.sub(ProducerAmount)}) 
+
         const view = await props.connect.address_Consumer(props.metaMaskAddress)
         console.log("microid", 1)
         console.log(view[2].toNumber())
         console.log(view[3].toNumber())
-        sendDataToServer(view[0], view[1], value, amount );
+        sendDataToServer(view[0], view[1], value, Both,microGridId );
         // sendDataToServer("rama","0426ELUZ7164",12,23);
         }catch(err){
             console.log(err)
         }
     }
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async (microGridId) => {
           try {
             const response = await fetch("/api/getAllPlans", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({})
+              body: JSON.stringify({"microGridId":microGridId})
             });
       
             if (!response.ok) {
@@ -164,7 +170,7 @@ export default function ConsumerPlans(props) {
           }
         };
       
-        fetchData();
+        fetchData(decryptAES(localStorage.getItem("microGridId")));
       }, []);
       
     return (
@@ -194,7 +200,7 @@ export default function ConsumerPlans(props) {
                                             <p className="card-text">mobile number {plan.mobile_number}</p>
                                             <p className="card-text">company name {plan.company_name} </p>
                                             <div className = "d-flex flex-row gap-2">
-                                                <BuyButton buttonText="Buy Now" />
+                                               <div onClick={()=>purchaseEnergy(plan.microGridId,plan.units)} > <BuyButton  buttonText="Buy Now" /></div>
                                                 <BuyButton buttonText="Add to Cart" />
                                             </div>
                                         </div>

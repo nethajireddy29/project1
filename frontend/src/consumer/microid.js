@@ -74,12 +74,12 @@ const message = Math.floor(Math.random() * 9000).toString();
 function Microid() {
   const navigate = useNavigate(); // Get the history object
 
-  const micrometerid =` 0426ELUZ${message}`;
+  const micrometerid =`0426ELUZ${message}`;
   const encryptedId = encryptAES(micrometerid);
+  localStorage.setItem("micrometerid",encryptedId);
 
   const sendDataToServer = async () => {
-    console.log(micrometerid)
-    console.log(encryptedId);
+
     try {
       // ... (your existing code for sending data to the server)
       const response = await fetch('/api/createConsumer', {
@@ -87,7 +87,7 @@ function Microid() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ "microid": encryptedId }),
+        body: JSON.stringify({ "microid": micrometerid }),
       });
 
       const responseData = await response.text(); // Await the response text

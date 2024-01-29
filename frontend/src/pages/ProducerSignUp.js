@@ -134,7 +134,7 @@ let h1 = {
     paddingRight: '2.5vw'*/
 };
 
-export default function ProducerSignup() {
+export default function ProducerSignup(props) {
   let navigate = useNavigate();
   const [credentials, setcredentials] = useState({
     registrant: "",
@@ -164,7 +164,7 @@ export default function ProducerSignup() {
           designation: credentials.designation,
         }),
       });
-
+      localStorage.setItem("otherGst",credentials.name)
       const json = await response.json();
       console.log(json);
 
@@ -173,7 +173,13 @@ export default function ProducerSignup() {
           "Username or Registrant should have atleast 5 characters and Password should have atleast 8 characters"
         );
       } else {
-        navigate("/AddProducer");
+        if(props.anotherProducer){
+          navigate(`/addAnotherProducer/${credentials.name}`);
+
+        }else{
+          navigate("/AddProducer");
+
+        }
       }
     } catch (error) {
       console.error("Fetch error:", error);

@@ -179,24 +179,23 @@ function ConsumerLogin(){
         try {
           // ... (your existing code for sending data to the server)
           const encrypted_inputValue = encryptAES(inputValue);
-          console.log(encrypted_inputValue,"encrypted value")
+          // console.log(encrypted_inputValue,"encrypted value")
           const response = await fetch('/api/loginConsumer', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "microid": encrypted_inputValue }),
+            body: JSON.stringify({ "microid": inputValue }),
           });
     
           const responseData = await response.json(); // Await the response text
           console.log('Server response:',responseData,inputValue);
         
           if(responseData.success===true){
-            console.log("done");
+            console.log("done",responseData);
 
             localStorage.setItem("consumerAuthToken", responseData.consumerAuthToken);
-
-            localStorage.setItem("authToken", responseData.authToken);
+            localStorage.setItem("microGridId", responseData.microGridId);
             localStorage.setItem("micrometerid",encrypted_inputValue);
             history('/consumer/home');
           }

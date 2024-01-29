@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import connectToMetaMask from "../hooks/MetaMaskConnection";
-import { Link , useNavigate } from "react-router-dom";
+import { Link , useNavigate, useParams } from "react-router-dom";
 import myImage from "../images/3.jpg";
 
 
@@ -114,11 +114,12 @@ const RegisterButton = (text, Click) => {
   }
   
 
-function AddProducer() {
+function AddProducer(props) {
 
   const [redirect, setRedirect] = useState(false); 
   const [tem, setTem] = useState("");
   const navigate = useNavigate()
+  const {ProducerName} = useParams()
   async function connect() { 
     const { sendDataContract } = await connectToMetaMask();
     setTem(sendDataContract);
@@ -127,8 +128,16 @@ function AddProducer() {
   async function addProducer() {
     let uniqueID = document.getElementById("uniqueID").value;
     let name = document.getElementById("name").value;
-    const data = await tem.addProducer(name, Number(uniqueID))
-    setRedirect(true); // Set redirection to true after MetaMask action is confirmed
+    if(props.anotherProducer){
+      const anotherProducerAddress = document.getElementById("anotherProducerAddress").value;
+      const data = await tem.addAnotherProducer(name, Number(uniqueID),anotherProducerAddress);
+   
+      console.log("another producer",ProducerName)
+      navigate(`/producer/AddToMicrogrid/${ProducerName}`)
+    }else{
+      const data = await tem.addProducer(name, Number(uniqueID))
+      setRedirect(true); // Set redirection to true after MetaMask action is confirmed
+    }
   }
 
   // ... (rest of your code remains unchanged)
@@ -167,6 +176,15 @@ function AddProducer() {
                   className="form-control m-3"
                 />
               </div>
+              {props.anotherProducer? <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="anotherProducerAddress"
+                  placeholder="Another Producer Address"
+                  className="form-control m-3"
+                />
+              </div>:<>  </>}
 
               {/* <div style={{ ...flexrow}}>
               <input style={input} type="text" id="energyRequired" placeholder="Enter the energyRequired" className="form-control m-3" name="gst_number" />
@@ -178,7 +196,7 @@ function AddProducer() {
               </Link>
 
               <Link
-                to="/JoinOrCreateMicroGrid"
+                
                 style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
               >
                 {RegisterButton("Add Producer", addProducer)}

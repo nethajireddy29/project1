@@ -48,8 +48,8 @@ export default function ProsumerHistory(){
     return decrypted;
   }
   
-    async function send(id){
-       const microid=localStorage.getItem("microGridId")
+    async function send(microGridId){
+      //  const microid=localStorage.getItem("microGridId")
         try {
           // ... (your existing code for sending data to the server)
 
@@ -59,7 +59,7 @@ export default function ProsumerHistory(){
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "microGridId":microid }),
+            body: JSON.stringify({ "microGridId":microGridId }),
 
           });
     
@@ -74,7 +74,7 @@ export default function ProsumerHistory(){
         }
 
     // send("0426ELUZ1358");
-    send(decryptAES(localStorage.getItem("micrometerid")));
+    send(decryptAES(localStorage.getItem("microGridId")));
     return (
       <>
       <div style={{...div}}>
@@ -85,18 +85,17 @@ export default function ProsumerHistory(){
                
                {/* {item.toString()} */}
                <div>
-                <pre> Name           : {item["name"]} </pre> 
-                <pre> Micro Meter ID : {item["microid"]} </pre>
-                <pre> Balance        : {item["units"]} </pre>
-                <pre> FromBattery    : {item["fromBattery"]} </pre>
+                <pre style={{color:'white'}}> Name           : {item["name"]} </pre> 
+                <pre style={{color:'white'}}> Micro Meter ID : {item["microid"]} </pre>
+                <pre style={{color:'white'}}> Balance        : {item["units"]} </pre>
+                <pre style={{color:'white'}}> FromBattery    : {item["fromBattery"]} </pre>
                </div>
 
               <div>
-                <pre> FromGreenEnergy : {item["fromGE"]} </pre>
-                <pre> FromGrid        : {item["fromGrid"]} </pre>
-              {/* <p> Energy Balance : {item["amount"]} </p> */}
-                <pre> Amount          : {Number(item["amount"].hex)}  WEI</pre>
-                <pre> Date Time       : </pre>
+                <pre style={{color:'white'}}> FromGreenEnergy : {item["fromGE"]} </pre>
+                <pre style={{color:'white'}}> FromGrid        : {item["fromGrid"]} </pre>
+                <pre style={{color:'white'}}> Amount          : {Number(item["amount"].hex)}  WEI</pre>
+                <pre style={{color:'white'}}> Date Time       : </pre>
               </div>
               
             </div>

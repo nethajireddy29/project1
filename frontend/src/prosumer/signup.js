@@ -126,7 +126,7 @@ let input = {
   color: "#02ffff",
 };
 
-export default function ProsumerSignUp() {
+export default function ProsumerSignUp(props) {
   let navigate = useNavigate();
   const [credentials, setcredentials] = useState({
     registrant: "",
@@ -163,7 +163,12 @@ export default function ProsumerSignUp() {
           "Registrant should have atleast 5 characters and Password should have atleast 8 characters"
         );
       } else {
-        navigate("/addProsumer");
+        if(props.anotherProsumer){
+          navigate(`/addAnotherProsumer/${credentials.gst_number}`)
+        }else{
+
+          navigate("/addProsumer");
+        }
       }
     } catch (error) {
       console.error("Fetch error:", error);

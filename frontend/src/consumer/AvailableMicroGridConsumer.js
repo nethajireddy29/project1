@@ -2,14 +2,37 @@ import React, { useEffect, useState } from "react";
 import ConnectToMetaMask from "../hooks/MetaMaskConnection";
 import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import { encryptAES } from "../hooks/encryption";
 const flatted = require('flatted');
 
 function AvailableMicrogrid(props) {
   const navigate = useNavigate()
   const [microGridData, setMicroGridData] = useState(null);
 
-  const addConsumerToMicroGrid = (id) => {
-    const data1 = props.connect.addConsumerToMicroGrid(id);
+  const addConsumerToMicroGrid = async(id) => {
+    console.log("add consumer to Microgrid",id,props.metaMaskAddress)
+    const data1 = await props.sendContract.addConsumerToMicroGrid(Number(id),props.metaMaskAddress);
+    try {
+      const response = await fetch(
+        "/api/UpdateConsumer",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "microid":encryptAES(localStorage.getItem("micrometerid")),
+            "microGridId":Number(id)
+          })
+        }
+      );
+      const data = await response.json();
+      console.log(microGridData)
+      setMicroGridData(data);
+    } catch (err) {
+      console.log("Something went wrong error: ", err);
+    }
+    
     navigate("/consumer/login")
   }
   useEffect(() => {
@@ -133,7 +156,7 @@ function AvailableMicrogrid(props) {
           <div class="microgrid-card-details"  >
             {/* <button onClick={connect}>Connect</button> */}
           {Object.entries(microGridData).map(([microgridKey, microgridValue]) => (
-            <div onClick={() => addConsumerToMicroGrid(microgridKey)} className="micro-grid">
+            <div key = {microgridKey}onClick={() => addConsumerToMicroGrid(microgridKey)} className="micro-grid">
               <Card key={microgridKey} style={{ width: '18rem', marginBottom: '20px' }}>
                 <Card.Body>
                   <Card.Title>Microgrid: {microgridKey}</Card.Title>

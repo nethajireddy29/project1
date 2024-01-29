@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProsumerNavbar from "./navbar.js";
-
+import { decryptAES } from "../hooks/encryption.js";
 function ProsumerAllPlans() {
   const [plans, getPlans] = useState([]);
   useEffect(() => {
@@ -9,7 +9,7 @@ function ProsumerAllPlans() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-
+          microGridId:Number(decryptAES(localStorage.getItem("microGridId")))
         }),
       });
       const data = await response.json();

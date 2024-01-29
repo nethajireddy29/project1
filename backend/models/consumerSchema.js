@@ -4,7 +4,8 @@ const consumerSchema = mongoose.Schema({
     microid: {
     type: String,
     required: true,
-  }
+  },
+  microGridId:Number
   
 });
 
