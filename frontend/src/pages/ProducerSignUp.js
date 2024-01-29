@@ -164,7 +164,7 @@ export default function ProducerSignup() {
           designation: credentials.designation,
         }),
       });
-
+      localStorage.setItem("otherGst",credentials.name)
       const json = await response.json();
       console.log(json);
 

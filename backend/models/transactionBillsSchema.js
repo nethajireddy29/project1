@@ -36,6 +36,10 @@ const transactionBillsSchema = mongoose.Schema({
   },
   microGridId: {
     type:Number
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   }
 });
 

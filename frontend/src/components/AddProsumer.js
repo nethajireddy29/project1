@@ -126,7 +126,14 @@ function AddProsumer() {
   async function addProsumer() {
     let uniqueID = document.getElementById("uniqueID").value;
     let name = document.getElementById("name").value;
-    const data = tem.addProsumer(name, Number(uniqueID));
+
+    if(props.anotherProsumer){
+      const data = tem.addAnotherProsumer(name, Number(uniqueID),);
+      navigate("/addAnotherProsumer")
+    }else{
+
+      const data = tem.addProsumer(name, Number(uniqueID));
+    }
     navigate("/prosumer/joinmicrogrid");
   }
 
@@ -188,6 +195,15 @@ function AddProsumer() {
                   type="text"
                   id="name"
                   placeholder="Enter the name"
+                  className="form-control m-3"
+                />
+              </div>
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="prosumerAddress"
+                  placeholder="Another Another Prosumer"
                   className="form-control m-3"
                 />
               </div>

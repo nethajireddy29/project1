@@ -6,6 +6,7 @@ const {
   removeMultipleConsumer,
   removeConsumer,
   loginConsumer,
+  updateMicrogridId
 } = require("../controllers/consumer_controller");
 const {
     addTransaction,
@@ -39,6 +40,8 @@ router.post("/createConsumer", addConsumer);
 router.post("/getConsumer", getConsumer);
 router.get("/allConsumer", getAllConsumer);
 router.post("/loginConsumer", loginConsumer);
+router.post("/UpdateConsumer", updateMicrogridId);
+
 console.log("ugui")
 // router.post('/removeConsumer',removeConsumer);
 // router.post('/removeSpecificConsumers',removeMultipleConsumer);

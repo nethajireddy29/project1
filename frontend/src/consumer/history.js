@@ -1,4 +1,3 @@
-
 import{ React ,useState}from "react";
 import CryptoJS from "crypto-js";
 import ConsumerNavbar from "./navbar";
@@ -6,10 +5,11 @@ import ConsumerNavbar from "./navbar";
 let div = {
   width: '100vw',
   backgroundColor: '#001518',
+  minHeight: '100vh'
 }
 let shadow={
   width: '70vw',
-  // backgroundImage: `url(${myImage})`,
+  // backgroundImage: url(${myImage}),
   // backgroundSize: 'cover',
   backgroundImage: 'linear-gradient(45deg, #001e20, #003d46)',
   boxShadow: '0 4px 8px #005f6d',
@@ -48,7 +48,6 @@ export default function ConsumerHistory(){
   }
   
     async function send(id){
-       const microid=localStorage.getItem("micrometerid")
         try {
           // ... (your existing code for sending data to the server)
 
@@ -58,7 +57,7 @@ export default function ConsumerHistory(){
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "microid":microid }),
+            body: JSON.stringify({ "microid":id }),
 
           });
     
@@ -84,18 +83,18 @@ export default function ConsumerHistory(){
                
                {/* {item.toString()} */}
                <div>
-                <pre> Name           : {item["name"]} </pre> 
-                <pre> Micro Meter ID : {item["microid"]} </pre>
-                <pre> Balance        : {item["units"]} </pre>
-                <pre> FromBattery    : {item["fromBattery"]} </pre>
+                <pre style={{color:'white'}}> Name           : {item["name"]} </pre> 
+                <pre style={{color:'white'}}> Micro Meter ID : {item["microid"]} </pre>
+                <pre style={{color:'white'}}> Balance        : {item["units"]} </pre>
+                <pre style={{color:'white'}}> FromBattery    : {item["fromBattery"]} </pre>
                </div>
 
               <div>
-                <pre> FromGreenEnergy : {item["fromGE"]} </pre>
-                <pre> FromGrid        : {item["fromGrid"]} </pre>
+                <pre style={{color:'white'}}> FromGreenEnergy : {item["fromGE"]} </pre>
+                <pre style={{color:'white'}}> FromGrid        : {item["fromGrid"]} </pre>
               {/* <p> Energy Balance : {item["amount"]} </p> */}
-                <pre> Amount          : {Number(item["amount"].hex)}  WEI</pre>
-                <pre> Date Time       : </pre>
+                <pre style={{color:'white'}}> Amount          : {Number(item["amount"].hex)}  WEI</pre>
+                <pre style={{color:'white'}}> Date Time       : </pre>
               </div>
               
             </div>

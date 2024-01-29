@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const contractAddress = "0xeb2c5581D83993C1a36F84dd568cFd5bD15Eb70d";
+const contractAddress = "0x50aa7136f715f4E6461107510618b83D2BbD67D7";
 const listener = require("./listener");
 const TransactionBills = require("../models/transactionBillsSchema");
 const mongoose = require('mongoose');

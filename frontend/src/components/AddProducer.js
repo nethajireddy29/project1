@@ -114,7 +114,7 @@ const RegisterButton = (text, Click) => {
   }
   
 
-function AddProducer() {
+function AddProducer(props) {
 
   const [redirect, setRedirect] = useState(false); 
   const [tem, setTem] = useState("");
@@ -127,8 +127,15 @@ function AddProducer() {
   async function addProducer() {
     let uniqueID = document.getElementById("uniqueID").value;
     let name = document.getElementById("name").value;
-    const data = await tem.addProducer(name, Number(uniqueID))
-    setRedirect(true); // Set redirection to true after MetaMask action is confirmed
+    if(props.anotherProducer){
+      const anotherProducerAddress = document.getElementById("anotherProducerAddress").value;
+      const data = await tem.addAnotherProducer(name, Number(uniqueID),anotherProducerAddress);
+      navigator("/producer/AddToMicrogrid")
+    }else{
+      const data = await tem.addProducer(name, Number(uniqueID))
+
+      setRedirect(true); // Set redirection to true after MetaMask action is confirmed
+    }
   }
 
   // ... (rest of your code remains unchanged)
@@ -167,6 +174,15 @@ function AddProducer() {
                   className="form-control m-3"
                 />
               </div>
+              {props.anotherProducer? <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="anotherProducerAddress"
+                  placeholder="Another Producer Address"
+                  className="form-control m-3"
+                />
+              </div>:<>  </>}
 
               {/* <div style={{ ...flexrow}}>
               <input style={input} type="text" id="energyRequired" placeholder="Enter the energyRequired" className="form-control m-3" name="gst_number" />
