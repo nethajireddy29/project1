@@ -152,7 +152,7 @@ export default function ProsumerNavbar() {
                         </a>
                       </li>
                       <li>
-                        <a style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item" href="/">
+                        <a style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item" onClick={()=>{localStorage.clear();}} href="/">
                           Log Out
                         </a>
                       </li>

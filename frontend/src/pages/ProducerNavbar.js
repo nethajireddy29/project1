@@ -54,7 +54,8 @@ function BasicExample(props) {
     console.log(data);
   };
   const LogOut = () => {
-    localStorage.removeItem("producerAuthToken");
+    // localStorage.removeItem("producerAuthToken");
+    localStorage.clear();
     navigate("/ProducerLogin");
   };
   return (
