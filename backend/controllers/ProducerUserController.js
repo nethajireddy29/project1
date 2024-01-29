@@ -6,7 +6,10 @@ const jwt = require("jsonwebtoken");
 // const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
-const Salt = crypto.randomBytes(16).toString("hex");
+
+// you can generate random mann everytime because of that hasing is changing the login is not workign  neeeeee from SAI SHARAN
+// const Salt = crypto.randomBytes(16).toString("hex");
+const Salt = "a79691a03088a88f3d3acd4302f575e2"
 const encryptionKey =
   "00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF";
 
@@ -149,6 +152,7 @@ const ProducerLogIn = async (req, res) => {
         message: "Try logging with correct Username",
       });
     }
+    console.log(Salt)
 
     const hashedPassword = hashPassword(req.body.password);
     const decryptedPassword = decryptAES(userData.password);
@@ -194,6 +198,8 @@ const ProducerLogIn = async (req, res) => {
       success: true,
       authToken: authToken,
       classification: classification,
+      microGridId:userData.microGridId,
+
     });
   } catch (error) {
     console.error(error);
@@ -202,4 +208,40 @@ const ProducerLogIn = async (req, res) => {
 };
 
 
-module.exports = { createProducerUser, ProducerLogIn };
+const updateProducer = async (req, res) => {
+  try {
+    const filter = req.body.filter
+    const updateData = req.body.update
+
+    // const filter = { name: name };
+    const update = {
+      $set: updateData
+    };
+    console.log(filter,update)
+    const result = await ProducerUser.updateOne(filter, update);
+
+    if (result) {
+      console.log("Document updated successfully");
+      return res.json( { success: true });
+    } else {
+      console.log(microid,"No document matched the filter or value already up to date");
+      return { success: false };
+    }
+  } catch (error) {
+    console.error(error);
+    return res.json({ success: false, error: error.message });
+  }
+};
+
+const removeMultipleProducer = async (req, res) => {
+  try {
+    const producer =  ProducerUser.deleteMany(req.body);
+    res.json({ success: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ success: false });
+  }
+};
+
+
+module.exports = { createProducerUser, ProducerLogIn,updateProducer ,removeMultipleProducer};

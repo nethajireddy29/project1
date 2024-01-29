@@ -15,7 +15,7 @@ import AddConsumer from "./components/AddConsumer.js";
 import IsAuthenticated from "./hooks/IsAuthenticated.js";
 import AvailableMicroGridConsumer from "./consumer/AvailableMicroGridConsumer.js";
 
-// Producer Imports
+// Producer ImportsA
 import ProducerHome from "./pages/ProducerHome.js";
 import ProducerNavbar from "./pages/ProducerNavbar.js";
 import ProducerLogIn from "./pages/ProducerLogin.js";
@@ -29,7 +29,7 @@ import AddProducer from "./components/AddProducer.js";
 import JoinOrCreateMicroGrid from "./pages/JoinOrCreateMicroGrid.js";
 import Test from "./components/Test.js"
 import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
-import AddAnotherProducerToMg from "./pages/addAnotherProducerToMicrogrid.js"
+import AddAnotherProducerToMg from "./pages/AddAnotherProsumerToMicrogrid.js"
 
 //prosumer Imports
 import ProsumerLogin from "./prosumer/login.js";
@@ -42,7 +42,7 @@ import ProsumerHelp from "./prosumer/help.js";
 import ProsumerHistory from "./prosumer/history.js";
 import ProducerCreateContract from "./prosumer/createcontract.js";
 import AddProsumer from "./components/AddProsumer.js";
-
+import AddAnotherProsumerToMg from "./pages/AddAnotherProsumerToMicrogrid.js";
 
 // import { VariableProvider } from './Context/metaContext.js';
 
@@ -134,7 +134,7 @@ export default function App() {
             }
           />
           <Route
-            path="/addAnotherProducer"
+            path="/addAnotherProducer/:ProducerName"
             element={
               <AddProducer
                 anotherProducer = {true}
@@ -145,8 +145,12 @@ export default function App() {
             }
           />
           <Route
-          path="/producer/AddToMicrogrid" element={
+          path="/producer/AddToMicrogrid/:ProducerName" element={
             <AddAnotherProducerToMg/>
+          }/>
+          <Route
+          path="/prosumer/AddToMicrogridPros/:ProsumerName" element={
+            <AddAnotherProsumerToMg/>
           }/>
           <Route
             path="/addMicrogrid"
@@ -248,6 +252,7 @@ export default function App() {
             element={<ProducerCreateContract />}
           />
           <Route path="/prosumer/signup" element={<ProsumerSignUp />} />
+          <Route path="/prosumer/AnotherProsumerSignup" element={<ProsumerSignUp anotherProsumer={true} />} />
           <Route
             path="/prosumer/joinmicrogrid"
             element={<ProsumerJoinMicroGrid />}
@@ -257,7 +262,7 @@ export default function App() {
             element={<AddProsumer connect={sendContract} />}
           />
           <Route
-            path="/addAnotherProsumer"
+            path="/addAnotherProsumer/:ProsumerName"
             element={<AddProsumer connect={sendContract} anotherProsumer = {true} />}
           />
         </Routes>

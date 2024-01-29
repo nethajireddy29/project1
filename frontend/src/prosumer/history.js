@@ -48,8 +48,8 @@ export default function ProsumerHistory(){
     return decrypted;
   }
   
-    async function send(id){
-       const microid=localStorage.getItem("microGridId")
+    async function send(microGridId){
+      //  const microid=localStorage.getItem("microGridId")
         try {
           // ... (your existing code for sending data to the server)
 
@@ -59,7 +59,7 @@ export default function ProsumerHistory(){
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "microGridId":microid }),
+            body: JSON.stringify({ "microGridId":microGridId }),
 
           });
     
@@ -74,7 +74,7 @@ export default function ProsumerHistory(){
         }
 
     // send("0426ELUZ1358");
-    send(decryptAES(localStorage.getItem("micrometerid")));
+    send(decryptAES(localStorage.getItem("microGridId")));
     return (
       <>
       <div style={{...div}}>

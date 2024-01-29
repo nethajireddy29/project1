@@ -26,7 +26,7 @@ useEffect(() => {
                   }
                 );
                 const data = await response.json();
-                setMicroGridData(data);
+                setMicroGridData(data[0]|| data);
                 console.log(data)
               } catch (err) {
                 console.log("Something went wrong error: ", err);

@@ -1,4 +1,5 @@
 import React from "react";
+import { decryptAES } from "../hooks/encryption";
  function ProducerCreateContract() {
   async function add() {
     const gstNumber = document.getElementById("getNumber").value;
@@ -22,8 +23,8 @@ import React from "react";
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          gst_number: gstNumber,
-          microGridId:0,
+          gst_number: decryptAES(localStorage.getItem("gstNumber")),
+          microGridId:Number(decryptAES(localStorage.getItem("microgrid"))),
           units: Number(units),
           timespan: Number(timespan),
           mobile_number:Number(dataAbtGstResponse.phone_number),
@@ -71,12 +72,12 @@ import React from "react";
       <div className="welcomeContainer shadow" style={style}>
         <h1> Create Plan! </h1>
         <br />
-        <input
+        {/* <input
           type="text"
           id="getNumber"
           placeholder="Enter Your gst_number"
           style={inputbox}
-        />
+        /> */}
         <br />
         {/* <input
           type="text"

@@ -16,6 +16,8 @@ const ProsumerUserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  
+  microGridId:Number
 });
 
 const ProsumerUser = mongoose.model("ProsumerUser", ProsumerUserSchema);

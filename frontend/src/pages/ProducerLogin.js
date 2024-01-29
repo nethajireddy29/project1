@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link , useNavigate } from "react-router-dom";
 import myImage from "../images/3.jpg";
-
+import {encryptAES,decryptAES} from "../hooks/encryption"
 
 
 const RegisterButton = (text, Click) => {
@@ -153,6 +153,7 @@ export default function Signup() {
     }
     if (json.success) {
       localStorage.setItem("producerAuthToken", json.authToken);
+      localStorage.setItem("microGridId", encryptAES(json.microGridId));
       console.log(localStorage.getItem("authToken"));
       navigate("/ProducerHome");
     }

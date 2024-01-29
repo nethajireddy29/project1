@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import connectToMetaMask from "../hooks/MetaMaskConnection";
-import { useNavigate , Link } from "react-router-dom";
+import { useNavigate , Link,useParams } from "react-router-dom";
 import myImage from "../images/3.jpg";
 
 
@@ -114,9 +114,11 @@ const RegisterButton = (text, Click) => {
      
     }
     
-function AddProsumer() {
+function AddProsumer(props) {
   const [tem, setTem] = useState("");
   const navigate = useNavigate();
+  
+  const {ProsumerName} = useParams()
   async function connect() {
     const { sendDataContract } = await connectToMetaMask();
     await setTem(sendDataContract);
@@ -126,15 +128,15 @@ function AddProsumer() {
   async function addProsumer() {
     let uniqueID = document.getElementById("uniqueID").value;
     let name = document.getElementById("name").value;
+    let prosumerAddress = document.getElementById("prosumerAddress").value;
 
     if(props.anotherProsumer){
-      const data = tem.addAnotherProsumer(name, Number(uniqueID),);
-      navigate("/addAnotherProsumer")
+      const data = tem.addAnotherProsumer(name, Number(uniqueID),prosumerAddress);
+      navigate(`/prosumer/AddToMicrogridPros/${ProsumerName}`)
     }else{
-
       const data = tem.addProsumer(name, Number(uniqueID));
+      navigate("/prosumer/joinmicrogrid");
     }
-    navigate("/prosumer/joinmicrogrid");
   }
 
   // let style = {
@@ -198,6 +200,8 @@ function AddProsumer() {
                   className="form-control m-3"
                 />
               </div>
+
+              {props.anotherProsumer?
               <div style={{ ...flexrow }}>
                 <input
                   style={input}
@@ -206,8 +210,8 @@ function AddProsumer() {
                   placeholder="Another Another Prosumer"
                   className="form-control m-3"
                 />
-              </div>
-
+              </div>:<></>
+                }
               {/* <div style={{ ...flexrow}}>
                     <input style={input} type="text" id="energyRequired" placeholder="Enter the energyRequired" className="form-control m-3" name="gst_number" />
                     </div> */}
@@ -218,12 +222,11 @@ function AddProsumer() {
                 {RegisterButton("Connect MetaMask", connect)}
               </Link>
 
-              <Link
-                to="/prosumer/joinmicrogrid"
+              <div
                 style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
               >
                 {RegisterButton("Add Prosumer", addProsumer)}
-              </Link>
+              </div>
             </div>
           </div>
         </div>

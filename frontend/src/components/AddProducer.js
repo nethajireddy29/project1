@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import connectToMetaMask from "../hooks/MetaMaskConnection";
-import { Link , useNavigate } from "react-router-dom";
+import { Link , useNavigate, useParams } from "react-router-dom";
 import myImage from "../images/3.jpg";
 
 
@@ -119,6 +119,7 @@ function AddProducer(props) {
   const [redirect, setRedirect] = useState(false); 
   const [tem, setTem] = useState("");
   const navigate = useNavigate()
+  const {ProducerName} = useParams()
   async function connect() { 
     const { sendDataContract } = await connectToMetaMask();
     setTem(sendDataContract);
@@ -130,10 +131,11 @@ function AddProducer(props) {
     if(props.anotherProducer){
       const anotherProducerAddress = document.getElementById("anotherProducerAddress").value;
       const data = await tem.addAnotherProducer(name, Number(uniqueID),anotherProducerAddress);
-      navigator("/producer/AddToMicrogrid")
+   
+      console.log("another producer",ProducerName)
+      navigate(`/producer/AddToMicrogrid/${ProducerName}`)
     }else{
       const data = await tem.addProducer(name, Number(uniqueID))
-
       setRedirect(true); // Set redirection to true after MetaMask action is confirmed
     }
   }
@@ -194,7 +196,7 @@ function AddProducer(props) {
               </Link>
 
               <Link
-                to="/JoinOrCreateMicroGrid"
+                
                 style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
               >
                 {RegisterButton("Add Producer", addProducer)}

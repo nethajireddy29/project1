@@ -18,11 +18,14 @@ const {
 const {
   createProducerUser,
   ProducerLogIn,
+  updateProducer,
+  removeMultipleProducer
 } = require("../controllers/ProducerUserController.js");
 
 const {
   createProsumerUser,
   ProsumerLogIn,
+  updateProsumer
 } = require("../controllers/ProsumerUserController.js");
 
 const { addFace, removeFace, removeAllFaces, getFace ,compareFace} = require("../controllers/AdharAuthentication-controller")
@@ -79,6 +82,8 @@ router.post(
   ],
   createProsumerUser
 );
+router.post("/updateProsumer",updateProsumer)
+
 
 
 
@@ -126,7 +131,8 @@ router.post(
   ],
   createProducerUser
 );
-
+router.post("/updateProducer",updateProducer)
+router.post("/removeMultipleProducer",removeMultipleProducer)
 
 
 router.post("/addPlan",addPlan);
@@ -134,7 +140,7 @@ router.post("/getPlan",getPlan);
 router.post("/getAllPlans",getAllPlans);
 
 router.post("/getGst",getGst)
-
+router.post("/getAllGst",getAllGst)
 
 router.use("/simulation",Simulation)
 module.exports = router;

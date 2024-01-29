@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import myImage from "../images/3.jpg";
 
+import {encryptAES,decryptAES} from "../hooks/encryption"
 
 
 const RegisterButton = (text, Click) => {
@@ -154,6 +155,8 @@ function ProsumerLogin() {
     }
     if (json.success) {
       localStorage.setItem("prosumerAuthToken", json.authToken);
+      localStorage.setItem("microGridId", encryptAES(json.microGridId));
+      localStorage.setItem("gstNumber",encryptAES(credentials.gst_number) );
       console.log(localStorage.getItem("authToken"));
       navigate("/Prosumer/home");
     }

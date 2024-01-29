@@ -3,7 +3,7 @@ import connectToMetaMask from "../hooks/MetaMaskConnection.js";
 import myImage from "../images/3.jpg";
 import "../consumer/styles.css";
 import { Link } from "react-router-dom";
-
+import { encryptAES,decryptAES } from "../hooks/encryption.js";
 
 const RegisterButton = (text, Click) => {
   const [buttonStyles, setButtonStyles] = useState({
@@ -145,7 +145,7 @@ function AddBattery() {
         <div style={{...box, ...flexcolumn, gap:'2rem'}}>
           <div style={{ ...flexcolumn, gap:'1rem'}}>
             <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="uniqueID" placeholder="Enter your MicroGrid Id" className="form-control m-3" name="gst_number" />
+              <input style={input} type="text" id="uniqueID" placeholder="Enter your MicroGrid Id" className="form-control m-3" name="gst_number" value={decryptAES(localStorage.getItem("microGridId"))} />
           
               <input style={input} type="text" id="minCapacity" placeholder="Enter your minCapacity" className="form-control m-3" name="gst_number" />
             </div>

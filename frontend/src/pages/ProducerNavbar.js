@@ -197,7 +197,7 @@ function BasicExample(props) {
                     >
                       <li>
                         <Link
-                          to="/producer/signup"
+                          to="/producer/anotherProducersignup"
                           style={{ backgroundColor: "#006f79", color: "white" }}
                           className="dropdown-item"
                         >
@@ -206,7 +206,7 @@ function BasicExample(props) {
                       </li>
                       <li>
                         <Link
-                          to="/prosumer/signup"
+                          to="/prosumer/AnotherProsumerSignup"
                           style={{ backgroundColor: "#006f79", color: "white" }}
                           className="dropdown-item"
                         >

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import connectToMetaMask from "../hooks/MetaMaskConnection";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import AddLoad from "./components/AddLoad";
 import myImage from "../images/3.jpg";
 import { Link } from "react-router-dom";
@@ -126,11 +126,12 @@ let h1 = {
   color: "white",
 };
 
-function addAnotherProsumer(props) {
+function AddAnotherProsumer(props) {
   const [send, setSend] = useState("");
   const [get, setGet] = useState("");
   const [meta, setmeta] = useState("");
   // const [send, setSend] = useState("");
+  const {ProsumerName} = useParams();
 
   const navigate = useNavigate();
   async function connect() {
@@ -150,6 +151,11 @@ function addAnotherProsumer(props) {
       Number(MicroGridID),
       anotherProsumerAddress
     );
+    const response = await fetch("/api/updateProsumer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", },
+      body: JSON.stringify({ update: { "microGridId": MicroGridID }, filter: { "gst_number": ProsumerName } })
+    })
     navigate("/producerHome");
   }
 
@@ -198,4 +204,4 @@ function addAnotherProsumer(props) {
   );
 }
 
-export default addAnotherProsumer; // Export the correct component
+export default AddAnotherProsumer; // Export the correct component

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import connectToMetaMask from "../hooks/MetaMaskConnection";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import AddLoad from "./components/AddLoad";
 import myImage from "../images/3.jpg";
 import { Link } from "react-router-dom";
@@ -126,13 +126,14 @@ let h1 = {
   color: "white",
 };
 
-function addAnotherProducer(props) {
+function AddAnotherProducer(props) {
   const [send, setSend] = useState("");
   const [get, setGet] = useState("");
   const [meta, setmeta] = useState("");
   // const [send, setSend] = useState("");
 
   const navigate = useNavigate();
+  const {ProducerName} = useParams()
   async function connect() {
     const { sendDataContract, metaMaskAddress, getDataContract } =
       await connectToMetaMask();
@@ -141,22 +142,7 @@ function addAnotherProducer(props) {
     setmeta(metaMaskAddress);
   }
 
-  //   async function addMicrogrid() {
-  //     let microGridName = document.getElementById("microGridName").value;
-  //     const microGridId = 0;
-  //     // console.log(microGridId)
-  //     const data = await send.createMicroGrid(microGridName);
-  //     // console.log("microgrid NUmber :",Number(microGridId))
-  //     await send.addProducerToMicroGrid(microGridId, meta);
-  //     if (props.redirectLogIn) {
-  //       navigate("/producer/login");
-  //       // console.log("login redir")
-  //     }
-  //     {
-  //       navigate("/ProducerHome");
-  //       // console.log("home redir")
-  //     }
-  //   }
+
   async function addAnotherProducerToMicrogrid() {
     let MicroGridID = document.getElementById("MicroGridID").value;
     let anotherProducerAddress = document.getElementById(
@@ -166,10 +152,16 @@ function addAnotherProducer(props) {
       Number(MicroGridID),
       anotherProducerAddress
     );
+
+    const response = await fetch("/api/updateProducer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", },
+      body: JSON.stringify({ update: { "microGridId": MicroGridID }, filter: { "name": ProducerName } })
+    })
     navigate("/producerHome");
   }
 
-  
+
   return (
     <>
       <div style={{ ...flexrow, ...div }}>
@@ -215,4 +207,4 @@ function addAnotherProducer(props) {
   );
 }
 
-export default addAnotherProducer; // Export the correct component
+export default AddAnotherProducer; // Export the correct component
