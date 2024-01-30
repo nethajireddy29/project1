@@ -56,7 +56,7 @@ function BasicExample(props) {
   const LogOut = () => {
     // localStorage.removeItem("producerAuthToken");
     localStorage.clear();
-    navigate("/ProducerLogin");
+    navigate("/Producer/Login");
   };
   return (
     <>
