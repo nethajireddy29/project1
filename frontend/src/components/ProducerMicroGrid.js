@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ConnectToMetaMask from "../hooks/MetaMaskConnection";
 import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import {encryptAES,decryptAES} from "../hooks/"
 const flatted = require('flatted');
 
 function AvailableMicrogrid() {
@@ -26,7 +27,7 @@ useEffect(() => {
                   }
                 );
                 const data = await response.json();
-                setMicroGridData(data[0]|| data);
+                setMicroGridData(data[Number(decryptAES(localStorage.getItem("microGridId")))]|| data);
                 console.log(data)
               } catch (err) {
                 console.log("Something went wrong error: ", err);
