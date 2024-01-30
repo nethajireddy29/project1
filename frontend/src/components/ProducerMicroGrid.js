@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ConnectToMetaMask from "../hooks/MetaMaskConnection";
 import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import {encryptAES,decryptAES} from "../hooks/"
+import {encryptAES,decryptAES} from "../hooks/encryption.js"
 const flatted = require('flatted');
 
 function AvailableMicrogrid() {
