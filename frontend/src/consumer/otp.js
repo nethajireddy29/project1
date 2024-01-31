@@ -130,22 +130,23 @@ const Otp = () => {
     try {
       setButtonText("Resend OTP");
       // Replace with your Twilio Account SID, Auth Token, and Twilio phone number
-      const accountSid = 'AC6f23287e154d45fcd72209ea6ec0400f';
-      const authToken = '61ffae9e15aceee59de083a6b704b3ad';
+      const accountSid = "AC6dcf4a7b062f0004ffcd12d40270c2f6";
+      const authToken = "6402e2d634b3e691dffd5dcf33373ad5";
       //async ()=>{setPhoneNumber(await document.getElementById("mobileNumber"));}
       console.log(document.getElementById("mobileNumber").value)
-      const response = await axios.post(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
+      const response = await axios.post(
+        `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
         {
-          To:"+91" + document.getElementById("mobileNumber").value,
-          From:'+17086278314',
+          To: "+91" + document.getElementById("mobileNumber").value,
+          From: "+16592186375",
           Body: message,
         },
         {
-            headers: {
-                Authorization: `Basic ${btoa(`${accountSid}:${authToken}`)}`,
-                
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
+          headers: {
+            Authorization: `Basic ${btoa(`${accountSid}:${authToken}`)}`,
+
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
       );
       // console.log(response.data);
