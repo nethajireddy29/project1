@@ -195,7 +195,7 @@ function ConsumerLogin(){
             console.log("done",responseData);
 
             localStorage.setItem("consumerAuthToken", responseData.consumerAuthToken);
-            localStorage.setItem("microGridId", responseData.microGridId);
+            localStorage.setItem("microGridId", encryptAES(String(responseData.microGridId)));
             localStorage.setItem("micrometerid",encrypted_inputValue);
             history('/consumer/home');
           }

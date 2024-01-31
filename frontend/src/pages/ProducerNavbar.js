@@ -218,13 +218,13 @@ function BasicExample(props) {
                   </li>
                   <li className="nav-item" style={navItem}>
                     {IsAuthenticated ? (
-                      <Link
+                      <div
                         className="nav-link"
                         style={navLink}
                         onClick={LogOut}
                       >
                         Log Out
-                      </Link>
+                      </div>
                     ) : (
                       <Link
                         className="nav-link"

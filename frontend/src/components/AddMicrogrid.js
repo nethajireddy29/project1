@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 // import AddLoad from "./components/AddLoad";
 import myImage from "../images/3.jpg";
 import { Link } from "react-router-dom";
+import { decryptAES } from "../hooks/encryption";
 
 
 const RegisterButton = (text, Click) => {
@@ -131,23 +132,31 @@ function AddMicrogrid(props) {
     setmeta(metaMaskAddress);
   }
 
-  async function addMicrogrid() {
-
+async function addMicrogrid() {
+  try {
     let microGridName = document.getElementById("microGridName").value;
-    const microGridId = 0;
-    // console.log(microGridId)
-    const data = await send.createMicroGrid(microGridName);
-    // console.log("microgrid NUmber :",Number(microGridId))
-    await send.addProducerToMicroGrid(microGridId , meta);
-    if (props.redirectLogIn) {
-      navigate("/producer/login")
-      // console.log("login redir")
-    } {
-      navigate("/ProducerHome")
-      // console.log("home redir")
 
+    // Assuming get.microGridId() returns a promise
+    // const microGridId = await get.microGridId();
+
+    // Check the value returned by get.microGridId()
+    // console.log("MicroGridId:", microGridId);
+
+    const data = await send.createMicroGrid(microGridName);
+
+    // Convert microGridId to a number if necessary
+    // await send.addProducerToMicroGrid(Number(microGridId), meta);
+
+    if (props.redirectLogIn) {
+      navigate("/producer/login");
+    } else {
+      navigate("/ProducerHome");
     }
+  } catch (error) {
+    console.error("Error adding MicroGrid:", error);
+    // Handle errors here
   }
+}
 
   
 

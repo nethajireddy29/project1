@@ -193,7 +193,7 @@ const ProducerLogIn = async (req, res) => {
       default:
         classification = "Unknown Classification";
     }
-
+    console.log("miroojlajk", userData);
     return res.json({
       success: true,
       authToken: authToken,

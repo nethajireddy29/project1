@@ -138,35 +138,89 @@ function AddBattery() {
  
   return (
     <>
-    <div style={{ ...flexrow, ...div }}>
-      <div style={{ ...flexcolumn, gap: '2rem' }}>
-      <h1 style={h1}>Add Battery</h1>
+      {decryptAES(localStorage.getItem("microGridId"))}
+      <div style={{ ...flexrow, ...div }}>
+        <div style={{ ...flexcolumn, gap: "2rem" }}>
+          <h1 style={h1}>Add Battery</h1>
 
-        <div style={{...box, ...flexcolumn, gap:'2rem'}}>
-          <div style={{ ...flexcolumn, gap:'1rem'}}>
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="uniqueID" placeholder="Enter your MicroGrid Id" className="form-control m-3" name="gst_number" value={decryptAES(localStorage.getItem("microGridId"))} />
-          
-              <input style={input} type="text" id="minCapacity" placeholder="Enter your minCapacity" className="form-control m-3" name="gst_number" />
-            </div>
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="maxCapacity" placeholder="Enter your maxCapacity" className="form-control m-3" name="gst_number" />
-          
-              <input style={input} type="text" id="charge" placeholder="Enter your charge" className="form-control m-3" name="gst_number" />
-            </div>
-            <div style={{ ...flexrow}}>
-              <input style={input} type="text" id="maxEfficiency" placeholder="Enter your maxEfficiency" className="form-control m-3" name="gst_number" />
-          
-              <input style={input} type="text" id="initSoc" placeholder="Enter your initSoc" className="form-control m-3" name="gst_number" />
-            </div>
-            <Link style={{...flexrow, textDecoration:'none', margin:"3px"}}> {RegisterButton("Connect MetaMask", connect)}</Link>   
+          <div style={{ ...box, ...flexcolumn, gap: "2rem" }}>
+            <div style={{ ...flexcolumn, gap: "1rem" }}>
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="uniqueID"
+                  placeholder="Enter your MicroGrid Id"
+                  className="form-control m-3"
+                  name="gst_number"
+                  value={decryptAES(localStorage.getItem("microGridId"))}
+                />
 
-              <Link to="/ProducerHome" style={{...flexrow, textDecoration:'none', margin:"3px"}}>{RegisterButton("Add Battery", addBattery)}</Link>
+                <input
+                  style={input}
+                  type="text"
+                  id="minCapacity"
+                  placeholder="Enter your minCapacity"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="maxCapacity"
+                  placeholder="Enter your maxCapacity"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+
+                <input
+                  style={input}
+                  type="text"
+                  id="charge"
+                  placeholder="Enter your charge"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
+              <div style={{ ...flexrow }}>
+                <input
+                  style={input}
+                  type="text"
+                  id="maxEfficiency"
+                  placeholder="Enter your maxEfficiency"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+
+                <input
+                  style={input}
+                  type="text"
+                  id="initSoc"
+                  placeholder="Enter your initSoc"
+                  className="form-control m-3"
+                  name="gst_number"
+                />
+              </div>
+              <Link
+                style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
+              >
+                {" "}
+                {RegisterButton("Connect MetaMask", connect)}
+              </Link>
+
+              <Link
+                to="/ProducerHome"
+                style={{ ...flexrow, textDecoration: "none", margin: "3px" }}
+              >
+                {RegisterButton("Add Battery", addBattery)}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-       {/* <input type="text" id="uniqueID" placeholder="uniqueID" style={inputbox} />
+      {/* <input type="text" id="uniqueID" placeholder="uniqueID" style={inputbox} />
         <br />
         <input type="text" id="minCapacity" placeholder="minCapacity" style={inputbox} />
         <br />
@@ -187,7 +241,7 @@ function AddBattery() {
       {/* Uncomment and implement the producer component */}
       {/* <Producer /> */}
       {/* <AddLoad />*/}
-    </> 
+    </>
   );
 }
 

@@ -21,5 +21,5 @@ function decryptAES(encryptedText) {
 }
 
 // while(1){
-  console.log(encryptAES("0") )
-console.log( decryptAES("U2FsdGVkX1+llJN2pCQaUHFZnJlBfF9vb786njaobDU="))
+  console.log(encryptAES(0) )
+console.log(decryptAES("U2FsdGVkX18/HdzLycwfMmUpDGWVf/A33sReJDYE0v8="));

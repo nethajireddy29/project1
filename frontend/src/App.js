@@ -29,7 +29,7 @@ import AddProducer from "./components/AddProducer.js";
 import JoinOrCreateMicroGrid from "./pages/JoinOrCreateMicroGrid.js";
 import Test from "./components/Test.js"
 import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
-import AddAnotherProducerToMg from "./pages/AddAnotherProsumerToMicrogrid.js"
+import AddAnotherProducerToMg from "./pages/AddAnotherProducerToMicrogrid.js";
 
 //prosumer Imports
 import ProsumerLogin from "./prosumer/login.js";

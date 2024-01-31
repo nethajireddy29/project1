@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ConnectToMetaMask from "../hooks/MetaMaskConnection";
 import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { encryptAES } from "../hooks/encryption";
+import { decryptAES, encryptAES } from "../hooks/encryption";
 const flatted = require('flatted');
 
 function AvailableMicrogrid(props) {
@@ -21,7 +21,7 @@ function AvailableMicrogrid(props) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            "microid":encryptAES(localStorage.getItem("micrometerid")),
+            "microid":decryptAES(localStorage.getItem("micrometerid")),
             "microGridId":Number(id)
           })
         }

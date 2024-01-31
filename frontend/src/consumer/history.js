@@ -1,4 +1,4 @@
-import{ React ,useState}from "react";
+import{ React ,useEffect,useState}from "react";
 import CryptoJS from "crypto-js";
 import ConsumerNavbar from "./navbar";
 
@@ -70,9 +70,11 @@ export default function ConsumerHistory(){
             // Handle errors, e.g., show an error message to the user
           }
         }
+        useEffect(()=>{
 
+          send(decryptAES(localStorage.getItem("micrometerid")));
+        },[])
     // send("0426ELUZ1358");
-    send(decryptAES(localStorage.getItem("micrometerid")));
     return (
       <>
       <div style={{...div}}>

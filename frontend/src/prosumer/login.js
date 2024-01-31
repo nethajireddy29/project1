@@ -155,7 +155,7 @@ function ProsumerLogin() {
     }
     if (json.success) {
       localStorage.setItem("prosumerAuthToken", json.authToken);
-      localStorage.setItem("microGridId", encryptAES(json.microGridId));
+      localStorage.setItem("microGridId", encryptAES(String(json.microGridId)));
       localStorage.setItem("gstNumber",encryptAES(credentials.gst_number) );
       console.log(localStorage.getItem("authToken"));
       navigate("/Prosumer/home");

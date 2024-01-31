@@ -153,7 +153,8 @@ export default function Signup() {
     }
     if (json.success) {
       localStorage.setItem("producerAuthToken", json.authToken);
-      localStorage.setItem("microGridId", encryptAES(json.microGridId));
+      // console.log(decryptAES(encryptAES(json.microGridId)));
+      localStorage.setItem("microGridId", encryptAES(String(json.microGridId)));
       console.log(localStorage.getItem("authToken"));
       navigate("/ProducerHome");
     }

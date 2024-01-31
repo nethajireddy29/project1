@@ -139,7 +139,6 @@ function AddProducer(props) {
       setRedirect(true); // Set redirection to true after MetaMask action is confirmed
     }
   }
-
   // ... (rest of your code remains unchanged)
 
   // Redirect to the specified page when redirect is true
