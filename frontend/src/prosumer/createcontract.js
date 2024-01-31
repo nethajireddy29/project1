@@ -2,11 +2,11 @@ import React from "react";
 import { decryptAES } from "../hooks/encryption";
  function ProducerCreateContract() {
   async function add() {
-    const gstNumber = document.getElementById("getNumber").value;
+    const gstNumber = decryptAES(localStorage.getItem("gstNumber"));
     // const amount = document.getElementById("amount").value;
     const units = document.getElementById("units").value;
     const timespan = document.getElementById("timespan").value;
-
+    console.log(units,timespan)
 
     const dataAbtgst = await fetch('/api/getGst',{
       method: "POST",
@@ -23,13 +23,12 @@ import { decryptAES } from "../hooks/encryption";
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          gst_number: decryptAES(localStorage.getItem("gstNumber")),
-          microGridId:Number(decryptAES(localStorage.getItem("microgrid"))),
+          gst_number: gstNumber,
+          microGridId: Number(decryptAES(localStorage.getItem("microGridId"))),
           units: Number(units),
           timespan: Number(timespan),
-          mobile_number:Number(dataAbtGstResponse.phone_number),
-          company_name: dataAbtGstResponse.company_name
-
+          mobile_number: Number(dataAbtGstResponse.phone_number),
+          company_name: dataAbtGstResponse.company_name,
         }),
       });
       alert("SuccessFully Created an plan")
