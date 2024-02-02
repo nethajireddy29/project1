@@ -53,10 +53,9 @@ export default function ProsumerHome() {
     zIndex: "-1",
   };
   return (
-    <>
-      <div style={{ ...img, height: "100vh", width:'100vw'}}>
+      <div style={{ ...img, minHeight: "100vh", width:'100vw',display:'flex', flexDirection:'column'}}>
         <ProsumerNavbar />
-        <div style={{ ...top, height: "89vh" }}>
+        <div style={{ ...top, flex:'1' }}>
           <h1
             style={{
               textAlign: "center",
@@ -67,7 +66,7 @@ export default function ProsumerHome() {
               display: "block",
             }}
           >
-            Get Started with Lorem Ipsum
+            Get Started with MicroWEB
           </h1>
           <p
             style={{
@@ -77,7 +76,7 @@ export default function ProsumerHome() {
               color: "white",
             }}
           >
-            qwertyuiokjhgfcvbnm rtyuihgfcvbn jgfdfghj
+            Get more from less - with our smartGrids
           </p>
           <a href="/prosumer/createcontract" style={{ textDecoration: "none" }}>
             <button
@@ -103,6 +102,5 @@ export default function ProsumerHome() {
           </a>
         </div>
       </div>
-    </>
   );
 }

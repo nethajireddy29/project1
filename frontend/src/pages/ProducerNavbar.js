@@ -2,12 +2,13 @@ import Container from "react-bootstrap/Container";
 import IsAuthenticated from "../hooks/IsAuthenticated.js";
 import { Link, useNavigate } from "react-router-dom";
 import ConnectToMetaMask from "../hooks/MetaMaskConnection";
+import logo from "../images/logo2.jpeg"
+
 const flatted = require("flatted");
 function BasicExample(props) {
   let img = {
-    height: "40px",
-    width: "40px",
-    borderRadius: "25px",
+    height: "30px",
+    width: "auto",
     margin: "1px 0px 0px 10px",
   };
   let myStyle = {
@@ -59,8 +60,7 @@ function BasicExample(props) {
     navigate("/Producer/Login");
   };
   return (
-    <>
-      <div style={{ width: "100vw" }}>
+      <div style={{ width: "100vw", position:'fixed',zIndex:'1' }}>
         <div className="header">
           <nav
             className="navbar navbar-expand-lg navbar-light"
@@ -69,7 +69,7 @@ function BasicExample(props) {
             <div className="container-fluid">
               <a className="navbar-brand" href="/">
                 <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMB8cCp__yOIsNq2QWPruTIU6aagud-FNcCA&usqp=CAU"
+                  src={logo}
                   alt="Icon"
                   style={img}
                 />
@@ -241,7 +241,6 @@ function BasicExample(props) {
           </nav>
         </div>
       </div>
-    </>
     // <Navbar expand="lg" className="bg-body-tertiary">
     //   <Container>
     //     <Navbar.Brand>

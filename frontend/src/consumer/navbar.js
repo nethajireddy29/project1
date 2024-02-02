@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import logo from "../images/logo2.jpeg"
 //import "./styles.css";
 
 export default function ConsumerNavbar() {
   let img = {
-    height: "40px",
-    width: "40px",
-    borderRadius: "25px",
+    height: "30px",
+    width: "auto",
     margin: "1px 0px 0px 10px",
   };
   let myStyle = {
@@ -40,8 +40,7 @@ export default function ConsumerNavbar() {
   };
 
   return (
-    <>
-      <div style={{width:'100vw'}}>
+      <div style={{width:'100vw', position:'fixed',zIndex:'1'}}>
         <div className="header">
           <nav
             className="navbar navbar-expand-lg navbar-light"
@@ -50,7 +49,7 @@ export default function ConsumerNavbar() {
             <div className="container-fluid">
               <a className="navbar-brand" href="/">
                 <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMB8cCp__yOIsNq2QWPruTIU6aagud-FNcCA&usqp=CAU"
+                  src={logo}
                   alt="Icon"
                   style={img}
                 />
@@ -114,7 +113,7 @@ export default function ConsumerNavbar() {
                       href="/"
                       id="navbarDropdownMenuLink"
                       role="button"
-                      data-bs-toggle="dropdown"
+                      data-toggle="dropdown"
                       aria-expanded="false"
                       drop="left"
                       style={person}
@@ -135,12 +134,7 @@ export default function ConsumerNavbar() {
                       aria-labelledby="navbarDropdownMenuLink"
                     >
                       <li>
-                        <a style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item">Personal Details</a>
-                      </li>
-                      <li>
-                        <a style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item" href="/">
-                          Another action
-                        </a>
+                        <a style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item" href="/consumer/profile">Personal Details</a>
                       </li>
                       <li>
                         <a style={{backgroundColor:'#006f79', color:'white'}} className="dropdown-item" onClick={()=>{localStorage.clear()}} href="/">
@@ -155,7 +149,6 @@ export default function ConsumerNavbar() {
           </nav>
         </div>
       </div>
-    </>
   );
 }
 

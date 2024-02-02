@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ConsumerNavbar from "./navbar.js";
+import myImage from "../images/3.jpg"
 
 export default function ConsumerHome() {
   const [isHovered, setHovered] = useState(false);
   let img = {
-    backgroundImage:
-      "url('https://img.freepik.com/free-photo/abstract-digital-grid-black-background_53876-97647.jpg')",
+    backgroundImage:`url(${myImage})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };
@@ -52,10 +52,9 @@ export default function ConsumerHome() {
   };
 
   return (
-    <>
+    <div style={{minHeight:'100vh',width:'100vw',...img,display:'flex',flexDirection:'column'}}>
       <ConsumerNavbar />
-      <div style={{ ...img }}>
-        <div style={{ ...top, height: "500px" }}>
+      <div style={{ width:'100vw',flex:'1',...top }}>
           <div
             style={{ display: "flex-column" }}
             className="align-items-center"
@@ -69,7 +68,7 @@ export default function ConsumerHome() {
                 color: "white",
               }}
             >
-              Get Started with Lorem Ipsum
+              Get Started with MicroWEB
             </h1>
             <p
               style={{
@@ -78,8 +77,7 @@ export default function ConsumerHome() {
                 color: "white",
               }}
             >
-              Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem
-              ipsum Lorem ipsum{" "}
+              Smart Homes for Smart People
             </p>
             <a
               style={{
@@ -113,15 +111,5 @@ export default function ConsumerHome() {
           </div>
         </div>
       </div>
-
-      <div style={{ backgroundColor: "#001c20", display: "flex-row" }}>
-        <div style={{}}>
-          <h3 style={{ color: "white" }}>Lorem Ipsum</h3>
-        </div>
-        <div style={{}}>
-          <img />
-        </div>
-      </div>
-    </>
   );
 }

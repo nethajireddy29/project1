@@ -105,7 +105,7 @@ let navb = {
 let subtitle = {
   textAlign: "center",
   color: "white",
-  fontSize: "1.25rem",
+  fontSize: "1.5rem",
   fontFamily: "Montserrat",
 };
 
@@ -180,6 +180,17 @@ const ScrollSpyExample = () => {
     overflowY: 'auto',
     scrollbarColor: 'rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0.3)', // For Firefox
     WebkitOverflowScrolling: 'touch',
+    scrollbarWidth: 'thin',
+    MsOverflowStyle: 'none', // Hide scrollbar for IE and Ed
+    '&::-webkit-scrollbar': {
+      width: '5px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#02ffff',
+    },
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: '#000a0b',
+    },
   };
 
   const sectionStyle = {
@@ -315,25 +326,20 @@ export default function Base() {
         <h1
           style={{
             // textAlign: "center",
-            padding: "10vh 0 10vh 15vw",
+            padding: "15vh 0 10vh 30vw",
             fontSize: "8rem",
             fontWeight: "bold",
-            fontFamily: "Mukta",
+            fontFamily: "'Mukta', san-serif",
             margin: "0",
             color: "white",
             display: "block",
             float: "left",
+            position:'relative'
           }}
         >
           MicroWEB
         </h1>
-        <div style={{ float: "right", padding: "20vh 15vw 0 0" }}>
-          <p style={{ ...subtitle, color: "#02ffff" }}>Description</p>
-          <p style={{ ...subtitle }}>cfvgbhnjmkrftgyhuj ftgybhnjmrftgyh </p>
-          <p style={{ ...subtitle }}>ftybnj vgbhnjmk bhnjmk bhnjmk </p>
-          <p style={{ ...subtitle }}>ftybnj vgbhnjmk bhnjmk bhnjmk </p>
-          <p style={{ ...subtitle }}>ftybnj vgbhnjmk bhnjmk bhnjmk </p>
-        </div>
+          <p style={{ ...subtitle, color: "#02ffff",position:'absolute', top:'53vh',left:'42vw' }}>Be Smart - Live Smart</p>
       </div>
       <section id="section1">
         <div style={{ ...box }}>
@@ -462,7 +468,7 @@ export default function Base() {
           >
             Get more from less - with our smartGrids
           </h1>
-          <div style={{ ...flexrow, alignItems: 'center', gap: "12vw", height: '70vh', marginRight:'5vw'}}>
+          <div style={{ ...flexrow, alignItems: 'center', gap: "8vw", height: '70vh', marginRight:'5vw'}}>
             <div style={{...rightDiv, ...flexcolumn,alignItems:'center'}} >
               <ul style={{listStyleColor: '#02ffff'}}>
                 <li style={{...rightP}}>Create your own microgrid plans</li>

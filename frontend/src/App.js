@@ -7,11 +7,13 @@ import {ConsumerAuthentication,ConsumerLogin} from "./consumer/authentication.js
 import ConsumerFaceAuthentication from "./consumer/registration.js";
 import ConsumerOtp from "./consumer/otp.js";
 import ConsumerMicroid from "./consumer/microid.js";
+import ConsumerProfile from "./consumer/profile.js";
 import ConsumerHome from "./consumer/home.js";
 import ConsumerPlans from "./consumer/plans.js";
 import ConsumerHistory from "./consumer/history.js";
 import Form from "./consumer/Form.js";
 import AddConsumer from "./components/AddConsumer.js";
+import Help from "./consumer/help.js";
 import IsAuthenticated from "./hooks/IsAuthenticated.js";
 import AvailableMicroGridConsumer from "./consumer/AvailableMicroGridConsumer.js";
 
@@ -29,7 +31,7 @@ import AddProducer from "./components/AddProducer.js";
 import JoinOrCreateMicroGrid from "./pages/JoinOrCreateMicroGrid.js";
 import Test from "./components/Test.js"
 import AvailableMicrogrid from "./components/AvailableMicrogrid.js";
-import AddAnotherProducerToMg from "./pages/AddAnotherProducerToMicrogrid.js";
+import AddAnotherProducerToMg from "./pages/addAnotherProducerToMicrogrid.js";
 
 //prosumer Imports
 import ProsumerLogin from "./prosumer/login.js";
@@ -42,7 +44,8 @@ import ProsumerHelp from "./prosumer/help.js";
 import ProsumerHistory from "./prosumer/history.js";
 import ProducerCreateContract from "./prosumer/createcontract.js";
 import AddProsumer from "./components/AddProsumer.js";
-import AddAnotherProsumerToMg from "./pages/AddAnotherProsumerToMicrogrid.js";
+import AddAnotherProsumerToMg from "./pages/addAnotherProsumerToMicrogrid.js";
+import ProsumerProfile from "./prosumer/profile.js";
 
 // import { VariableProvider } from './Context/metaContext.js';
 
@@ -81,6 +84,7 @@ export default function App() {
             path="/consumer/registration"
             element={<ConsumerFaceAuthentication />}
           />
+          <Route path="/consumer/profile" element={<ConsumerProfile />}/>
           <Route path="/consumer/otp" element={<ConsumerOtp />} />
           <Route path="/consumer/microid" element={<ConsumerMicroid />} />
           <Route
@@ -103,6 +107,7 @@ export default function App() {
             path="/addConsumer"
             element={<AddConsumer connect={sendContract} />}
           />
+          <Route path="/consumer/help" element={<Help />} />
           <Route
             path="/consumer/AvailableMicrogrid"
             element={<AvailableMicroGridConsumer   getContract={getContract}
@@ -245,6 +250,7 @@ export default function App() {
               />
             }
           />
+          <Route path="/prosumer/profile" element={< ProsumerProfile/>} />
           <Route path="/prosumer/help" element={<ProsumerHelp />} />
           <Route path="/prosumer/history" element={<ProsumerHistory />} />,
           <Route
